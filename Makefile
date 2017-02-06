@@ -5,6 +5,9 @@
 # 'make clean'  removes all .o and executable files
 #
 
+SRCDIR = src
+HDRDIR = include
+
 # define the compiler to use
 CC = g++
 
@@ -17,19 +20,18 @@ CPPFLAGS = -Wall -g -pthread
 
 # define any directories containing header files other than /usr/include
 INCLUDES = -I $(GTEST_DIR)/include -I $(GMOCK_DIR)/include
-INCLUDES += -I./include
+INCLUDES += -I $(HDRDIR)
 
 # define library paths in addition to /usr/lib
 LFLAGS = -L$(GTEST_DIR)/make -L$(GMOCK_DIR)/make
 
-# define any libraries to link into executable:
-# if I want to link in libraries (libx.so or libx.a) I use the -lx option
+# define any libraries to link into executable
 LIBS = -lgtest -lgmock
 
 # define the source files
-SRCS = main.cpp
+SRCS := $(shell find $(SRCDIR) -name '*.cpp')
 
-# define the C object files 
+# define the cpp object files 
 #
 # This uses Suffix Replacement within a macro:
 #   $(name:string1=string2)
@@ -67,7 +69,7 @@ $(MAIN): $(OBJS)
 	$(CC) $(CPPFLAGS) $(INCLUDES) -c $<  -o $@
 
 clean:
-	$(RM) *.o $(MAIN)
+	$(RM) $(SRCDIR)/*.o $(MAIN)
 
 depend: $(SRCS)
 	makedepend $(INCLUDES) $^
