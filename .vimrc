@@ -43,6 +43,7 @@ set tags+=../tags,../../tags,../../../tags,../../../../tags,../../../../../tags
 "set mouse=a
 set nobackup
 set nowritebackup
+set number
 nmap ,m :call ToggleMouse()<CR>
 
 " Commands
