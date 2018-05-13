@@ -215,6 +215,9 @@ noremap <C-S> :update<CR>
 vnoremap <C-S> <C-C>:update<CR>
 inoremap <C-S> <C-O>:update<CR>
 
+" Use CTRL-K for code formatting
+map <C-K> :pyf /usr/local/Cellar/clang-format/2018-01-11/share/clang/clang-format.py<CR>
+imap <C-K> <C-O>:pyf /usr/local/Cellar/clang-format/2018-01-11/share/clang/clang-format.py<CR>
 
 """"""""""""""
 " autommands "
@@ -242,6 +245,9 @@ autocmd BufEnter *.play,*.play.log,*.play.comp.log,*.ref,*.gsv setf edifact
 autocmd BufEnter *.edi,*.edi.log,*.edi.rep,*.rgr setf edifact
 autocmd BufEnter *.cmt setf cmt
 autocmd BufEnter Make*.inc setf make
+
+" automatic code formatting
+autocmd BufWritePre *.hpp,*.h,*.cc,*.cpp call Formatonsave()
 
 endif " has("autocmd")
 
@@ -320,6 +326,10 @@ function! CleanTTLog()
     %s/esponse\nUNH/esponse\r\r\rUNH/
 endfunction
 
+function! Formatonsave()
+  let l:formatdiff = 1
+  pyf /usr/local/Cellar/clang-format/2018-01-11/share/clang/clang-format.py
+endfunction
 
 """""""""""
 " Plugins "
