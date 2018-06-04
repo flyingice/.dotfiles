@@ -16,7 +16,7 @@ GTEST_DIR = /usr/local/gtest/googletest
 GMOCK_DIR = /usr/local/gtest/googlemock
 
 # define any compile-time flags
-CPPFLAGS = -Wall -g -pthread
+CPPFLAGS = -std=c++11 -Wall -g -pthread
 
 # define any directories containing header files other than /usr/include
 INCLUDES = -I $(GTEST_DIR)/include -I $(GMOCK_DIR)/include
