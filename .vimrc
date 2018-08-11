@@ -239,13 +239,6 @@ autocmd BufEnter *.java set cindent
 autocmd BufEnter *.i setf cpp
 autocmd Syntax cpp call EnhanceSyntax()
 
-" Amadeus stuff
-autocmd BufEnter *.mdl setf sql
-autocmd BufEnter *.play,*.play.log,*.play.comp.log,*.ref,*.gsv setf edifact
-autocmd BufEnter *.edi,*.edi.log,*.edi.rep,*.rgr setf edifact
-autocmd BufEnter *.cmt setf cmt
-autocmd BufEnter Make*.inc setf make
-
 " automatic code formatting
 autocmd BufWritePre *.hpp,*.h,*.cc,*.cpp call Formatonsave()
 
@@ -266,10 +259,6 @@ function! SetColorscheme(newColo)
     execute "colo " . a:newColo
     " Change the colors of the status bar
     call UpdateStatusLine()
-    " Try to reload the (modified) OTF plugin
-"     if has("try")
-"         try | source $VIMFILES/plugin/otf.vim | catch | endtry
-"     endif
 endfunction
 
 function! InsertTabWrapper(direction)
@@ -354,6 +343,9 @@ let Tlist_Ctags_Cmd="ctags"
 
 "" 2html
 let html_use_css = 1
+
+"" plugin package manager
+execute pathogen#infect()
 
 " runtime ftplugin/man.vim
 
