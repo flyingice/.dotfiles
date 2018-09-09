@@ -9,14 +9,14 @@ SRCDIR = src
 HDRDIR = include
 
 # define the compiler to use
-CC = g++
+CC = clang++
 
 # define path to GTest
 GTEST_DIR = /usr/local/gtest/googletest
 GMOCK_DIR = /usr/local/gtest/googlemock
 
 # define any compile-time flags
-CPPFLAGS = -std=c++11 -Wall -g -pthread
+CPPFLAGS = -std=c++17 -Wall -g -pthread
 
 # define any directories containing header files other than /usr/include
 INCLUDES = -I $(GTEST_DIR)/include -I $(GMOCK_DIR)/include
