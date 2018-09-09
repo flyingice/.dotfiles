@@ -51,7 +51,7 @@
     "PenaltyReturnTypeOnItsOwnLine"                 : 1000,
     "PointerAlignment"                              : "Left",
     "PointerBindsToType"                            : false,
-    "SortIncludes"                                  : false,
+    "SortIncludes"                                  : true,
     "SpaceBeforeAssignmentOperators"                : true,
     "SpaceBeforeParens"                             : "ControlStatements",
     "SpaceInEmptyParentheses"                       : false,
