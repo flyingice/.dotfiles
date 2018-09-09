@@ -1,0 +1,21 @@
+{
+	"folders": [
+		{
+			"path": "cpp"
+		},
+		{
+			"path": "bloom-filter"
+		}
+	],
+	"settings": {
+		"C_Cpp.default.compileCommands": "/usr/bin/clang++",
+		"C_Cpp.default.cppStandard": "c++17",
+		"C_Cpp.intelliSenseEngine": "Disabled",
+		"C_Cpp.clang_format_fallbackStyle": "Google",
+		"C_Cpp.clang_format_path": "/usr/local/bin/clang-format",
+		"C_Cpp.clang_format_sortIncludes": true,
+		"C_Cpp.clang_format_style": "Google",
+		"editor.formatOnType": true,
+		"editor.formatOnSave": true,
+	}
+}
