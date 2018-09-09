@@ -7,7 +7,9 @@ export LSCOLORS=ExFxBxDxCxegedabagacad
 DEV_HOME=$HOME/Dev
 
 # c/cpp
-alias g++='g++ -std=c++17 -Wall -g'
+CPP_STD='c++17'
+alias clang++="clang++ -std=$CPP_STD -Wall -g"
+alias g++="g++ -std=$CPP_STD -Wall -g"
 
 # golang was set up via brew install
 # set golang working dir to overwite the default path
