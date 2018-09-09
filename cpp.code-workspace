@@ -8,13 +8,11 @@
 		}
 	],
 	"settings": {
-		"C_Cpp.default.compileCommands": "/usr/bin/clang++",
-		"C_Cpp.default.cppStandard": "c++17",
 		"C_Cpp.intelliSenseEngine": "Disabled",
-		"C_Cpp.clang_format_fallbackStyle": "Google",
-		"C_Cpp.clang_format_path": "/usr/local/bin/clang-format",
-		"C_Cpp.clang_format_sortIncludes": true,
-		"C_Cpp.clang_format_style": "Google",
+		"C_Cpp.default.compileCommands": "clang++",
+		"C_Cpp.default.cppStandard": "c++17",
+		"clang-format.executable": "clang-format",
+		"clang-format.fallbackStyle": "Google",
 		"editor.formatOnType": true,
 		"editor.formatOnSave": true,
 	}
