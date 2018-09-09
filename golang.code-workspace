@@ -1,0 +1,16 @@
+{
+	"folders": [
+		{
+			"path": "golang"
+		},
+		{
+			"path": "golabs-distributed-system"
+		}
+	],
+	"settings": {
+		"go.buildOnSave": "off",
+		"go.formatTool": "gofmt",
+		"editor.formatOnType": true,
+		"editor.formatOnSave": true,
+	}
+}
