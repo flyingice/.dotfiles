@@ -8,7 +8,6 @@
 		}
 	],
 	"settings": {
-		"C_Cpp.intelliSenseEngine": "Disabled",
 		"C_Cpp.default.compileCommands": "clang++",
 		"C_Cpp.default.cppStandard": "c++17",
 		"clang-format.executable": "clang-format",
