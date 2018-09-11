@@ -8,11 +8,9 @@
 		}
 	],
 	"settings": {
-		"C_Cpp.default.compileCommands": "clang++",
-		"C_Cpp.default.cppStandard": "c++17",
-		"clang-format.executable": "clang-format",
-		"clang-format.fallbackStyle": "Google",
+		"C_Cpp.clang_format_fallbackStyle": "Google",
 		"editor.formatOnType": true,
 		"editor.formatOnSave": true,
+		"workbench.editor.enablePreviewFromQuickOpen": false,
 	}
 }
