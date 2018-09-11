@@ -12,5 +12,6 @@
 		"python.linting.pylintPath": "/usr/local/bin/pylint",
 		"editor.formatOnType": true,
 		"editor.formatOnSave": true,
+		"workbench.editor.enablePreviewFromQuickOpen": false,
 	},
 }
