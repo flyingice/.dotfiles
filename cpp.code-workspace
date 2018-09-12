@@ -9,8 +9,5 @@
 	],
 	"settings": {
 		"C_Cpp.clang_format_fallbackStyle": "Google",
-		"editor.formatOnType": true,
-		"editor.formatOnSave": true,
-		"workbench.editor.enablePreviewFromQuickOpen": false,
 	}
 }

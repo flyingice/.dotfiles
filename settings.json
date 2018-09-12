@@ -1,0 +1,9 @@
+{
+    "window.zoomLevel": 0,
+    "explorer.confirmDelete": false,
+    "editor.multiCursorModifier": "alt",
+    "editor.fontSize": 13,
+    "editor.formatOnType": true,
+    "editor.formatOnSave": true,
+    "workbench.editor.enablePreviewFromQuickOpen": false,
+}

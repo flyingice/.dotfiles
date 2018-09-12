@@ -10,8 +10,5 @@
 	"settings": {
 		"go.buildOnSave": "off",
 		"go.formatTool": "gofmt",
-		"editor.formatOnType": true,
-		"editor.formatOnSave": true,
-		"workbench.editor.enablePreviewFromQuickOpen": false,
 	}
 }
