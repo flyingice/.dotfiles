@@ -14,6 +14,8 @@ alias g++="g++ -std=$CPP_STD -Wall -g"
 # golang was set up via brew install
 # set golang working dir to overwite the default path
 export GOPATH=$DEV_HOME/golang-public
+# prevent go test from caching the results
+export GOCACHE=off
 
 # python
 alias python='python3'
