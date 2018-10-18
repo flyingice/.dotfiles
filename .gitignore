@@ -34,3 +34,6 @@ run
 
 # MacOS specific
 .DS_Store
+
+# vscode metadata
+info.plist
