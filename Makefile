@@ -26,7 +26,7 @@ INCLUDES += -I $(HDRDIR)
 LFLAGS = -L$(GTEST_DIR)/make -L$(GMOCK_DIR)/make
 
 # define any libraries to link into executable
-LIBS = -lgtest -lgmock -lboost_date_time
+LIBS = -lgtest -lgmock -lboost_date_time -lboost_filesystem
 
 # define the source files
 SRCS := $(shell find $(SRCDIR) -name '*.cpp')
