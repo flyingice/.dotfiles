@@ -76,6 +76,11 @@ source $ZSH/custom/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 # User configuration
 source $HOME/.bashrc
 
+# Key binding
+# ctrl+b/f: move word backward/forward
+bindkey "^b" backward-word
+bindkey "^f" forward-word
+
 # export MANPATH="/usr/local/man:$MANPATH"
 
 # You may need to manually set your language environment
