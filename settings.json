@@ -5,5 +5,14 @@
     "editor.fontSize": 13,
     "editor.formatOnType": true,
     "editor.formatOnSave": true,
+    "terminal.integrated.fontSize": 13,
     "workbench.editor.enablePreviewFromQuickOpen": false,
+    "workbench.startupEditor": "welcomePage",
+    "files.exclude": {
+        "**/.classpath": true,
+        "**/.project": true,
+        "**/.settings": true,
+        "**/.factorypath": true
+    },
+    "terminal.integrated.shell.osx": "/bin/bash",
 }
