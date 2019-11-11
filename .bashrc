@@ -19,5 +19,3 @@ alias python='python3'
 export CHEAT_EDITOR=vim
 export CHEATCOLORS=true
 
-# common utilities
-alias ls='ls -GFh'
