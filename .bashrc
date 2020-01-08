@@ -15,7 +15,3 @@ export GOPATH=$DEV_HOME/golang-public
 # python
 alias python='python3'
 
-# cheatsheet edit
-export CHEAT_EDITOR=vim
-export CHEATCOLORS=true
-
