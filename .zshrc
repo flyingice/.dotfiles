@@ -80,6 +80,8 @@ source $HOME/.bashrc
 # ctrl+b/f: move word backward/forward
 bindkey "^b" backward-word
 bindkey "^f" forward-word
+# enable vim mode for command line
+bindkey -v
 
 # export MANPATH="/usr/local/man:$MANPATH"
 
