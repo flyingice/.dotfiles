@@ -1,12 +1,4 @@
 {
-	"folders": [
-		{
-			"path": "golang-exercise"
-		},
-		{
-			"path": "golabs-distributed-system"
-		}
-	],
 	"settings": {
 		"go.buildOnSave": "off",
 		"go.formatTool": "gofmt",

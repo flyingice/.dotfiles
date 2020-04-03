@@ -1,12 +1,4 @@
 {
-	"folders": [
-		{
-			"path": "cpp-exercise"
-		},
-		{
-			"path": "bloom-filter"
-		}
-	],
 	"settings": {
 		"C_Cpp.clang_format_fallbackStyle": "Google",
 	}

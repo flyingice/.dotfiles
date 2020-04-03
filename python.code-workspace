@@ -1,9 +1,4 @@
 {
-	"folders": [
-		{
-			"path": "python-exercise"
-		}
-	],
 	"settings": {
 		"python.pythonPath": "/usr/local/bin/python3",
 		"python.formatting.provider": "autopep8",
