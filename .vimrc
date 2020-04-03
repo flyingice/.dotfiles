@@ -28,6 +28,9 @@ set number
 " down.
 set relativenumber
 
+" Highlight current line
+set cursorline
+
 " Always show the status line at the bottom, even if you only have one window open.
 set laststatus=2
 
