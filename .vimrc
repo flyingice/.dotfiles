@@ -31,6 +31,17 @@ set relativenumber
 " Always show the status line at the bottom, even if you only have one window open.
 set laststatus=2
 
+" Customize width of tab and auto-indent
+set tabstop=4
+set shiftwidth=4
+" Expand tab to spaces, :retab to replace existing tabs
+set expandtab
+
+" Apply the indentation of the current line to the next
+set autoindent
+" Reacts to the syntax/style of the code you are editing
+set smartindent
+
 " The backspace key has slightly unintuitive behavior by default. For example,
 " by default, you can't backspace before the insertion point set with 'i'.
 " This configuration makes backspace behave more reasonably, in that you can
