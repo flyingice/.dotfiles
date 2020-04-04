@@ -37,6 +37,9 @@ set laststatus=2
 " Always show the command entered
 set showcmd
 
+" Enable command auto-completion with enhanced mode
+set wildmenu
+
 " Customize width of tab and auto-indent
 set tabstop=4
 set shiftwidth=4
