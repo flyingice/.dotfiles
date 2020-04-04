@@ -34,6 +34,9 @@ set cursorline
 " Always show the status line at the bottom, even if you only have one window open.
 set laststatus=2
 
+" Always show the command entered
+set showcmd
+
 " Customize width of tab and auto-indent
 set tabstop=4
 set shiftwidth=4
