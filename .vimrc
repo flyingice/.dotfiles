@@ -111,3 +111,8 @@ nmap Q :q<CR>
 
 " Key bindings for additional plugins
 map <C-n> :NERDTreeToggle<CR>
+
+" Customize look and feel
+colorscheme torte
+" Require vim-airline and vim-airline-themes (https://github.com/vim-airline)
+let g:airline_theme='term_light'
