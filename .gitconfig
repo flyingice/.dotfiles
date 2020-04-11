@@ -8,3 +8,5 @@
 	tool = vimdiff
 [diff]
 	tool = vimdiff
+[alias]
+	graph = log --all --graph --decorate --oneline
