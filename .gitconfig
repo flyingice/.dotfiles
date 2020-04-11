@@ -2,4 +2,5 @@
 	name = Yibin YANG
 	email = rainforest.vista@gmail.com
 [core]
-	editor = vi
+	editor = vim
+	excludesFile = /Users/rainforest/.gitignore_global
