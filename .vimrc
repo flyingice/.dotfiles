@@ -105,7 +105,6 @@ noremap J 5j
 noremap K 5k
 noremap L 5l
 
-nmap R :source $MYVIMRC<CR>
 nmap S :w<CR>
 nmap Q :q<CR>
 
