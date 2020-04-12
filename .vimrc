@@ -112,6 +112,6 @@ nmap Q :q<CR>
 map <C-n> :NERDTreeToggle<CR>
 
 " Customize look and feel
-colorscheme torte
+colorscheme default
 " Require vim-airline and vim-airline-themes (https://github.com/vim-airline)
-let g:airline_theme='term_light'
+let g:airline_theme='base16_default'
