@@ -73,15 +73,23 @@ set smartcase
 " Enable searching as you type, rather than waiting till you press enter.
 set incsearch
 
-" Unbind some useless/annoying default key bindings.
-nmap s <Nop>
-
 " Disable audible bell because it's annoying.
 set noerrorbells visualbell t_vb=
 
 " Enable mouse support. You should avoid relying on this too much, but it can
 " sometimes be convenient.
 set mouse+=a
+
+" Avoid strange indentation when using system paste command, in particular
+" when the 'autoindent' option is enabled. Alternatively, you can run the
+" Ex command :set paste before pasting from the system clipboard and then
+" run :set paste! to turn the option off. A more elegant solution would be
+" the normal mode command "+p that preserves the indentation of the text
+" without any surprises.
+set pastetoggle=<f5>
+
+" Unbind some useless/annoying default key bindings.
+nmap s <Nop>
 
 " Try to prevent bad habits like using the arrow keys for movement. This is
 " not the only possible bad habit. For example, holding down the h/j/k/l keys
