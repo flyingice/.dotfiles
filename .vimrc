@@ -126,6 +126,11 @@ nmap Q :q<CR>
 " Key bindings for additional plugins
 map <C-n> :NERDTreeToggle<CR>
 
+" Autoload the matchit plugin shipped with the Vim distribution so
+" that the % command can jump between matching pair of keywords
+filetype plugin on
+runtime macros/matchit.vim
+
 " Customize look and feel
 colorscheme default
 " Require vim-airline and vim-airline-themes (https://github.com/vim-airline)
