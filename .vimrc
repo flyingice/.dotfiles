@@ -107,12 +107,19 @@ inoremap <Right> <ESC>:echoe "Use l"<CR>
 inoremap <Up>    <ESC>:echoe "Use k"<CR>
 inoremap <Down>  <ESC>:echoe "Use j"<CR>
 
-" Key bindings for common operations
+" Key bindings for navigation
 noremap H 5h
 noremap J 5j
 noremap K 5k
 noremap L 5l
 
+" Key bindings for buffer list traversal
+nnoremap <silent> [b :bprevious<CR>
+nnoremap <silent> ]b :bnext<CR>
+nnoremap <silent> [B :bfirst<CR>
+nnoremap <silent> ]B :blast<CR>
+
+" Key bindings for common file operations
 nmap S :w<CR>
 nmap Q :q<CR>
 
