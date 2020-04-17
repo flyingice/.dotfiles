@@ -73,6 +73,9 @@ set smartcase
 " Enable searching as you type, rather than waiting till you press enter.
 set incsearch
 
+" Enable search highlighting, use <C-l> to mute it temporarily
+set hlsearch
+
 " Disable audible bell because it's annoying.
 set noerrorbells visualbell t_vb=
 
@@ -118,6 +121,9 @@ nnoremap <silent> [b :bprevious<CR>
 nnoremap <silent> ]b :bnext<CR>
 nnoremap <silent> [B :bfirst<CR>
 nnoremap <silent> ]B :blast<CR>
+
+" Key bindings to mute search highlighting
+nnoremap <silent> <C-l> :<C-u>nohlsearch<CR><C-l>
 
 " Key bindings for common file operations
 nmap S :w<CR>
