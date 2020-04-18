@@ -116,6 +116,10 @@ noremap J 5j
 noremap K 5k
 noremap L 5l
 
+" Key bindings to back up one tab stop
+" <TAB> already has the same effect as <C-T>
+inoremap <S-TAB> <C-D>
+
 " Key bindings for buffer list traversal
 nnoremap <silent> [b :bprevious<CR>
 nnoremap <silent> ]b :bnext<CR>
