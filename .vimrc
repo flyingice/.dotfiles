@@ -155,9 +155,13 @@ filetype plugin on
 runtime macros/matchit.vim
 
 " Customize look and feel
-colorscheme default
+" Require onedark.vim (https://github.com/joshdick/onedark.vim.git)
+packadd! onedark.vim
+colorscheme onedark
+
 " Require vim-airline and vim-airline-themes (https://github.com/vim-airline)
-let g:airline_theme='base16_default'
+" Recommend font Inconsolata_dz for Powerline
+let g:airline_theme='onedark'
 let g:airline_powerline_fonts = 1
 " Enable the list of buffers
 let g:airline#extensions#tabline#enabled = 1

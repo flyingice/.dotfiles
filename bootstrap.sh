@@ -1,7 +1,7 @@
 #!/usr/bin/env zsh
 
 SCRIPT_DIR=${0:a:h}
-TARGET=('.bashrc' '.zshrc' '.vimrc' '.tmux.conf')
+TARGET=('.bashrc' '.zshrc' '.vimrc' '.tmux.conf' '.tmux-status-bar.conf')
 
 install() {
     echo "installing $1 under $HOME..."
