@@ -71,6 +71,7 @@ do_on_macos() {
 }
 
 do_on_linux() {
+    sudo apt-get update
     sudo apt-get upgrade
 
     # install zsh and change login shell
@@ -91,7 +92,8 @@ else
 fi
 
 # install oh-my-zsh
-sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+# remove the line 'exec zsh -l' from the install script
+sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh | sed -E '/^[[:space:]]+exec zsh/ d')"
 
 # install zsh plugins
 install_zsh_plugin
