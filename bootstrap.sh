@@ -5,7 +5,7 @@ SCRIPT_DIR=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
 clean_dir() {
     path=$1
     if [[ -e "$path" ]]; then
-        echo "cleaning $path ..."
+        echo "Cleaning $path ..."
         rm -rf "$path"
     fi
     mkdir -p "$path" || exit 1
@@ -38,28 +38,61 @@ install_zsh_plugin() {
 }
 
 install_config() {
-    echo "installing $1 under $HOME..."
+    echo "Installing $1 under $HOME ..."
     dest="$HOME/$1"
     if [[ -e "$dest" || -L "$dest" ]]; then
-        echo -n "$dest already exists. Do you want to overwrite it (yes/no)?"
+        echo -n "$dest already exists. Do you want to overwrite it (yes/no)? "
         read -r answer
         if [[ "$answer" == "yes" ]]; then
             rm -f "$dest"
         else
-            echo "skip installing $1"
+            echo "Skip installing $1"
             return
         fi
     fi
 
     ln -s "$SCRIPT_DIR/$1" "$dest"
-    echo "done"
+    echo "Done."
 }
 
-# TODO: detect package manager
-# install zsh
-sudo apt-get install zsh
+# TODO: do_on_macos() has not been tested on a brand new machine
+do_on_macos() {
+    # install homebrew
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+
+    # note that running homebrew as root is no longer supported
+    # install zsh
+    brew install zsh
+
+    # install powerline fonts
+    git clone https://github.com/powerline/fonts.git --depth=1
+    cd fonts && ./install.sh
+    cd .. && rm -rf fonts
+}
+
+do_on_linux() {
+    sudo apt-get upgrade
+
+    # install zsh and change login shell
+    sudo apt-get install zsh
+    sudo chsh -s /bin/zsh "$USER"
+
+    # install powerline fonts
+    sudo apt-get install fonts-powerline
+}
+
+if [[ "$OSTYPE" == "linux-gnu"* ]]; then
+    do_on_linux
+elif [[ "$OSTYPE" == "darwin"* ]]; then
+    do_on_maxos
+else
+    echo "Operating system is not supported."
+    exit 1
+fi
+
 # install oh-my-zsh
 sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+
 # install zsh plugins
 install_zsh_plugin
 
@@ -71,3 +104,5 @@ configs=(.bashrc .zshrc .vimrc .tmux.conf .tmux-status-bar.conf .gitconfig)
 for config in "${configs[@]}"; do
     install_config "$config"
 done
+
+echo "Done. Please exit the session and log in."
