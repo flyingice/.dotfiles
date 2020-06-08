@@ -15,3 +15,8 @@ export GOPATH=$DEV_HOME/golang-public
 # python
 alias python='python3'
 
+# locale settings for tmux
+# without it, some powerline fonts can't be displayed properly in remote ssh sessions
+# solution proposed in https://github.com/wernight/powerline-web-fonts/issues/8
+export LANG=en_US.UTF-8
+export LC_CTYPE=en_US.UTF-8
