@@ -20,3 +20,6 @@ alias python='python3'
 # solution proposed in https://github.com/wernight/powerline-web-fonts/issues/8
 export LANG=en_US.UTF-8
 export LC_CTYPE=en_US.UTF-8
+
+# set default editor for GDB
+export EDITOR=$(which vim)
