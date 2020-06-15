@@ -92,7 +92,6 @@ set mouse+=a
 set pastetoggle=<f5>
 
 " Unbind some useless/annoying default key bindings.
-nmap s <Nop>
 
 " Try to prevent bad habits like using the arrow keys for movement. This is
 " not the only possible bad habit. For example, holding down the h/j/k/l keys
