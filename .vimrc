@@ -141,6 +141,9 @@ function! s:VSetSearch(cmdtype)
     let @s = temp
 endfunction
 
+" Expansion of the active file directory
+cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h').'/' : '%%'
+
 " Key bindings for common file operations
 nmap S :w<CR>
 nmap Q :q<CR>
