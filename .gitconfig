@@ -3,10 +3,13 @@
 	email = rainforest.vista@gmail.com
 [core]
 	editor = vim
-	excludesFile = /Users/rainforest/.gitignore_global
+	excludesFile = ~/.gitignore_global
 [merge]
 	tool = vimdiff
 [diff]
 	tool = vimdiff
 [alias]
 	graph = log --all --graph --decorate --oneline
+	ctags = !.git/hooks/ctags
+[init]
+	templatedir = ~/.git_template

@@ -102,7 +102,7 @@ install_zsh_plugin
 install_vim_plugin
 
 # install various config files
-configs=(.bashrc .zshrc .vimrc .tmux.conf .tmux-status-bar.conf .gitconfig)
+configs=(.bashrc .zshrc .vimrc .tmux.conf .tmux-status-bar.conf .gitconfig .gitignore_global .git_template)
 for config in "${configs[@]}"; do
     install_config "$config"
 done
