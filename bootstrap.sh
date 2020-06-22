@@ -26,6 +26,7 @@ install_vim_plugin() {
     install_plugin "https://github.com/vim-airline/vim-airline" "$dest"
     install_plugin "https://github.com/vim-airline/vim-airline-themes" "$dest"
     install_plugin "https://github.com/preservim/nerdtree" "$dest"
+    install_plugin "https://github.com/mileszs/ack.vim.git" "$dest"
 }
 
 install_zsh_plugin() {
