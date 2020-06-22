@@ -67,8 +67,13 @@ set hidden
 " This setting makes search case-insensitive when all characters in the string
 " being searched are lowercase. However, the search becomes case-sensitive if
 " it contains any capital letters. This makes searching more convenient.
+" Unfortunately, it has a side effect that the autocomplition also becomes
+" case insensitive.
 set ignorecase
 set smartcase
+
+" Fix the side effect of 'ignorecase' for autocompletion
+set infercase
 
 " Enable searching as you type, rather than waiting till you press enter.
 set incsearch
