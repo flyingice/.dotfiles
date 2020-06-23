@@ -124,6 +124,10 @@ noremap L 5l
 " <TAB> already has the same effect as <C-T>
 inoremap <S-TAB> <C-D>
 
+" Key bindings to insert a newline
+nnoremap oo o<ESC>k
+nnoremap OO O<ESC>j
+
 " Key bindings for buffer list traversal
 nnoremap <silent> [b :bprevious<CR>
 nnoremap <silent> ]b :bnext<CR>
