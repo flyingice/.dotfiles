@@ -1,6 +1,7 @@
 [user]
 	name = Yibin YANG
 	email = rainforest.vista@gmail.com
+	signingkey = EDE880DD1FAF3E0D
 [core]
 	editor = vim
 	excludesFile = ~/.gitignore_global
@@ -13,3 +14,5 @@
 	ctags = !.git/hooks/ctags
 [init]
 	templatedir = ~/.git_template
+[commit]
+	gpgsign = true
