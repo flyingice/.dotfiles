@@ -23,3 +23,8 @@ export LC_CTYPE=en_US.UTF-8
 
 # set default editor for GDB
 export EDITOR=$(which vim)
+
+# Let gpg-agent communicate with ssh-agent so that the auth subkey
+# managed by gnupg can be used during ssh authentification.
+# The exact key used is specified by the keygrip in ~/.gnupg/sshcontrol
+export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
