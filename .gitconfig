@@ -1,7 +1,7 @@
 [user]
 	name = Yibin YANG
 	email = rainforest.vista@gmail.com
-	signingkey = EDE880DD1FAF3E0D
+	signingkey = 51CB2EA163FA83D7
 [core]
 	editor = vim
 	excludesFile = ~/.gitignore_global
