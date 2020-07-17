@@ -1,7 +1,3 @@
-" Comments in Vimscript start with a `"`.
-
-" If you open this file in Vim, it'll be syntax highlighted for you.
-
 " Vim is based on Vi. Setting `nocompatible` switches from the default
 " Vi-compatibility mode and enables useful Vim functionality. This
 " configuration option turns out not to be necessary for the file named
@@ -96,6 +92,10 @@ set mouse+=a
 " without any surprises.
 set pastetoggle=<f5>
 
+"****************************************
+" Key bindings
+"****************************************
+
 " Unbind some useless/annoying default key bindings.
 
 " Try to prevent bad habits like using the arrow keys for movement. This is
@@ -119,6 +119,10 @@ noremap H 5h
 noremap J 5j
 noremap K 5k
 noremap L 5l
+
+" Key bindings for common file operations
+nmap S :w<CR>
+nmap Q :q<CR>
 
 " Key bindings to back up one tab stop
 " <TAB> already has the same effect as <C-T>
@@ -165,19 +169,22 @@ endfunction
 " Expansion of the active file directory
 cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h').'/' : '%%'
 
-" Key bindings for common file operations
-nmap S :w<CR>
-nmap Q :q<CR>
-
 " Key bindings for additional plugins
 map <C-n> :NERDTreeToggle<CR>
 
+"****************************************
+" Plugins
+"****************************************
+"
 " Autoload the matchit plugin shipped with the Vim distribution so
 " that the % command can jump between matching pair of keywords
 filetype plugin on
 runtime macros/matchit.vim
 
+"****************************************
 " Customize look and feel
+"****************************************
+
 " Require onedark.vim (https://github.com/joshdick/onedark.vim.git)
 packadd! onedark.vim
 colorscheme onedark
