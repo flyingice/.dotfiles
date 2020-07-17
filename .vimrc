@@ -92,6 +92,9 @@ set mouse+=a
 " without any surprises.
 set pastetoggle=<f5>
 
+" Set default code folding method
+set foldmethod=indent
+
 "****************************************
 " Key bindings
 "****************************************
