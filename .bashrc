@@ -28,3 +28,8 @@ export EDITOR=$(which vim)
 # managed by gnupg can be used during ssh authentification.
 # The exact key used is specified by the keygrip in ~/.gnupg/sshcontrol
 export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
+gpg_restart() {
+    gpgconf --kill gpg-agent
+    gpg-agent --daemon
+}
+gpg_restart
