@@ -1,4 +1,4 @@
-# dev root
+
 DEV_HOME=$HOME/Dev
 
 # c/cpp
@@ -23,6 +23,9 @@ export LC_CTYPE=en_US.UTF-8
 
 # set default editor for GDB
 export EDITOR=$(which vim)
+
+# set system-wide default pager
+export PAGER=most
 
 # Let gpg-agent communicate with ssh-agent so that the auth subkey
 # managed by gnupg can be used during ssh authentification.

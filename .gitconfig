@@ -5,6 +5,7 @@
 [core]
 	editor = vim
 	excludesFile = ~/.gitignore_global
+	pager = less
 [merge]
 	tool = vimdiff
 [diff]
