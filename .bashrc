@@ -36,3 +36,6 @@ gpg_restart() {
     gpg-agent --daemon
 }
 gpg_restart
+
+# z utility to jump around
+. /usr/local/etc/profile.d/z.sh
