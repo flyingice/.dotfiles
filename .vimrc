@@ -184,6 +184,8 @@ map <C-n> :NERDTreeToggle<CR>
 filetype plugin on
 runtime macros/matchit.vim
 
+" Add fzf directory to runtimepath
+set rtp+=/usr/local/opt/fzf
 "****************************************
 " Customize look and feel
 "****************************************

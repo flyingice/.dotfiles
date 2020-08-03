@@ -39,3 +39,9 @@ gpg_restart
 
 # z utility to jump around
 . /usr/local/etc/profile.d/z.sh
+
+# fzf default setting
+export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
+export FZF_DEFAULT_OPTS="--height 50% --reverse"
+# apply the command to CTRL-T shorcut
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
