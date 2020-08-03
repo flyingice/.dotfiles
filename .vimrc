@@ -117,12 +117,6 @@ inoremap <Right> <ESC>:echoe "Use l"<CR>
 inoremap <Up>    <ESC>:echoe "Use k"<CR>
 inoremap <Down>  <ESC>:echoe "Use j"<CR>
 
-" Key bindings for navigation
-noremap H 5h
-noremap J 5j
-noremap K 5k
-noremap L 5l
-
 " Key bindings for common file operations
 nmap S :w<CR>
 nmap Q :q<CR>
