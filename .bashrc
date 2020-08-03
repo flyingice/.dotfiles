@@ -1,4 +1,4 @@
-
+# dev home
 DEV_HOME=$HOME/Dev
 
 # c/cpp
@@ -11,9 +11,6 @@ alias g++="g++ -std=$CPP_STD -Wall -g"
 export GOPATH=$DEV_HOME/golang-public
 # prevent go test from caching the results
 # export GOCACHE=off
-
-# python
-alias python='python3'
 
 # locale settings for tmux
 # without it, some powerline fonts can't be displayed properly in remote ssh sessions
@@ -45,3 +42,7 @@ export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
 export FZF_DEFAULT_OPTS="--height 50% --reverse"
 # apply the command to CTRL-T shorcut
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+
+# required for pyenv
+# refer to step #3 on https://github.com/pyenv/pyenv#basic-github-checkout
+eval "$(pyenv init -)"
