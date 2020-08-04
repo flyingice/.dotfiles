@@ -152,5 +152,10 @@ export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 # refer to step #3 on https://github.com/pyenv/pyenv#basic-github-checkout
 # it should be placed toward the end of the shell config since it manipulates PATH
 if command -v pyenv 1>/dev/null 2>&1; then
-  eval "$(pyenv init -)"
+    eval "$(pyenv init -)"
+fi
+# required for pyenv virtualenv plugin
+# refer to https://github.com/pyenv/pyenv-virtualenv
+if which pyenv-virtualenv-init > /dev/null; then
+    eval "$(pyenv virtualenv-init -)";
 fi
