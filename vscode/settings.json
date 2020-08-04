@@ -14,5 +14,5 @@
         "**/.settings": true,
         "**/.factorypath": true
     },
-    "terminal.integrated.shell.osx": "/bin/bash",
+    "terminal.integrated.shell.osx": "/bin/zsh",
 }
