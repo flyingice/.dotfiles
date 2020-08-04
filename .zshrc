@@ -73,9 +73,6 @@ plugins=(git zsh-syntax-highlighting zsh-autosuggestions)
 source $ZSH/oh-my-zsh.sh
 source $ZSH/custom/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
-# User configuration
-source $HOME/.bashrc
-
 # Key binding
 # ctrl+b/f: move word backward/forward
 bindkey "^b" backward-word
@@ -107,4 +104,53 @@ bindkey -v
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
+########################################
+# Personal settings
+########################################
+
+# dev home
+DEV_HOME=$HOME/Dev
+
+# golang was set up via Homebrew
+# set golang working dir to overwite the default path
+export GOPATH=$DEV_HOME/golang-public
+# prevent go test from caching the results
+# export GOCACHE=off
+
+# locale settings for tmux
+# without it, some powerline fonts can't be displayed properly in remote ssh sessions
+# solution proposed in https://github.com/wernight/powerline-web-fonts/issues/8
+export LANG=en_US.UTF-8
+export LC_CTYPE=en_US.UTF-8
+
+# set system-wide default editor
+export EDITOR=vim
+
+# set system-wide default pager
+export PAGER=most
+
+# Let gpg-agent communicate with ssh-agent so that the auth subkey
+# managed by gnupg can be used during ssh authentification.
+# The exact key used is specified by the keygrip in ~/.gnupg/sshcontrol
+export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
+gpg_restart() {
+    gpgconf --kill gpg-agent
+    gpg-agent --daemon
+}
+gpg_restart
+
+# z utility to jump around
+. /usr/local/etc/profile.d/z.sh
+
+# fzf settings
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
+export FZF_DEFAULT_OPTS="--height 50% --reverse"
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+
+# required for pyenv
+# refer to step #3 on https://github.com/pyenv/pyenv#basic-github-checkout
+# it should be placed toward the end of the shell config since it manipulates PATH
+if command -v pyenv 1>/dev/null 2>&1; then
+  eval "$(pyenv init -)"
+fi
