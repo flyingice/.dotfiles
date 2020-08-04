@@ -108,14 +108,9 @@ bindkey -v
 # Personal settings
 ########################################
 
-# dev home
-DEV_HOME="$HOME/Dev"
-
-# golang was set up via Homebrew
-# set golang working dir to overwite the default path
-export GOPATH="$DEV_HOME/golang-public"
-# prevent go test from caching the results
-# export GOCACHE=off
+# Let gvm manage go versions and GOPATH
+# https://github.com/moovweb/gvm
+[[ -s "$HOME/.gvm/scripts/gvm" ]] && source "$HOME/.gvm/scripts/gvm"
 
 # locale settings for tmux
 # without it, some powerline fonts can't be displayed properly in remote ssh sessions
@@ -148,6 +143,9 @@ export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
 export FZF_DEFAULT_OPTS="--height 50% --reverse"
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 
+# Created by `pipx ensurepath` on 2020-08-04 08:31:45
+export PATH="$PATH:$HOME/.local/bin"
+
 # required for pyenv
 # refer to step #3 on https://github.com/pyenv/pyenv#basic-github-checkout
 # it should be placed toward the end of the shell config since it manipulates PATH
@@ -159,6 +157,3 @@ fi
 if which pyenv-virtualenv-init > /dev/null; then
     eval "$(pyenv virtualenv-init -)";
 fi
-
-# Created by `pipx ensurepath` on 2020-08-04 08:31:45
-export PATH="$PATH:$HOME/.local/bin"
