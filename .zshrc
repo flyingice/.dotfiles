@@ -109,11 +109,11 @@ bindkey -v
 ########################################
 
 # dev home
-DEV_HOME=$HOME/Dev
+DEV_HOME="$HOME/Dev"
 
 # golang was set up via Homebrew
 # set golang working dir to overwite the default path
-export GOPATH=$DEV_HOME/golang-public
+export GOPATH="$DEV_HOME/golang-public"
 # prevent go test from caching the results
 # export GOCACHE=off
 
@@ -132,7 +132,7 @@ export PAGER=most
 # Let gpg-agent communicate with ssh-agent so that the auth subkey
 # managed by gnupg can be used during ssh authentification.
 # The exact key used is specified by the keygrip in ~/.gnupg/sshcontrol
-export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
+export SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
 gpg_restart() {
     gpgconf --kill gpg-agent
     gpg-agent --daemon
@@ -159,3 +159,6 @@ fi
 if which pyenv-virtualenv-init > /dev/null; then
     eval "$(pyenv virtualenv-init -)";
 fi
+
+# Created by `pipx ensurepath` on 2020-08-04 08:31:45
+export PATH="$PATH:$HOME/.local/bin"
