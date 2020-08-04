@@ -38,6 +38,13 @@ install_zsh_plugin() {
     install_plugin "https://github.com/zsh-users/zsh-autosuggestions" "$dest"
 }
 
+customize_zsh() {
+    dest="${ZSH_CUSTOM:-${HOME}/.oh-my-zsh/custom}"
+    cp "$SCRIPT_DIR/aliases.zsh" "$dest"
+
+    install_zsh_plugin
+}
+
 install_config() {
     echo "Installing $1 under $HOME ..."
     dest="$HOME/$1"
@@ -86,7 +93,7 @@ do_on_linux() {
 if [[ "$OSTYPE" == "linux-gnu"* ]]; then
     do_on_linux
 elif [[ "$OSTYPE" == "darwin"* ]]; then
-    do_on_maxos
+    do_on_macos
 else
     echo "Operating system is not supported."
     exit 1
@@ -96,8 +103,8 @@ fi
 # remove the line 'exec zsh -l' from the install script
 sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh | sed -E '/^[[:space:]]+exec zsh/ d')"
 
-# install zsh plugins
-install_zsh_plugin
+# customize zsh
+customize_zsh
 
 # install vim plugins
 install_vim_plugin
