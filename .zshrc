@@ -128,11 +128,12 @@ export PAGER=most
 # managed by gnupg can be used during ssh authentification.
 # The exact key used is specified by the keygrip in ~/.gnupg/sshcontrol
 export SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
+# Fix error 'gpg failed to sign the data', refer to man page of gpg-agent
+export GPG_TTY="$(tty)"
 gpg_restart() {
     gpgconf --kill gpg-agent
     gpg-agent --daemon
 }
-gpg_restart
 
 # z utility to jump around
 . /usr/local/etc/profile.d/z.sh
