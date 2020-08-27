@@ -28,7 +28,3 @@
 *.out
 *.app
 run
-
-# vscode metadata
-info.plist
-.vscode/ipch
