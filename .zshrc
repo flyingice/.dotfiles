@@ -147,6 +147,10 @@ export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 # Created by `pipx ensurepath` on 2020-08-04 08:31:45
 export PATH="$PATH:$HOME/.local/bin"
 
+# Required to run jekyll
+# Refer to https://docs.github.com/en/github/working-with-github-pages/testing-your-github-pages-site-locally-with-jekyll
+export PATH="$HOME/.gem/ruby/2.6.0/bin:$PATH"
+
 # required for pyenv
 # refer to step #3 on https://github.com/pyenv/pyenv#basic-github-checkout
 # it should be placed toward the end of the shell config since it manipulates PATH
