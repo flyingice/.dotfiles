@@ -136,7 +136,9 @@ gpg_restart() {
 }
 
 # z utility to jump around
-. /usr/local/etc/profile.d/z.sh
+if command -v brew >/dev/null 2>&1;then
+    [ -f $(brew --prefix)/etc/profile.d/z.sh ] && source $(brew --prefix)/etc/profile.d/z.sh
+fi
 
 # fzf settings
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
