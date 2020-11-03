@@ -28,3 +28,7 @@
 *.out
 *.app
 run
+
+# Misc
+build
+.gradle
