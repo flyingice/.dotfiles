@@ -8,7 +8,7 @@ export ZSH="$HOME/.oh-my-zsh"
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-ZSH_THEME="bureau"
+ZSH_THEME="robbyrussell"
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -122,7 +122,7 @@ export LC_CTYPE=en_US.UTF-8
 export EDITOR=vim
 
 # set system-wide default pager
-export PAGER=most
+export PAGER=less
 
 # Let gpg-agent communicate with ssh-agent so that the auth subkey
 # managed by gnupg can be used during ssh authentification.
