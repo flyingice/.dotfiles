@@ -18,7 +18,8 @@ install_plugin() {
 }
 
 install_vim_plugin() {
-    dest="$HOME/.vim/pack/vendor/start"
+# packages should be installed to ~/.vim/pack/*/start/ or ~/.vim/pack/*/opt/ to comply with native vim package management
+    dest="$HOME/.vim/pack/plugins/start"
 
     clean_dir "$dest"
 
