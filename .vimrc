@@ -190,9 +190,16 @@ colorscheme onedark
 
 " Require vim-airline and vim-airline-themes (https://github.com/vim-airline)
 " Recommend font Inconsolata_dz for Powerline
+packadd! vim-airline
+packadd! vim-airline-themes
 let g:airline_theme='onedark'
-let g:airline_powerline_fonts = 1
+let g:airline_powerline_fonts=1
+" Fix the partially messed-up symbol on Mac M1
+if !exists('g:airline_symbols')
+  let g:airline_symbols = {}
+endif
+let g:airline_symbols.colnr=''
 " Enable the list of buffers
-let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#enabled=1
 " Show just the filename
-let g:airline#extensions#tabline#fnamemod = ':t'
+let g:airline#extensions#tabline#fnamemod=':t'
