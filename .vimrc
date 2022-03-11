@@ -95,6 +95,9 @@ set pastetoggle=<f5>
 " Set default code folding method
 set foldmethod=indent
 
+" avoid waiting on <esc> function keys when exiting insert mode
+set noesckeys
+
 "****************************************
 " Key bindings
 "****************************************
@@ -180,6 +183,7 @@ runtime macros/matchit.vim
 
 " Add fzf directory to runtimepath
 set rtp+=/usr/local/opt/fzf
+
 "****************************************
 " Customize look and feel
 "****************************************
