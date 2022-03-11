@@ -24,6 +24,9 @@ source $ZSH/custom/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 # enable vim mode for command line
 bindkey -v
 
+# zsh-autosuggestions plugin accept suggestion
+bindkey '^l' autosuggest-accept
+
 ########################################
 # General Shell Settings
 ########################################
