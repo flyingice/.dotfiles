@@ -30,6 +30,9 @@ set cursorline
 " Always show the status line at the bottom, even if you only have one window open.
 set laststatus=2
 
+" Status line to show current mode.
+set showmode
+
 " Always show the command entered
 set showcmd
 
@@ -184,16 +187,13 @@ runtime macros/matchit.vim
 " Add fzf directory to runtimepath
 set rtp+=/usr/local/opt/fzf
 
-"****************************************
-" Customize look and feel
-"****************************************
-
+" Customize appearance
 " Require onedark.vim (https://github.com/joshdick/onedark.vim.git)
 packadd! onedark.vim
 colorscheme onedark
 
 " Require vim-airline and vim-airline-themes (https://github.com/vim-airline)
-" Recommend font Inconsolata_dz for Powerline
+" Font Meslo LG M DZ for Powerline recommended
 packadd! vim-airline
 packadd! vim-airline-themes
 let g:airline_theme='onedark'
