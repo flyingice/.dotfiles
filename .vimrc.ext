@@ -1,0 +1,47 @@
+"****************************************
+" Functional plugins
+" Recommended install path: ~/.vim/pack/[plugins]/start
+" Name within brackets is free to choose
+"****************************************
+"
+" Matchit plugin
+" The plugin is shipped with vim distribution.
+" Autoload the matchit so that % command can jump between matching pair of keywords
+filetype plugin on
+runtime macros/matchit.vim
+
+" NERDTree plugin
+" Avaiable on https://github.com/preservim/nerdtree
+" Key bindings
+map <C-n> :NERDTreeToggle<CR>
+
+"****************************************
+" Apperance plugins
+" Recommended install path: ~/.vim/pack/[plugins]/opt/
+" Name within brackets is free to choose
+"****************************************
+"
+" onedark plugin
+" Available on https://github.com/joshdick/onedark.vim.git
+packadd! onedark.vim
+colorscheme onedark
+
+" vim-airline plugin
+" Available on https://github.com/vim-airline/vim-airline
+packadd! vim-airline
+" Font Meslo LG M DZ for Powerline recommended
+let g:airline_powerline_fonts=1
+" Enable the list of buffers
+let g:airline#extensions#tabline#enabled=1
+" Show just the filename
+let g:airline#extensions#tabline#fnamemod=':t'
+" Fix the partially messed-up symbol on Mac M1
+if !exists('g:airline_symbols')
+  let g:airline_symbols = {}
+endif
+let g:airline_symbols.colnr=''
+
+" vim-airline-theme plugin
+" Available on https://github.com/vim-airline/vim-airline-themes
+packadd! vim-airline-themes
+let g:airline_theme='onedark'
