@@ -172,38 +172,50 @@ endfunction
 " Expansion of the active file directory
 cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h').'/' : '%%'
 
-" Key bindings for additional plugins
-map <C-n> :NERDTreeToggle<CR>
-
 "****************************************
-" Plugins
+" Functional plugins
+" Recommended install path: ~/.vim/pack/[plugins]/start
+" Name within brackets is free to choose
 "****************************************
 "
-" Autoload the matchit plugin shipped with the Vim distribution so
-" that the % command can jump between matching pair of keywords
+" Matchit plugin
+" The plugin is shipped with vim distribution.
+" Autoload the matchit so that % command can jump between matching pair of keywords
 filetype plugin on
 runtime macros/matchit.vim
 
-" Add fzf directory to runtimepath
-set rtp+=/usr/local/opt/fzf
+" NERDTree plugin
+" Avaiable on https://github.com/preservim/nerdtree
+" Key bindings
+map <C-n> :NERDTreeToggle<CR>
 
-" Customize appearance
-" Require onedark.vim (https://github.com/joshdick/onedark.vim.git)
+"****************************************
+" Apperance plugins
+" Recommended install path: ~/.vim/pack/[plugins]/opt/
+" Name within brackets is free to choose
+"****************************************
+"
+" onedark plugin
+" Available on https://github.com/joshdick/onedark.vim.git
 packadd! onedark.vim
 colorscheme onedark
 
-" Require vim-airline and vim-airline-themes (https://github.com/vim-airline)
-" Font Meslo LG M DZ for Powerline recommended
+" vim-airline plugin
+" Available on https://github.com/vim-airline/vim-airline
 packadd! vim-airline
-packadd! vim-airline-themes
-let g:airline_theme='onedark'
+" Font Meslo LG M DZ for Powerline recommended
 let g:airline_powerline_fonts=1
+" Enable the list of buffers
+let g:airline#extensions#tabline#enabled=1
+" Show just the filename
+let g:airline#extensions#tabline#fnamemod=':t'
 " Fix the partially messed-up symbol on Mac M1
 if !exists('g:airline_symbols')
   let g:airline_symbols = {}
 endif
 let g:airline_symbols.colnr=''
-" Enable the list of buffers
-let g:airline#extensions#tabline#enabled=1
-" Show just the filename
-let g:airline#extensions#tabline#fnamemod=':t'
+
+" vim-airline-theme plugin
+" Available on https://github.com/vim-airline/vim-airline-themes
+packadd! vim-airline-themes
+let g:airline_theme='onedark'
