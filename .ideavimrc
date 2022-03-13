@@ -1,0 +1,12 @@
+source ~/.vimrc
+
+" List of supported set commands: https://github.com/JetBrains/ideavim/wiki/%22set%22-commands
+" Enable smart join operation: https://github.com/JetBrains/ideavim/wiki/%22ideajoin%22-examples
+set ideajoin
+
+" Keymapping
+let mapleader=','
+" Reformat
+nnoremap <leader>f :action ReformatCode<CR><ESC>
+" Rename
+nnoremap <leader>r :action RenameElement<CR>
