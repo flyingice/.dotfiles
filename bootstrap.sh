@@ -97,7 +97,7 @@ do_on_macos() {
 
 do_on_linux() {
     # debian-derived distro
-    if [[ $(grep -i 'debian' /etc/os-release) ]]; then
+    if grep -qi 'debian' /etc/os-release ; then
         sudo apt-get install zsh
     fi
 }
