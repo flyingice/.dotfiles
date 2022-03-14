@@ -106,9 +106,9 @@ do_on_macos() {
 }
 
 do_on_linux() {
-    # install zsh
-    if [[ ! $(sudo apt-get install zsh) ]]; then
-        exit 1
+    # debian-derived distro
+    if [[ $(grep -i 'debian' /etc/os-release) ]]; then
+        sudo apt-get install zsh
     fi
 }
 
