@@ -12,7 +12,7 @@ ZSH_THEME="agnoster"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git zsh-syntax-highlighting zsh-autosuggestions)
+plugins=(git zsh-syntax-highlighting zsh-autosuggestions z)
 
 source $ZSH/oh-my-zsh.sh
 source $ZSH/custom/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
@@ -72,11 +72,6 @@ gpg_restart() {
 # solution proposed in https://github.com/wernight/powerline-web-fonts/issues/8
 export LANG=en_US.UTF-8
 export LC_CTYPE=en_US.UTF-8
-
-# z utility to jump around
-if command -v brew >/dev/null 2>&1;then
-    [ -f $(brew --prefix)/etc/profile.d/z.sh ] && source $(brew --prefix)/etc/profile.d/z.sh
-fi
 
 ########################################
 # Development Environment
