@@ -1,0 +1,6 @@
+users:
+  - default
+  - name: flyingice
+    sudo: ALL=(ALL) NOPASSWD:ALL
+    ssh_authorized_keys:
+      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDrA8sO3lbpWEfpL4nIiA/3Sgat1apbAhS4D9VZQImRwgY2B5xEgVVxKUATf+NzmGkMhACObiXH7PgwXbfcEojb8/o9j87KJf9l7DTS+B/y7RoSA+fl4tKvwTc5lIzVVvKxn5gC1G/YqY2j1/I1Sh6fNr9kBJUUdEam8oW/Zp8tZo4lSESbVlyluX+aem8/WotRYf9spr29TmjJEQISoghWql0tB+fNuC0hl2wGRhBK1hDccDl1P0HgEuufchwW3IVIZ/YxdZLrMpeUCQ2ksrtjQSxJEyRxk5Wf+iO+MmypJ10N8nZJLh07aAFTOAc+PDjem5HqpoQmq81Hvv7LUS7z+uF+HwtD06bCKnCvb6tMIL1UBzv/OQQGOCx1YOIH2cQHEMaa0n9BDJngeScQwlly2yAsW5+2PGOQDNxYMCxHbLkh4QFqgzL2aAC4u96793pDGap2pEuh/Ka90eimZD5Dnm53c3ue8Fhd+NHCDOzYHWhXP4uSPueLDTJf2fO8xM9apFUjmniHNYIZMP/N+5OJLCPvzW5/JR+SolaYr54tgwredRDqXcLpCqD2OVmc6M3NQn9S9X4s94EhUkyguEmdHN8emoGmiUdIrYnoEwUbtrAumc0AXm2lhXjo0KgCthfImgld/jLNgPGzgGHKVMVbOX+wgxExq6QjpUppENu86Q== openpgp:0x41AC0B0A
