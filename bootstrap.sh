@@ -61,19 +61,6 @@ install_zsh_plugin() {
     fi
 }
 
-install_fonts() {
-    echo -n "Would you like to install power fonts? "
-    if prompt_user; then
-        if [[ "$OSTYPE" == "linux-gnu"* ]]; then
-            sudo apt-get install fonts-powerline
-        elif [[ "$OSTYPE" == "darwin"* ]]; then
-            git clone --depth=1 https://github.com/powerline/fonts.git
-            cd fonts && ./install.sh
-            cd .. && rm -rf fonts
-        fi
-    fi
-}
-
 install_config() {
     config=$1
 
@@ -97,9 +84,12 @@ install_config() {
 
 do_on_macos() {
     # install homebrew
-    if [[ ! $(/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)") ]]; then
-        exit 1
-    fi
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
+    # install powerline fonts
+    git clone --depth=1 https://github.com/powerline/fonts.git
+    cd fonts && ./install.sh
+    cd .. && rm -rf fonts
 
     # MacOS defaults to zsh from Catalina and later versions,
     # thus no need to install zsh
@@ -133,9 +123,6 @@ install_zsh_plugin
 
 # install vim plugins
 install_vim_plugin
-
-# install powerline fonts
-install_fonts
 
 # install config files
 configs=(.zshrc
