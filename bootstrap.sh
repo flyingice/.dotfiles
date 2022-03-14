@@ -2,93 +2,121 @@
 
 SCRIPT_DIR=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
 
-clean_dir() {
+prompt_user() {
+    echo -n "(y/n)? "
+    read -r answer
+    [[ "$answer" == "y" ]]
+}
+
+prepare_dir() {
     path=$1
-    if [[ -e "$path" ]]; then
-        echo "Cleaning $path ..."
-        rm -rf "$path"
-    fi
-    mkdir -p "$path" || exit 1
+
+    echo "Cleaning $path ..."
+    rm -rf "$path"
+    mkdir -p "$path"
 }
 
 install_plugin() {
-    origin=$1
-    dest=$2
-    git -C "$dest" clone "$origin"
+    from=$1
+    to=$2
+    if [[ -e "$to" ]]; then
+        git -C "$to" clone --depth=1 "$from"
+    fi
 }
 
 install_vim_plugin() {
-# packages should be installed to ~/.vim/pack/*/start/ or ~/.vim/pack/*/opt/ to comply with native vim package management
-    dest="$HOME/.vim/pack/plugins/start"
+    # Autoload packages must be installed to ~/.vim/pack/*/start
+    mandatory="$HOME/.vim/pack/plugins/start"
+    # Packages in ~/.vim/pack/*/opt can be loaded on the fly
+    optional="$HOME/.vim/pack/plugins/opt"
 
-    clean_dir "$dest"
+    echo -n "Would you like to install recommended vim plugins? "
+    if prompt_user; then
+        prepare_dir "$mandatory"
+        install_plugin "https://github.com/preservim/nerdtree" "$mandatory"
+        install_plugin "https://github.com/mileszs/ack.vim.git" "$mandatory"
+    fi
 
-    install_plugin "https://github.com/joshdick/onedark.vim" "$dest"
-    install_plugin "https://github.com/vim-airline/vim-airline" "$dest"
-    install_plugin "https://github.com/vim-airline/vim-airline-themes" "$dest"
-    install_plugin "https://github.com/preservim/nerdtree" "$dest"
-    install_plugin "https://github.com/mileszs/ack.vim.git" "$dest"
+    echo -n "Would you like to install optional vim plugins? "
+    if prompt_user; then
+        prepare_dir "$optional"
+        install_plugin "https://github.com/joshdick/onedark.vim" "$optional"
+        install_plugin "https://github.com/vim-airline/vim-airline" "$optional"
+        install_plugin "https://github.com/vim-airline/vim-airline-themes" "$optional"
+    fi
 }
 
 install_zsh_plugin() {
-    dest="${ZSH_CUSTOM:-${HOME}/.oh-my-zsh/custom}/plugins"
+    echo -n "Would you like to install oh-my-zsh? "
+    if prompt_user; then
+        echo "Run 'exit' when oh-my-zsh installation is completed."
+        # install oh-my-zsh
+        sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
-    clean_dir "$dest"
-
-    install_plugin "https://github.com/zsh-users/zsh-syntax-highlighting" "$dest"
-    install_plugin "https://github.com/zsh-users/zsh-autosuggestions" "$dest"
+        # install oh-my-zsh plugins
+        to="${ZSH_CUSTOM:-${HOME}/.oh-my-zsh/custom}/plugins"
+        prepare_dir "$to"
+        install_plugin "https://github.com/zsh-users/zsh-syntax-highlighting" "$to"
+        install_plugin "https://github.com/zsh-users/zsh-autosuggestions" "$to"
+    fi
 }
 
-customize_zsh() {
-    dest="${ZSH_CUSTOM:-${HOME}/.oh-my-zsh/custom}"
-    cp "$SCRIPT_DIR/aliases.zsh" "$dest"
-
-    install_zsh_plugin
+install_fonts() {
+    echo -n "Would you like to install power fonts? "
+    if prompt_user; then
+        if [[ "$OSTYPE" == "linux-gnu"* ]]; then
+            sudo apt-get install fonts-powerline
+        elif [[ "$OSTYPE" == "darwin"* ]]; then
+            git clone --depth=1 https://github.com/powerline/fonts.git
+            cd fonts && ./install.sh
+            cd .. && rm -rf fonts
+        fi
+    fi
 }
 
 install_config() {
-    echo "Installing $1 under $HOME ..."
-    dest="$HOME/$1"
-    if [[ -e "$dest" || -L "$dest" ]]; then
-        echo -n "$dest already exists. Do you want to overwrite it (yes/no)? "
+    config=$1
+
+    echo -n "Would you like to install $config (y/n)? "
+    read -r answer
+    if [[ "$answer" != "y" ]]; then
+        return
+    fi
+
+    if [[ -e "${HOME}/$config" ]]; then
+        echo -n "$config already exists. Do you want to overwrite it (y/n)? "
         read -r answer
-        if [[ "$answer" == "yes" ]]; then
-            rm -f "$dest"
-        else
-            echo "Skip installing $1"
+        if [[ "$answer" != "y" ]]; then
+            echo "Skip installing $config"
             return
         fi
     fi
 
-    ln -s "$SCRIPT_DIR/$1" "$dest"
-    echo "Done."
+    ln -s -f "${SCRIPT_DIR}/$config" ~
 }
 
-# TODO: do_on_macos() has not been tested on a brand new machine
 do_on_macos() {
     # install homebrew
-    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+    if [[ ! $(/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)") ]]; then
+        exit 1
+    fi
 
-    # note that running homebrew as root is no longer supported
-    # install zsh
-    brew install zsh
-
-    # install powerline fonts
-    git clone https://github.com/powerline/fonts.git --depth=1
-    cd fonts && ./install.sh
-    cd .. && rm -rf fonts
+    # MacOS defaults to zsh from Catalina and later versions,
+    # thus no need to install zsh
 }
 
 do_on_linux() {
-    sudo apt-get update
-    sudo apt-get upgrade
+    # install zsh
+    if [[ ! $(sudo apt-get install zsh) ]]; then
+        exit 1
+    fi
+}
 
-    # install zsh and change login shell
-    sudo apt-get install zsh
-    sudo chsh -s /bin/zsh "$USER"
-
-    # install powerline fonts
-    sudo apt-get install fonts-powerline
+change_shell() {
+    if [[ $(basename -- "$SHELL") != "zsh" ]]; then
+        echo "Switching shell to zsh ..."
+        sudo chsh -s /bin/zsh "$USER"
+    fi
 }
 
 if [[ "$OSTYPE" == "linux-gnu"* ]]; then
@@ -100,20 +128,24 @@ else
     exit 1
 fi
 
-# install oh-my-zsh
-# remove the line 'exec zsh -l' from the install script
-sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh | sed -E '/^[[:space:]]+exec zsh/ d')"
-
-# customize zsh
-customize_zsh
+# install oh-my-zsh and its plugins
+install_zsh_plugin
 
 # install vim plugins
 install_vim_plugin
 
-# install various config files
-configs=(.zshrc .vimrc .tmux.conf .tmux-status-bar.conf .gitconfig .gitignore_global .git_template .ackrc)
+# install powerline fonts
+install_fonts
+
+# install config files
+configs=(.zshrc
+    .vimrc .vimrc.ext
+    .tmux.conf .tmux-status-bar.conf
+    .ackrc)
 for config in "${configs[@]}"; do
     install_config "$config"
 done
 
-echo "Done. Please exit the session and log in."
+change_shell
+
+echo "Finish. Please exit and then log in."
