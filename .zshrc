@@ -68,9 +68,6 @@ gpg_restart() {
     gpg-agent --daemon
 }
 
-# Let homebrew bypass the GFW of China
-export https_proxy=http://127.0.0.1:7890 http_proxy=http://127.0.0.1:7890 all_proxy=socks5://127.0.0.1:789
-
 # tmux locale settings, otherwise some powerline fonts can't be displayed properly in remote ssh sessions
 # solution proposed in https://github.com/wernight/powerline-web-fonts/issues/8
 export LANG=en_US.UTF-8
@@ -107,4 +104,3 @@ fi
 if which pyenv-virtualenv-init > /dev/null; then
     eval "$(pyenv virtualenv-init -)";
 fi
-
