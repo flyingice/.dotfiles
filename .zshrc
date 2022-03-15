@@ -52,7 +52,12 @@ export PAGER=less
 ########################################
 
 # fzf settings
+# MacOS
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+# Enable fzf key bindings on debian-derived Linux distro
+[ -f /usr/share/doc/fzf/examples/key-bindings.zsh ] && source /usr/share/doc/fzf/examples/key-bindings.zsh
+# Enable fzf auto-completion on debian-derived Linux distro
+[ -f /usr/share/doc/fzf/examples/completion.zsh ] && source /usr/share/doc/fzf/examples/completion.zsh
 export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
 export FZF_DEFAULT_OPTS="--height 50% --reverse"
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
@@ -63,6 +68,9 @@ export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
 # Fix error 'gpg failed to sign the data', refer to man page of gpg-agent
 export GPG_TTY="$(tty)"
+# In case of error "SSH sever accepts key, but signing fails", consider run
+# `gpg-connect-agent updatestartuptty /bye`
+# `man gpg-agent` for more details
 gpg_restart() {
     gpgconf --kill gpg-agent
     gpg-agent --daemon
