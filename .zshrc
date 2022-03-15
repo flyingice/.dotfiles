@@ -68,6 +68,9 @@ export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
 # Fix error 'gpg failed to sign the data', refer to man page of gpg-agent
 export GPG_TTY="$(tty)"
+# In case of error "SSH sever accepts key, but signing fails", consider run
+# `gpg-connect-agent updatestartuptty /bye`
+# `man gpg-agent` for more details
 gpg_restart() {
     gpgconf --kill gpg-agent
     gpg-agent --daemon
