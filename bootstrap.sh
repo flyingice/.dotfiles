@@ -2,10 +2,24 @@
 
 SCRIPT_DIR=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
 
+# bash version is required > 4.0
+declare -A addr
+# address mapping
+addr["homebrew"]="https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh"
+addr["oh-my-zsh"]="https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh"
+addr["zsh-syntax-highlighting"]="https://github.com/zsh-users/zsh-syntax-highlighting"
+addr["zsh-autosuggestions"]="https://github.com/zsh-users/zsh-autosuggestions"
+addr["nerdtree"]="https://github.com/preservim/nerdtree"
+addr["ack.vim"]="https://github.com/mileszs/ack.vim"
+addr["onedark.vim"]="https://github.com/joshdick/onedark.vim"
+addr["vim-airline"]="https://github.com/vim-airline/vim-airline"
+addr["vim-airline-themes"]="https://github.com/vim-airline/vim-airline-themes"
+addr["fonts"]="https://github.com/powerline/fonts.git"
+
 prompt_user() {
     echo -n "(y/n)? "
     read -r answer
-    [[ "$answer" == "y" ]]
+    [[ $answer == "y" ]]
 }
 
 prepare_dir() {
@@ -17,10 +31,10 @@ prepare_dir() {
 }
 
 install_plugin() {
-    from=$1
+    plugin=$1
     to=$2
-    if [[ -e "$to" ]]; then
-        git -C "$to" clone --depth=1 "$from"
+    if [[ -e $to ]]; then
+        git -C "$to" clone --depth=1 "${addr["$plugin"]}"
     fi
 }
 
@@ -33,16 +47,16 @@ install_vim_plugin() {
     echo -n "Would you like to install recommended vim plugins? "
     if prompt_user; then
         prepare_dir "$mandatory"
-        install_plugin "https://github.com/preservim/nerdtree" "$mandatory"
-        install_plugin "https://github.com/mileszs/ack.vim.git" "$mandatory"
+        install_plugin "nerdtree" "$mandatory"
+        install_plugin "ack.vim" "$mandatory"
     fi
 
     echo -n "Would you like to install optional vim plugins? "
     if prompt_user; then
         prepare_dir "$optional"
-        install_plugin "https://github.com/joshdick/onedark.vim" "$optional"
-        install_plugin "https://github.com/vim-airline/vim-airline" "$optional"
-        install_plugin "https://github.com/vim-airline/vim-airline-themes" "$optional"
+        install_plugin "onedark.vim" "$optional"
+        install_plugin "vim-airline" "$optional"
+        install_plugin "vim-airline-themes" "$optional"
     fi
 }
 
@@ -51,13 +65,13 @@ install_zsh_plugin() {
     if prompt_user; then
         echo "Run 'exit' when oh-my-zsh installation is completed."
         # install oh-my-zsh
-        sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+        /bin/bash -c "$(curl -fsSL "${addr["oh-my-zsh"]}")"
 
         # install oh-my-zsh plugins
         to="${ZSH_CUSTOM:-${HOME}/.oh-my-zsh/custom}/plugins"
         prepare_dir "$to"
-        install_plugin "https://github.com/zsh-users/zsh-syntax-highlighting" "$to"
-        install_plugin "https://github.com/zsh-users/zsh-autosuggestions" "$to"
+        install_plugin "zsh-syntax-highlighting" "$to"
+        install_plugin "zsh-autosuggestions" "$to"
     fi
 }
 
@@ -66,14 +80,14 @@ install_config() {
 
     echo -n "Would you like to install $config (y/n)? "
     read -r answer
-    if [[ "$answer" != "y" ]]; then
+    if [[ $answer != "y" ]]; then
         return
     fi
 
-    if [[ -e "${HOME}/$config" ]]; then
+    if [[ -e ${HOME}/$config ]]; then
         echo -n "$config already exists. Do you want to overwrite it (y/n)? "
         read -r answer
-        if [[ "$answer" != "y" ]]; then
+        if [[ $answer != "y" ]]; then
             echo "Skip installing $config"
             return
         fi
@@ -84,10 +98,10 @@ install_config() {
 
 do_on_macos() {
     # install homebrew
-    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+    /bin/bash -c "$(curl -fsSL "${addr["homebrew"]}")"
 
     # install powerline fonts
-    git clone --depth=1 https://github.com/powerline/fonts.git
+    install_plugin "fonts" .
     cd fonts && ./install.sh
     cd .. && rm -rf fonts
 
@@ -109,9 +123,9 @@ change_shell() {
     fi
 }
 
-if [[ "$OSTYPE" == "linux-gnu"* ]]; then
+if [[ $OSTYPE == "linux-gnu"* ]]; then
     do_on_linux
-elif [[ "$OSTYPE" == "darwin"* ]]; then
+elif [[ $OSTYPE == "darwin"* ]]; then
     do_on_macos
 else
     echo "Operating system is not supported."
