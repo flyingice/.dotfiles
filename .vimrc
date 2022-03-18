@@ -98,8 +98,11 @@ set pastetoggle=<f5>
 " Set default code folding method
 set foldmethod=indent
 
-" avoid waiting on <esc> function keys when exiting insert mode
-set noesckeys
+" Avoid delay when pressing <ESC>
+" Set mapping delay
+set timeoutlen=1000
+" Set keycode delay
+set ttimeoutlen=0
 
 "****************************************
 " Key bindings
