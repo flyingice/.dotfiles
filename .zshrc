@@ -84,26 +84,3 @@ export LC_CTYPE=en_US.UTF-8
 ########################################
 # Development Environment
 ########################################
-
-# Let gvm manage go versions and GOPATH
-# https://github.com/moovweb/gvm
-[[ -s "$HOME/.gvm/scripts/gvm" ]] && source "$HOME/.gvm/scripts/gvm"
-
-# Required to run jekyll
-# Refer to https://docs.github.com/en/github/working-with-github-pages/testing-your-github-pages-site-locally-with-jekyll
-export PATH="$HOME/.gem/ruby/2.6.0/bin:$PATH"
-
-# Created by `pipx ensurepath` on 2020-08-04 08:31:45
-export PATH="$PATH:$HOME/.local/bin"
-
-# required for pyenv
-# refer to step #3 on https://github.com/pyenv/pyenv#basic-github-checkout
-# it should be placed toward the end of the shell config since it manipulates PATH
-if command -v pyenv 1>/dev/null 2>&1; then
-    eval "$(pyenv init -)"
-fi
-# required for pyenv virtualenv plugin
-# refer to https://github.com/pyenv/pyenv-virtualenv
-if which pyenv-virtualenv-init > /dev/null; then
-    eval "$(pyenv virtualenv-init -)";
-fi
