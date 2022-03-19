@@ -86,6 +86,8 @@ set noerrorbells visualbell t_vb=
 " Enable mouse support. You should avoid relying on this too much, but it can
 " sometimes be convenient.
 set mouse+=a
+" Enable window resizing with mouse dragging (default on xterm)
+set ttymouse=sgr
 
 " Avoid strange indentation when using system paste command, in particular
 " when the 'autoindent' option is enabled. Alternatively, you can run the
