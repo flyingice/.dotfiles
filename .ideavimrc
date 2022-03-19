@@ -4,9 +4,11 @@ source ~/.vimrc
 " Enable smart join operation: https://github.com/JetBrains/ideavim/wiki/%22ideajoin%22-examples
 set ideajoin
 
-" Keymapping
-let mapleader=','
+"****************************************
+" Key bindings
+"****************************************
+
 " Reformat
-nnoremap <leader>f :action ReformatCode<CR><ESC>
+nnoremap <Leader>f :action ReformatCode<CR><ESC>
 " Rename
-nnoremap <leader>r :action RenameElement<CR>
+nnoremap <Leader>r :action RenameElement<CR>
