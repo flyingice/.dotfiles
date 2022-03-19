@@ -111,6 +111,7 @@ set ttimeoutlen=0
 "****************************************
 
 " Unbind some useless/annoying default key bindings.
+map s <Nop>
 
 " Key bindings for common file operations
 nmap S :w<CR>
