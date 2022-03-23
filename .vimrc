@@ -110,11 +110,8 @@ set ttimeoutlen=0
 " Key bindings
 "****************************************
 
-" Set map leader
-let mapleader=','
-
-" Restore key binding for reverse character search
-noremap \ ,
+" Set leader key to default backslash
+let mapleader='\'
 
 " Unbind some useless/annoying default key bindings.
 map s <Nop>
