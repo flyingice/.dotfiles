@@ -4,10 +4,12 @@
 " Name within brackets is free to choose
 "****************************************
 "
+" Enable file-type plugin
+filetype plugin on
+
 " Matchit plugin
 " The plugin is shipped with vim distribution.
 " Autoload the matchit so that % command can jump between matching pair of keywords
-filetype plugin on
 runtime macros/matchit.vim
 
 " NERDTree plugin
