@@ -14,3 +14,16 @@ nnoremap <Leader>g :action FindUsages<CR>
 nnoremap <Leader>f :action ReformatCode<CR><ESC>
 " Rename
 nnoremap <Leader>r :action RenameElement<CR>
+
+"****************************************
+" Plugin emulation
+"****************************************
+"
+" https://github.com/chrisbra/matchit
+set matchit
+
+" https://github.com/preservim/nerdtree
+set NERDTree
+
+" https://github.com/tpope/vim-surround
+set surround
