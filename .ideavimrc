@@ -8,6 +8,8 @@ set ideajoin
 " Key bindings
 "****************************************
 
+" Find all usages
+nnoremap <Leader>g :action FindUsages<CR>
 " Reformat
 nnoremap <Leader>f :action ReformatCode<CR><ESC>
 " Rename
