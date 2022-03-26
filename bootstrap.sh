@@ -143,7 +143,6 @@ install_vim_plugin
 # install config files
 configs=(.zshrc
     .vimrc .vimrc.ext
-    .tmux.conf .tmux-status-bar.conf
     .ackrc)
 for config in "${configs[@]}"; do
     install_config "$config"
