@@ -13,6 +13,7 @@ addr["nerdtree"]="https://github.com/preservim/nerdtree"
 addr["ack.vim"]="https://github.com/mileszs/ack.vim"
 addr["vim-surround"]="https://github.com/tpope/vim-surround"
 addr["onedark.vim"]="https://github.com/joshdick/onedark.vim"
+addr["vim-colors-xcode"]="https://github.com/arzg/vim-colors-xcode"
 addr["vim-airline"]="https://github.com/vim-airline/vim-airline"
 addr["vim-airline-themes"]="https://github.com/vim-airline/vim-airline-themes"
 addr["fonts"]="https://github.com/powerline/fonts.git"
@@ -57,6 +58,7 @@ install_vim_plugin() {
     if prompt_user; then
         prepare_dir "$optional"
         install_plugin "onedark.vim" "$optional"
+        install_plugin "vim-colors-xcode" "$optional"
         install_plugin "vim-airline" "$optional"
         install_plugin "vim-airline-themes" "$optional"
     fi

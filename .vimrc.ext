@@ -1,7 +1,6 @@
 "****************************************
 " Functional plugins
-" Recommended install path: ~/.vim/pack/[plugins]/start
-" Name within brackets is free to choose
+" Recommended install path: ~/.vim/pack/plugins/start
 "****************************************
 "
 " Enable file-type plugin
@@ -19,17 +18,22 @@ map <C-n> :NERDTreeToggle<CR>
 
 "****************************************
 " Apperance plugins
-" Recommended install path: ~/.vim/pack/[plugins]/opt/
-" Name within brackets is free to choose
+" Recommended install path: ~/.vim/pack/plugins/opt/
 "****************************************
 "
-" onedark plugin
-" Available on https://github.com/joshdick/onedark.vim.git
+" colorscheme plugins
+"
+" https://github.com/joshdick/onedark.vim
 packadd! onedark.vim
+" https://github.com/arzg/vim-colors-xcode
+packadd! vim-colors-xcode
+" pick a theme
 colorscheme onedark
+" colorscheme xcodedark
 
-" vim-airline plugin
-" Available on https://github.com/vim-airline/vim-airline
+" status bar plugin
+
+" https://github.com/vim-airline/vim-airline
 packadd! vim-airline
 " Font Meslo LG M DZ for Powerline recommended
 let g:airline_powerline_fonts=1
@@ -43,7 +47,7 @@ if !exists('g:airline_symbols')
 endif
 let g:airline_symbols.colnr=''
 
-" vim-airline-theme plugin
-" Available on https://github.com/vim-airline/vim-airline-themes
+" https://github.com/vim-airline/vim-airline-themes
 packadd! vim-airline-themes
+" pick a theme for the status bar
 let g:airline_theme='onedark'
