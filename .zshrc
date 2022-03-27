@@ -25,7 +25,7 @@ source $ZSH/custom/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 bindkey -v
 
 # zsh-autosuggestions plugin accept suggestion
-bindkey '^l' autosuggest-accept
+bindkey ',' autosuggest-accept
 
 ########################################
 # General Shell Settings
