@@ -1,9 +1,5 @@
 {
-  "Ansi 6 Color" : {
-    "Green Component" : "0.5960785",
-    "Blue Component" : "0.6039215999999999",
-    "Red Component" : "0.02352941"
-  },
+  "Use Non-ASCII Font" : false,
   "Tags" : [
 
   ],
@@ -19,32 +15,24 @@
     "Blue Component" : "1",
     "Red Component" : "1"
   },
-  "Ansi 7 Color" : {
-    "Green Component" : "0.8431373",
-    "Blue Component" : "0.8117647",
-    "Red Component" : "0.827451"
-  },
-  "Ansi 8 Color" : {
-    "Green Component" : "0.3411765",
-    "Blue Component" : "0.3254902",
-    "Red Component" : "0.3333333"
-  },
-  "Ansi 9 Color" : {
-    "Green Component" : "0.1607843",
-    "Blue Component" : "0.1607843",
-    "Red Component" : "0.9372549"
-  },
-  "Rows" : 60,
-  "Default Bookmark" : "No",
-  "Ansi 4 Color" : {
-    "Green Component" : "0.3960784",
-    "Blue Component" : "0.6431373",
-    "Red Component" : "0.2039216"
-  },
-  "Ansi 1 Color" : {
+  "Ansi 0 Color" : {
     "Green Component" : "0",
     "Blue Component" : "0",
-    "Red Component" : "0.8"
+    "Red Component" : "0"
+  },
+  "Normal Font" : "MesloLGSNerdFontCompleteM-Regular 14",
+  "Horizontal Spacing" : 1,
+  "Rows" : 60,
+  "Default Bookmark" : "No",
+  "Ansi 3 Color" : {
+    "Green Component" : "0.627451",
+    "Blue Component" : "0",
+    "Red Component" : "0.7686275"
+  },
+  "Ansi 5 Color" : {
+    "Green Component" : "0.3137255",
+    "Blue Component" : "0.4823529",
+    "Red Component" : "0.4588235"
   },
   "Cursor Guide Color" : {
     "Red Component" : 0.70214027166366577,
@@ -78,15 +66,15 @@
     "Red Component" : "1"
   },
   "Working Directory" : "\/Users\/flyingice",
-  "Blinking Cursor" : false,
-  "Space" : 0,
+  "Blinking Cursor" : true,
+  "Disable Window Resizing" : true,
   "Sync Title" : false,
   "Prompt Before Closing 2" : false,
   "BM Growl" : false,
   "Mouse Reporting" : true,
   "Command" : "",
   "Description" : "Default",
-  "Disable Window Resizing" : true,
+  "Space" : 0,
   "Screen" : -1,
   "Selection Color" : {
     "Green Component" : "0.8353",
@@ -103,7 +91,7 @@
   },
   "Custom Command" : "No",
   "ASCII Anti Aliased" : true,
-  "Non Ascii Font" : "MesloLGMDZForPowerline-Regular 14",
+  "Non Ascii Font" : "MesloLGSNerdFontCompleteM-Regular 14",
   "Vertical Spacing" : 1,
   "Use Bold Font" : true,
   "Option Key Sends" : 2,
@@ -310,6 +298,7 @@
     "Blue Component" : "0.8862745",
     "Red Component" : "0.2039216"
   },
+  "Unicode Version" : 8,
   "ASCII Ligatures" : false,
   "Name" : "Default",
   "Cursor Text Color" : {
@@ -323,14 +312,44 @@
     "Blue Component" : "1",
     "Red Component" : "1"
   },
-  "Ansi 0 Color" : {
+  "Transparency" : 0,
+  "Guid" : "40AAABAA-1652-43A1-9941-F54A7DDA9869",
+  "Ansi 1 Color" : {
     "Green Component" : "0",
     "Blue Component" : "0",
-    "Red Component" : "0"
+    "Red Component" : "0.8"
   },
-  "Transparency" : 0,
-  "Horizontal Spacing" : 1,
   "Custom Directory" : "No",
+  "Ansi 4 Color" : {
+    "Green Component" : "0.3960784",
+    "Blue Component" : "0.6431373",
+    "Red Component" : "0.2039216"
+  },
+  "Ansi 2 Color" : {
+    "Green Component" : "0.6039215999999999",
+    "Blue Component" : "0.02352941",
+    "Red Component" : "0.3058824"
+  },
+  "Ansi 6 Color" : {
+    "Green Component" : "0.5960785",
+    "Blue Component" : "0.6039215999999999",
+    "Red Component" : "0.02352941"
+  },
+  "Ansi 7 Color" : {
+    "Green Component" : "0.8431373",
+    "Blue Component" : "0.8117647",
+    "Red Component" : "0.827451"
+  },
+  "Ansi 8 Color" : {
+    "Green Component" : "0.3411765",
+    "Blue Component" : "0.3254902",
+    "Red Component" : "0.3333333"
+  },
+  "Ansi 9 Color" : {
+    "Green Component" : "0.1607843",
+    "Blue Component" : "0.1607843",
+    "Red Component" : "0.9372549"
+  },
   "Link Color" : {
     "Red Component" : 0,
     "Color Space" : "sRGB",
@@ -338,23 +357,5 @@
     "Alpha Component" : 1,
     "Green Component" : 0.35915297269821167
   },
-  "Right Option Key Sends" : 2,
-  "Use Non-ASCII Font" : false,
-  "Guid" : "40AAABAA-1652-43A1-9941-F54A7DDA9869",
-  "Normal Font" : "MesloLGMDZForPowerline-Regular 14",
-  "Ansi 2 Color" : {
-    "Green Component" : "0.6039215999999999",
-    "Blue Component" : "0.02352941",
-    "Red Component" : "0.3058824"
-  },
-  "Ansi 3 Color" : {
-    "Green Component" : "0.627451",
-    "Blue Component" : "0",
-    "Red Component" : "0.7686275"
-  },
-  "Ansi 5 Color" : {
-    "Green Component" : "0.3137255",
-    "Blue Component" : "0.4823529",
-    "Red Component" : "0.4588235"
-  }
+  "Right Option Key Sends" : 2
 }

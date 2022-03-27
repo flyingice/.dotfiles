@@ -35,17 +35,13 @@ colorscheme onedark
 
 " https://github.com/vim-airline/vim-airline
 packadd! vim-airline
-" Font Meslo LG M DZ for Powerline recommended
+" Recommend MesloLGS Nerd Font Mono
+" https://github.com/ryanoasis/nerd-fonts
 let g:airline_powerline_fonts=1
 " Enable the list of buffers
 let g:airline#extensions#tabline#enabled=1
 " Show just the filename
 let g:airline#extensions#tabline#fnamemod=':t'
-" Fix the partially messed-up symbol on Mac M1
-if !exists('g:airline_symbols')
-  let g:airline_symbols = {}
-endif
-let g:airline_symbols.colnr=''
 
 " https://github.com/vim-airline/vim-airline-themes
 packadd! vim-airline-themes

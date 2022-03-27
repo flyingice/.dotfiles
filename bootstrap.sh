@@ -16,7 +16,6 @@ addr["onedark.vim"]="https://github.com/joshdick/onedark.vim"
 addr["vim-colors-xcode"]="https://github.com/arzg/vim-colors-xcode"
 addr["vim-airline"]="https://github.com/vim-airline/vim-airline"
 addr["vim-airline-themes"]="https://github.com/vim-airline/vim-airline-themes"
-addr["fonts"]="https://github.com/powerline/fonts.git"
 
 prompt_user() {
     echo -n "(y/n)? "
@@ -103,11 +102,6 @@ install_config() {
 do_on_macos() {
     # install homebrew
     /bin/bash -c "$(curl -fsSL "${addr["homebrew"]}")"
-
-    # install powerline fonts
-    install_plugin "fonts" .
-    cd fonts && ./install.sh
-    cd .. && rm -rf fonts
 
     # MacOS defaults to zsh from Catalina and later versions,
     # thus no need to install zsh
