@@ -98,7 +98,7 @@ set ttymouse=sgr
 set pastetoggle=<f5>
 
 " Set default code folding method
-set foldmethod=indent
+set foldmethod=syntax
 
 " Avoid delay when pressing <ESC>
 " Set mapping delay
