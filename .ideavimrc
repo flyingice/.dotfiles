@@ -8,13 +8,18 @@ set ideajoin
 " Key bindings
 "****************************************
 
+" Toggle maximize current editor/normalize split
+nmap <C-W>= :action MaximizeEditorInSplit<CR>
+
 " Workaround as ctrl+t doesn't always respect default vim behavior
-nmap <C-t> :action Back<CR>
+nmap <C-T> :action Back<CR>
 
 " Find all usages
 nmap <Leader>g :action FindUsages<CR>
+
 " Reformat
 nmap <Leader>f :action ReformatCode<CR><ESC>
+
 " Rename
 nmap <Leader>r :action RenameElement<CR>
 
