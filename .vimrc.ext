@@ -37,13 +37,17 @@ colorscheme onedark
 packadd! vim-airline
 " Recommend MesloLGS Nerd Font Mono
 " https://github.com/ryanoasis/nerd-fonts
-let g:airline_powerline_fonts=1
-" Enable the list of buffers
-let g:airline#extensions#tabline#enabled=1
-" Show just the filename
-let g:airline#extensions#tabline#fnamemod=':t'
+let g:airline_powerline_fonts = 1
+" Enable the list of buffer
+let g:airline#extensions#tabline#enabled = 1
+" Show buffer number
+let g:airline#extensions#tabline#buffer_nr_show = 1
+" Show just the filename without path
+let g:airline#extensions#tabline#fnamemod = ':t'
+" Truncate non-active buffer names to specified length
+let g:airline#extensions#tabline#fnametruncate = 16
 
 " https://github.com/vim-airline/vim-airline-themes
 packadd! vim-airline-themes
 " pick a theme for the status bar
-let g:airline_theme='onedark'
+let g:airline_theme = 'onedark'
