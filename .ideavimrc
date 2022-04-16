@@ -8,6 +8,8 @@ set ideajoin
 " Key bindings
 "****************************************
 
+" Workaround as ctrl+t doesn't always respect default vim behavior
+nnoremap <C-t> :action Back<CR>
 " Find all usages
 nnoremap <Leader>g :action FindUsages<CR>
 " Reformat
