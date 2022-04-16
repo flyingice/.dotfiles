@@ -9,13 +9,14 @@ set ideajoin
 "****************************************
 
 " Workaround as ctrl+t doesn't always respect default vim behavior
-nnoremap <C-t> :action Back<CR>
+nmap <C-t> :action Back<CR>
+
 " Find all usages
-nnoremap <Leader>g :action FindUsages<CR>
+nmap <Leader>g :action FindUsages<CR>
 " Reformat
-nnoremap <Leader>f :action ReformatCode<CR><ESC>
+nmap <Leader>f :action ReformatCode<CR><ESC>
 " Rename
-nnoremap <Leader>r :action RenameElement<CR>
+nmap <Leader>r :action RenameElement<CR>
 
 "****************************************
 " Plugin emulation
