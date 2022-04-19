@@ -80,6 +80,9 @@ set incsearch
 " Enable search highlighting, use <C-l> to mute it temporarily
 set hlsearch
 
+" Make at least 5 lines visible above and below the cursor
+set scrolloff=5
+
 " Disable audible bell because it's annoying.
 set noerrorbells visualbell t_vb=
 
@@ -95,7 +98,7 @@ set ttymouse=sgr
 " run :set paste! to turn the option off. A more elegant solution would be
 " the normal mode command "+p that preserves the indentation of the text
 " without any surprises.
-set pastetoggle=<f5>
+set pastetoggle=<F5>
 
 " Set default code folding method
 set foldmethod=syntax
