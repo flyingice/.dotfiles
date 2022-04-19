@@ -35,6 +35,7 @@ colorscheme onedark
 
 " https://github.com/vim-airline/vim-airline
 packadd! vim-airline
+" config doc: https://github.com/vim-airline/vim-airline/blob/master/doc/airline.txt
 " Recommend MesloLGS Nerd Font Mono
 " https://github.com/ryanoasis/nerd-fonts
 let g:airline_powerline_fonts = 1
