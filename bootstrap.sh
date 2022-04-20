@@ -2,6 +2,10 @@
 
 SCRIPT_DIR=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
 
+# debug mode is on by default
+# don't download nor install packages in debug mode
+DEBUG=1
+
 # bash version is required > 4.0
 declare -A addr
 # address mapping
@@ -25,6 +29,8 @@ prompt_user() {
 }
 
 prepare_dir() {
+    if (( DEBUG )); then return; fi
+
     path=$1
 
     echo "Cleaning $path ..."
@@ -33,8 +39,11 @@ prepare_dir() {
 }
 
 install_plugin() {
+    if (( DEBUG )); then return; fi
+
     plugin=$1
     to=$2
+
     if [[ -e $to ]]; then
         git -C "$to" clone --depth=1 "${addr["$plugin"]}"
     fi
@@ -65,10 +74,13 @@ install_vim_plugin() {
     fi
 }
 
-install_zsh_plugin() {
+install_zsh() {
     echo -n "Would you like to install oh-my-zsh? "
     if prompt_user; then
         echo "Run 'exit' when oh-my-zsh installation is completed."
+
+        if (( DEBUG )); then return; fi
+
         # install oh-my-zsh
         /bin/bash -c "$(curl -fsSL "${addr["oh-my-zsh"]}")"
 
@@ -98,10 +110,14 @@ install_config() {
         fi
     fi
 
+    if (( DEBUG )); then return; fi
+
     ln -s -f "${SCRIPT_DIR}/$config" ~
 }
 
 do_on_macos() {
+    if (( DEBUG )); then return; fi
+
     # install homebrew
     /bin/bash -c "$(curl -fsSL "${addr["homebrew"]}")"
 
@@ -110,6 +126,8 @@ do_on_macos() {
 }
 
 do_on_linux() {
+    if (( DEBUG )); then return; fi
+
     # debian-derived distro
     if grep -qi 'debian' /etc/os-release ; then
         sudo apt-get install zsh
@@ -117,11 +135,32 @@ do_on_linux() {
 }
 
 change_shell() {
+    if (( DEBUG )); then return; fi
+
     if [[ $(basename -- "$SHELL") != "zsh" ]]; then
         echo "Switching shell to zsh ..."
         sudo chsh -s /bin/zsh "$USER"
     fi
 }
+
+validate_parameter() {
+    if [[ $# -gt 1  || ( $# -eq 1 && $1 != "release") ]]; then
+        echo "Illegal parameters. Usage: $0 [release]"
+        exit 1
+    fi
+
+    if [[ $# -eq 1 ]]; then
+        DEBUG=0
+    fi
+
+    if (( DEBUG )); then
+        echo "mode DEBUG"
+    else
+        echo "mode RELEASE"
+    fi
+}
+
+validate_parameter "$@"
 
 if [[ $OSTYPE == "linux-gnu"* ]]; then
     do_on_linux
@@ -133,7 +172,7 @@ else
 fi
 
 # install oh-my-zsh and its plugins
-install_zsh_plugin
+install_zsh
 
 # install vim plugins
 install_vim_plugin
