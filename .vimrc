@@ -134,6 +134,12 @@ inoremap <S-TAB> <C-D>
 nnoremap oo o<ESC>k
 nnoremap OO O<ESC>j
 
+" Key bindings for window splitting
+nnoremap sh :set nosplitright<CR>:vsplit<CR>
+nnoremap sl :set splitright<CR>:vsplit<CR>
+nnoremap sk :set nosplitbelow<CR>:split<CR>
+nnoremap sj :set splitbelow<CR>:split<CR>
+
 " Key bindings for buffer list traversal
 nnoremap <silent> [b :bprevious<CR>
 nnoremap <silent> ]b :bnext<CR>
