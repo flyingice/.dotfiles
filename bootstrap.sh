@@ -28,23 +28,21 @@ prompt_user() {
     [[ $answer == "y" ]]
 }
 
-prepare_dir() {
-    if (( DEBUG )); then return; fi
-
-    path=$1
-
-    echo "Cleaning $path ..."
-    rm -rf "$path"
-    mkdir -p "$path"
-}
-
 install_plugin() {
-    if (( DEBUG )); then return; fi
-
     plugin=$1
     to=$2
+    target="${to}/${plugin}"
 
-    if [[ -e $to ]]; then
+    echo -n "install ${plugin}? "
+    if prompt_user; then
+        if (( DEBUG )); then return; fi
+
+        if [[ -e $target ]]; then
+            echo "Already exists. Cleaning $target ..."
+            rm -rf "$target"
+        fi
+
+        mkdir -p "$to" || exit 1
         git -C "$to" clone --depth=1 "${addr["$plugin"]}"
     fi
 }
@@ -55,27 +53,21 @@ install_vim_plugin() {
     # Packages in ~/.vim/pack/*/opt can be loaded on the fly
     optional="$HOME/.vim/pack/plugins/opt"
 
-    echo -n "Would you like to install recommended vim plugins? "
-    if prompt_user; then
-        prepare_dir "$mandatory"
-        install_plugin "nerdtree" "$mandatory"
-        install_plugin "ack.vim" "$mandatory"
-        install_plugin "vim-surround" "$mandatory"
-        install_plugin "commentary" "$mandatory"
-    fi
+    echo "Installing mandatory vim plugins ..."
+    install_plugin "nerdtree" "$mandatory"
+    install_plugin "ack.vim" "$mandatory"
+    install_plugin "vim-surround" "$mandatory"
+    install_plugin "commentary" "$mandatory"
 
-    echo -n "Would you like to install optional vim plugins? "
-    if prompt_user; then
-        prepare_dir "$optional"
-        install_plugin "onedark.vim" "$optional"
-        install_plugin "vim-colors-xcode" "$optional"
-        install_plugin "vim-airline" "$optional"
-        install_plugin "vim-airline-themes" "$optional"
-    fi
+    echo "Installing optional vim plugins..."
+    install_plugin "onedark.vim" "$optional"
+    install_plugin "vim-colors-xcode" "$optional"
+    install_plugin "vim-airline" "$optional"
+    install_plugin "vim-airline-themes" "$optional"
 }
 
 install_zsh() {
-    echo -n "Would you like to install oh-my-zsh? "
+    echo -n "Install oh-my-zsh? "
     if prompt_user; then
         echo "Run 'exit' when oh-my-zsh installation is completed."
 
@@ -86,7 +78,6 @@ install_zsh() {
 
         # install oh-my-zsh plugins
         to="${ZSH_CUSTOM:-${HOME}/.oh-my-zsh/custom}/plugins"
-        prepare_dir "$to"
         install_plugin "zsh-syntax-highlighting" "$to"
         install_plugin "zsh-autosuggestions" "$to"
     fi
@@ -95,14 +86,14 @@ install_zsh() {
 install_config() {
     config=$1
 
-    echo -n "Would you like to install $config (y/n)? "
+    echo -n "Install $config (y/n)? "
     read -r answer
     if [[ $answer != "y" ]]; then
         return
     fi
 
     if [[ -e ${HOME}/$config ]]; then
-        echo -n "$config already exists. Do you want to overwrite it (y/n)? "
+        echo -n "$config already exists. Overwrite it (y/n)? "
         read -r answer
         if [[ $answer != "y" ]]; then
             echo "Skip installing $config"
