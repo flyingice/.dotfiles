@@ -1,3 +1,6 @@
+" Enable file-type plugin
+filetype plugin on
+
 " Vim is based on Vi. Setting `nocompatible` switches from the default
 " Vi-compatibility mode and enables useful Vim functionality. This
 " configuration option turns out not to be necessary for the file named
