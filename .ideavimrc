@@ -15,7 +15,7 @@ nmap <C-W>= :action MaximizeEditorInSplit<CR>
 nmap <C-T> :action Back<CR>
 
 " Find all usages
-nmap <Leader>g :action FindUsages<CR>
+nmap <Leader>u :action FindUsages<CR>
 
 " Reformat
 nmap <Leader>f :action ReformatCode<CR><ESC>
