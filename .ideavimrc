@@ -27,6 +27,9 @@ nmap <Leader>r :action RenameElement<CR>
 " Plugin emulation
 "****************************************
 "
+" https://tpope.io/vim/commentary.git
+set commentary
+
 " https://github.com/chrisbra/matchit
 set matchit
 
