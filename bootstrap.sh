@@ -12,6 +12,7 @@ addr["zsh-autosuggestions"]="https://github.com/zsh-users/zsh-autosuggestions"
 addr["nerdtree"]="https://github.com/preservim/nerdtree"
 addr["ack.vim"]="https://github.com/mileszs/ack.vim"
 addr["vim-surround"]="https://github.com/tpope/vim-surround"
+addr["commentary"]="https://tpope.io/vim/commentary"
 addr["onedark.vim"]="https://github.com/joshdick/onedark.vim"
 addr["vim-colors-xcode"]="https://github.com/arzg/vim-colors-xcode"
 addr["vim-airline"]="https://github.com/vim-airline/vim-airline"
@@ -51,6 +52,7 @@ install_vim_plugin() {
         install_plugin "nerdtree" "$mandatory"
         install_plugin "ack.vim" "$mandatory"
         install_plugin "vim-surround" "$mandatory"
+        install_plugin "commentary" "$mandatory"
     fi
 
     echo -n "Would you like to install optional vim plugins? "
