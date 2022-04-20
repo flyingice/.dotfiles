@@ -117,7 +117,8 @@ set ttimeoutlen=0
 "****************************************
 
 " Set leader key to default backslash
-let mapleader='\'
+nnoremap <SPACE> <Nop>
+let mapleader=" "
 
 " Unbind some useless/annoying default key bindings.
 map s <Nop>
