@@ -132,7 +132,10 @@ do_on_macos() {
     # MacOS defaults to zsh from Catalina and later versions,
     # thus no need to install zsh
 
-    # TODO: install pipx
+    if (( PYTHON3_AVAILABLE )); then
+        python3 -m pip install --user pipx
+        python3 -m pipx ensurepath
+    fi
 }
 
 do_on_linux() {
