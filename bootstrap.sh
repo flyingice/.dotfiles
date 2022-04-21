@@ -1,5 +1,12 @@
 #!/usr/bin/env bash
 
+bash_release=$(bash --version | head -n1 | cut -d ' ' -f4 | cut -d '.' -f1)
+[[ $bash_release -ge 4 ]] || {
+  # require support of associative array
+  echo "require bash 4.0 or higher"
+  exit 1
+}
+
 SCRIPT_DIR=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
 
 FMT_RED=$(printf '\033[31m')
@@ -14,7 +21,6 @@ DEBUG=1
 # it is a pre-requisite to install some plugins
 PYTHON3_AVAILABLE=0
 
-# bash version is required > 4.0
 declare -A addr
 # address mapping
 addr["homebrew"]="https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh"
@@ -31,6 +37,14 @@ addr["vim-airline"]="https://github.com/vim-airline/vim-airline"
 addr["vim-airline-themes"]="https://github.com/vim-airline/vim-airline-themes"
 addr["ranger_devicons"]="https://github.com/alexanderjeurissen/ranger_devicons"
 
+fmt_error() {
+  printf '%sError: %s%s\n' "${FMT_BOLD}${FMT_RED}" "$*" "${FMT_RESET}" >&2
+}
+
+fmt_info() {
+  printf '%sInfo: %s%s\n' "${FMT_YELLOW}" "$*" "${FMT_RESET}"
+}
+
 prompt_user() {
   echo -n "(y/n)? "
   read -r answer
@@ -43,6 +57,10 @@ validate_path() {
   path=${1:-"/"}
 
   [[ $path == ${HOME}* ]] || exit 1
+}
+
+command_exists() {
+  command -v "$@" >/dev/null 2>&1;
 }
 
 install_plugin() {
@@ -124,15 +142,11 @@ install_config() {
   ln -s -f "${SCRIPT_DIR}/$config" ~
 }
 
-check_requirement() {
-  if command_exists python3; then PYTHON3_AVAILABLE=1; fi
-}
-
 do_on_macos() {
   if (( DEBUG )); then return; fi
 
   # install homebrew
-  /bin/bash -c "$(curl -fsSL "${addr["homebrew"]}")"
+  bash -c "$(curl -fsSL "${addr["homebrew"]}")"
 
   # MacOS defaults to zsh from Catalina and later versions,
   # thus no need to install zsh
@@ -219,7 +233,7 @@ install_ranger() {
 
       # https://github.com/fdw/ranger-autojump
       # ranger-autojump can't be configured as a omz plugin for unknown reason
-      git clone --depth=1 https://github.com/fdw/ranger-autojump
+      git clone --depth=1 https://github.com/fdw/ranger-autojump/
       cp ranger-autojump/autojump.py "$plugin_path"
       rm -rf ranger-autojump
   fi
@@ -245,16 +259,14 @@ install_common() {
   done
 }
 
-fmt_error() {
-  printf '%sError: %s%s\n' "${FMT_BOLD}${FMT_RED}" "$*" "${FMT_RESET}" >&2
-}
+check_dependency() {
+  command_exists git || {
+    fmt_error "git is not installed"
+    echo "Run 'xcode-select --install' on MacOS or 'sudo apt install git' on Debian Linux distro"
+    exit 1
+  }
 
-fmt_info() {
-  printf '%sInfo: %s%s\n' "${FMT_YELLOW}" "$*" "${FMT_RESET}"
-}
-
-command_exists() {
-  command -v "$@" >/dev/null 2>&1;
+  if command_exists python3; then PYTHON3_AVAILABLE=1; fi
 }
 
 install_platform_dependent() {
@@ -269,7 +281,7 @@ install_platform_dependent() {
 }
 
 validate_parameter "$@"
-check_requirement
+check_dependency
 install_platform_dependent
 install_common
 change_shell
