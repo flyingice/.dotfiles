@@ -160,6 +160,24 @@ validate_parameter() {
     fi
 }
 
+install() {
+    # install oh-my-zsh and its plugins
+    install_zsh
+
+    # install vim plugins
+    install_vim_plugin
+
+    # install config files
+    configs=(.zshrc
+        .vimrc .vimrc.ext
+        .tmux.conf .tmux.conf.local
+        .ackrc)
+    for config in "${configs[@]}"; do
+        install_config "$config"
+    done
+}
+
+
 validate_parameter "$@"
 
 if [[ $OSTYPE == "linux-gnu"* ]]; then
@@ -171,20 +189,7 @@ else
     exit 1
 fi
 
-# install oh-my-zsh and its plugins
-install_zsh
-
-# install vim plugins
-install_vim_plugin
-
-# install config files
-configs=(.zshrc
-    .vimrc .vimrc.ext
-    .tmux.conf .tmux.conf.local
-    .ackrc)
-for config in "${configs[@]}"; do
-    install_config "$config"
-done
+install
 
 change_shell
 
