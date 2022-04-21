@@ -14,7 +14,7 @@ ZSH_THEME="bira"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git z zsh-autosuggestions zsh-syntax-highlighting)
+plugins=(git autojump zsh-autosuggestions zsh-syntax-highlighting)
 
 source $ZSH/oh-my-zsh.sh
 source $ZSH/custom/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
@@ -80,8 +80,9 @@ gpg_restart() {
 
 # tmux locale settings, otherwise some powerline fonts can't be displayed properly in remote ssh sessions
 # solution proposed in https://github.com/wernight/powerline-web-fonts/issues/8
-export LANG=en_US.UTF-8
-export LC_CTYPE=en_US.UTF-8
+export LANG="en_US.UTF-8"
+export LC_ALL="en_US.UTF-8"
+export LC_CTYPE="en_US.UTF-8"
 
 ########################################
 # Development Environment
