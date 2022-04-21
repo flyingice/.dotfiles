@@ -9,11 +9,7 @@ mtr
 ncdu
 pipx
 pstree
-pyenv
-pyenv-virtualenv
 ripgrep
 shellcheck
-tldr
 tmux
 tree
-watch
