@@ -28,6 +28,14 @@ prompt_user() {
     [[ $answer == "y" ]]
 }
 
+# path must be under user's home to pass the check
+# fail the check by default
+validate_path() {
+    path=${1:-"/"}
+
+    [[ $path == ${HOME}* ]] || exit 1
+}
+
 install_plugin() {
     plugin=$1
     to=$2
@@ -38,6 +46,7 @@ install_plugin() {
         if (( DEBUG )); then return; fi
 
         if [[ -e $target ]]; then
+            validate_path "$target"
             echo "Already exists. Cleaning $target ..."
             rm -rf "$target"
         fi
@@ -53,13 +62,13 @@ install_vim_plugin() {
     # Packages in ~/.vim/pack/*/opt can be loaded on the fly
     optional="$HOME/.vim/pack/plugins/opt"
 
-    echo "Installing mandatory vim plugins ..."
+    echo "Start installing mandatory vim plugins ..."
     install_plugin "nerdtree" "$mandatory"
     install_plugin "ack.vim" "$mandatory"
     install_plugin "vim-surround" "$mandatory"
     install_plugin "commentary" "$mandatory"
 
-    echo "Installing optional vim plugins..."
+    echo "Start installing optional vim plugins ..."
     install_plugin "onedark.vim" "$optional"
     install_plugin "vim-colors-xcode" "$optional"
     install_plugin "vim-airline" "$optional"
@@ -145,9 +154,9 @@ validate_parameter() {
     fi
 
     if (( DEBUG )); then
-        echo "mode DEBUG"
+        echo "MODE DEBUG"
     else
-        echo "mode RELEASE"
+        echo "MODE RELEASE"
     fi
 }
 
