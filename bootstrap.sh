@@ -5,6 +5,9 @@ SCRIPT_DIR=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
 # debug mode is on by default
 # don't download nor install packages in debug mode
 DEBUG=1
+# whether python3 is available on the system
+# it is a pre-requisite to install some plugins
+PYTHON3_AVAILABLE=0
 
 # bash version is required > 4.0
 declare -A addr
@@ -21,6 +24,7 @@ addr["onedark.vim"]="https://github.com/joshdick/onedark.vim"
 addr["vim-colors-xcode"]="https://github.com/arzg/vim-colors-xcode"
 addr["vim-airline"]="https://github.com/vim-airline/vim-airline"
 addr["vim-airline-themes"]="https://github.com/vim-airline/vim-airline-themes"
+addr["ranger_devicons"]="https://github.com/alexanderjeurissen/ranger_devicons"
 
 prompt_user() {
     echo -n "(y/n)? "
@@ -75,7 +79,7 @@ install_vim_plugin() {
     install_plugin "vim-airline-themes" "$optional"
 }
 
-install_zsh() {
+install_omz() {
     echo -n "Install oh-my-zsh? "
     if prompt_user; then
         echo "Run 'exit' when oh-my-zsh installation is completed."
@@ -115,6 +119,10 @@ install_config() {
     ln -s -f "${SCRIPT_DIR}/$config" ~
 }
 
+check_requirement() {
+    if command -v python3 1>/dev/null 2>&1; then PYTHON3_AVAILABLE=1; fi
+}
+
 do_on_macos() {
     if (( DEBUG )); then return; fi
 
@@ -123,6 +131,8 @@ do_on_macos() {
 
     # MacOS defaults to zsh from Catalina and later versions,
     # thus no need to install zsh
+
+    # TODO: install pipx
 }
 
 do_on_linux() {
@@ -130,7 +140,18 @@ do_on_linux() {
 
     # debian-derived distro
     if grep -qi 'debian' /etc/os-release ; then
-        sudo apt-get install zsh
+        # install zsh
+        sudo apt install zsh
+
+        # syntax highlighting in ranger preview
+        sudo apt install highlight
+
+        # install pipx as a prerequisite to install ranger
+        if (( PYTHON3_AVAILABLE )); then
+            python3 -m pip install --user pipx
+            python3 -m pipx ensurepath
+            sudo apt install python3-venv
+        fi
     fi
 }
 
@@ -160,12 +181,54 @@ validate_parameter() {
     fi
 }
 
+install_ranger() {
+    # config default path: ~/.config/ranger
+    config_path="${HOME}/.config/ranger"
+    plugin_path="${config_path}/plugins"
+
+    echo -n "install ranger? "
+    if prompt_user; then
+        if (( DEBUG || PYTHON3_AVAILABLE == 0 )); then return; fi
+
+        mkdir -p "$config_path" "$plugin_path"
+
+        # https://github.com/ranger/ranger
+        # default install path: ~/.local/bin
+        pipx install ranger-fm
+
+        # You can generate default config via 'ranger --copy-config=all'
+        cp "${SCRIPT_DIR}/ranger/rc.conf" "$config_path"
+
+        ########## install ranger plugin ###########
+
+        # https://github.com/alexanderjeurissen/ranger_devicons
+        install_plugin "ranger_devicons" "$plugin_path"
+
+        # https://github.com/wting/autojump
+        # install autojump (as a requirement to install ranger-autojump plugin)
+        # default install path: ~/.autojump
+        # autojump has already been included in the plugin list in .zshrc
+        git clone --depth=1 https://github.com/wting/autojump
+        cd autojump && python3 install.py
+        cd .. && rm -rf autojump
+
+        # https://github.com/fdw/ranger-autojump
+        # ranger-autojump can't be configured as a omz plugin for unknown reason
+        git clone --depth=1 https://github.com/fdw/ranger-autojump
+        cp ranger-autojump/autojump.py "$plugin_path"
+        rm -rf ranger-autojump
+    fi
+}
+
 install() {
     # install oh-my-zsh and its plugins
-    install_zsh
+    install_omz
 
     # install vim plugins
     install_vim_plugin
+
+    # install ranger and its plugins
+    install_ranger
 
     # install config files
     configs=(.zshrc
@@ -179,6 +242,8 @@ install() {
 
 
 validate_parameter "$@"
+
+check_requirement
 
 if [[ $OSTYPE == "linux-gnu"* ]]; then
     do_on_linux
