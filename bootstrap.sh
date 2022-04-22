@@ -307,6 +307,11 @@ install_extended() {
   install_ranger
 }
 
+exit_on_signal() {
+  fmt_error "Execution interrupted"
+  exit 1
+}
+
 main() {
   validate_parameter "$@"
   check_env
@@ -317,5 +322,7 @@ main() {
 
   fmt_msg "Finish"
 }
+
+trap exit_on_signal SIGINT SIGTERM
 
 main "$@"
