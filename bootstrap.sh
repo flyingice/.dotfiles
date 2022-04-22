@@ -228,7 +228,7 @@ deploy_config_file() {
 
 change_shell() {
   if [[ $(basename -- "$SHELL") != "zsh" ]]; then
-    echo "Switching to zsh"
+    fmt_info "Switching to zsh"
     ((DEBUG)) || sudo chsh -s /bin/zsh "$USER"
   fi
 }
@@ -253,13 +253,13 @@ install_pipx() {
   if prompt_user; then
     if ((DEBUG || PYTHON3_AVAILABLE == 0)); then return; fi
 
-    python3 -m pip install --user pipx
-    python3 -m pipx ensurepath
-    source "$HOME"/.zshrc
-
     is_Debian && {
       sudo apt install python3-venv
+      sudo apt install python3-pip
     }
+
+    python3 -m pip install --user pipx
+    python3 -m pipx ensurepath
   fi
 }
 
@@ -294,6 +294,14 @@ install_ranger() {
 
 install_extended() {
   fmt_info "Start installing optional tools"
+
+  # config python binary if necessary
+  ((DEBUG)) || ((PYTHON3_AVAILABLE)) && {
+    if ! command_exists python; then
+      ln -s -f "$(which python3)" "$HOME"/.local/bin/python
+    fi
+  }
+
   # install autojump
   install_autojump
 
