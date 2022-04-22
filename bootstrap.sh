@@ -189,9 +189,12 @@ install_basic() {
 
   if is_macos; then
     ((DEBUG)) || {
-      # install homebrew
-      bash -c "$(curl -fsSL "${URL["homebrew"]}")"
-
+      if command_exists brew; then
+        brew update
+      else
+        # install homebrew
+        bash -c "$(curl -fsSL "${URL["homebrew"]}")"
+      fi
       # MacOS defaults to zsh from Catalina and higher versions,
       # thus no need to install zsh
     }
