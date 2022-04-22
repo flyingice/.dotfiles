@@ -8,36 +8,32 @@ bash_release=$(bash --version | head -n1 | cut -d ' ' -f4 | cut -d '.' -f1)
 }
 
 SCRIPT_DIR=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
+# debug mode is on by default
+# don't download nor install packages in debug mode
+DEBUG=1
 TMP_DIR=$HOME/tmp
+
+declare -A URL
+# address mapping
+URL["homebrew"]="https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh"
+URL["oh-my-zsh"]="https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh"
+URL["zsh-syntax-highlighting"]="https://github.com/zsh-users/zsh-syntax-highlighting"
+URL["zsh-autosuggestions"]="https://github.com/zsh-users/zsh-autosuggestions"
+URL["nerdtree"]="https://github.com/preservim/nerdtree"
+URL["ack.vim"]="https://github.com/mileszs/ack.vim"
+URL["vim-surround"]="https://github.com/tpope/vim-surround"
+URL["commentary"]="https://tpope.io/vim/commentary"
+URL["onedark.vim"]="https://github.com/joshdick/onedark.vim"
+URL["vim-colors-xcode"]="https://github.com/arzg/vim-colors-xcode"
+URL["vim-airline"]="https://github.com/vim-airline/vim-airline"
+URL["vim-airline-themes"]="https://github.com/vim-airline/vim-airline-themes"
+URL["ranger_devicons"]="https://github.com/alexanderjeurissen/ranger_devicons"
 
 FMT_RED=$(printf '\033[31m')
 FMT_GREEN=$(printf '\033[32m')
 FMT_YELLOW=$(printf '\033[33m')
 FMT_BOLD=$(printf '\033[1m')
 FMT_RESET=$(printf '\033[0m')
-
-# debug mode is on by default
-# don't download nor install packages in debug mode
-DEBUG=1
-# whether python3 is available on the system
-# it is a pre-requisite to install some plugins
-PYTHON3_AVAILABLE=0
-
-declare -A addr
-# address mapping
-addr["homebrew"]="https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh"
-addr["oh-my-zsh"]="https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh"
-addr["zsh-syntax-highlighting"]="https://github.com/zsh-users/zsh-syntax-highlighting"
-addr["zsh-autosuggestions"]="https://github.com/zsh-users/zsh-autosuggestions"
-addr["nerdtree"]="https://github.com/preservim/nerdtree"
-addr["ack.vim"]="https://github.com/mileszs/ack.vim"
-addr["vim-surround"]="https://github.com/tpope/vim-surround"
-addr["commentary"]="https://tpope.io/vim/commentary"
-addr["onedark.vim"]="https://github.com/joshdick/onedark.vim"
-addr["vim-colors-xcode"]="https://github.com/arzg/vim-colors-xcode"
-addr["vim-airline"]="https://github.com/vim-airline/vim-airline"
-addr["vim-airline-themes"]="https://github.com/vim-airline/vim-airline-themes"
-addr["ranger_devicons"]="https://github.com/alexanderjeurissen/ranger_devicons"
 
 ########## UTILITY FUNCTIONS BEGIN ##########
 
@@ -53,17 +49,18 @@ fmt_msg() {
   printf '%s%s%s\n' "${FMT_GREEN}" "$*" "${FMT_RESET}"
 }
 
-is_MacOS() {
+is_macos() {
   [[ $OSTYPE == "darwin"* ]]
 }
 
-is_Linux() {
+is_linux() {
   [[ $OSTYPE == "linux-gnu"* ]]
 }
 
-is_Debian() {
-  # debian-derived distro
-  grep -qi 'debian' /etc/os-release
+is_debian() {
+  file=/etc/os-release
+  # debian-derived Linux distribution
+  [[ -f $file ]] && grep -qi 'debian' /etc/os-release
 }
 
 prompt_user() {
@@ -119,7 +116,7 @@ install_plugin() {
 
     ((DEBUG)) || {
       mkdir -p "$to" || exit 1
-      git -C "$to" clone --depth=1 "${addr["$plugin"]}"
+      git -C "$to" clone --depth=1 "${URL["$plugin"]}"
     }
   fi
 }
@@ -127,7 +124,7 @@ install_plugin() {
 install_omz() {
   echo -n "Install oh-my-zsh? "
   if prompt_user; then
-    ((DEBUG)) || bash -c "$(curl -fsSL "${addr["oh-my-zsh"]}")"
+    ((DEBUG)) || bash -c "$(curl -fsSL "${URL["oh-my-zsh"]}")"
 
     # install oh-my-zsh plugins
     to="${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins"
@@ -174,7 +171,7 @@ validate_parameter() {
 check_env() {
   fmt_info "Start checking system environment"
 
-  is_MacOS || (is_Linux && is_Debian) || {
+  is_macos || (is_linux && is_debian) || {
     fmt_error "Operating system is not supported"
     exit 1
   }
@@ -184,22 +181,20 @@ check_env() {
     echo "Run 'xcode-select --install' if you are on macOS"
     exit 1
   }
-
-  if command_exists python3; then PYTHON3_AVAILABLE=1; fi
 }
 
 install_basic() {
   fmt_info "Start installing basic tools"
 
-  if is_MacOS; then
+  if is_macos; then
     ((DEBUG)) || {
       # install homebrew
-      bash -c "$(curl -fsSL "${addr["homebrew"]}")"
+      bash -c "$(curl -fsSL "${URL["homebrew"]}")"
 
-      # MacOS defaults to zsh from Catalina and later versions,
+      # MacOS defaults to zsh from Catalina and higher versions,
       # thus no need to install zsh
     }
-  elif is_Debian; then
+  elif is_debian; then
     ((DEBUG)) || {
       sudo apt update
       # install zsh
@@ -226,17 +221,52 @@ deploy_config_file() {
   done
 }
 
-change_shell() {
-  if [[ $(basename -- "$SHELL") != "zsh" ]]; then
-    fmt_info "Switching to zsh"
-    ((DEBUG)) || sudo chsh -s /bin/zsh "$USER"
+install_python() {
+  if command_exists python3; then return; fi
+
+  echo -n "Install python3? "
+  if prompt_user; then
+    # python3 is installed by default on macOS
+    if isDebian; then
+      ((DEBUG)) || {
+        sudo apt install python3
+        if ! command_exists python; then
+          ln -s -f "$(which python3)" "$HOME"/.local/bin/python
+        fi
+      }
+    fi
+  fi
+}
+
+install_pipx() {
+  echo -n "install pipx? "
+  if prompt_user; then
+    command_exists python3 || {
+      echo "Skip installing pipx: python3 is required"
+      return
+    }
+
+    if ((DEBUG)); then return; fi
+
+    is_debian && {
+      sudo apt install python3-venv
+      sudo apt install python3-pip
+    }
+
+    python3 -m pip install --user pipx
+    python3 -m pipx ensurepath
   fi
 }
 
 install_autojump() {
   echo -n "install autojump? "
   if prompt_user; then
-    if ((DEBUG || PYTHON3_AVAILABLE == 0)); then return; fi
+    command_exists python3 || {
+      echo "Skip installing autojump: python3 is required"
+      return
+    }
+
+    if ((DEBUG)); then return; fi
 
     # https://github.com/wting/autojump
     # install autojump (as a requirement to install ranger-autojump plugin)
@@ -248,29 +278,19 @@ install_autojump() {
   fi
 }
 
-install_pipx() {
-  echo -n "install pipx? "
-  if prompt_user; then
-    if ((DEBUG || PYTHON3_AVAILABLE == 0)); then return; fi
-
-    is_Debian && {
-      sudo apt install python3-venv
-      sudo apt install python3-pip
-    }
-
-    python3 -m pip install --user pipx
-    python3 -m pipx ensurepath
-  fi
-}
-
 install_ranger() {
-  # config default path: ~/.config/ranger
-  config_path="$HOME/.config/ranger"
-  plugin_path="$config_path/plugins"
-
   echo -n "install ranger? "
   if prompt_user; then
-    if ((DEBUG || PYTHON3_AVAILABLE == 0)); then return; fi
+    command_exists pipx || {
+      echo "Skip installing ranger: pipx is required"
+      return
+    }
+
+    if ((DEBUG)); then return; fi
+
+    # config default path: ~/.config/ranger
+    config_path="$HOME/.config/ranger"
+    plugin_path="$config_path/plugins"
 
     mkdir -p "$config_path" "$plugin_path"
     # https://github.com/ranger/ranger
@@ -295,21 +315,21 @@ install_ranger() {
 install_extended() {
   fmt_info "Start installing optional tools"
 
-  # config python binary if necessary
-  ((DEBUG)) || ((PYTHON3_AVAILABLE)) && {
-    if ! command_exists python; then
-      ln -s -f "$(which python3)" "$HOME"/.local/bin/python
-    fi
-  }
-
+  # install python as a requisite for other plugins
+  install_python
+  # install pipx
+  install_pipx
   # install autojump
   install_autojump
-
-  # install pipx as a prerequisite of ranger
-  install_pipx
-
   # install ranger and its plugins
   install_ranger
+}
+
+change_shell() {
+  if [[ $(basename -- "$SHELL") != "zsh" ]]; then
+    fmt_info "Switching to zsh"
+    ((DEBUG)) || sudo chsh -s /bin/zsh "$USER"
+  fi
 }
 
 exit_on_signal() {
@@ -325,9 +345,9 @@ main() {
 
   install_basic
   deploy_config_file
-  change_shell
   install_extended
 
+  change_shell
   clean_tmp_file
   fmt_msg "Finish. Run 'exit' and re-login"
   exec zsh -l
