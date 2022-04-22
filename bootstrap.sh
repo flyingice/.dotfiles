@@ -76,21 +76,12 @@ command_exists() {
   command -v "$@" >/dev/null 2>&1
 }
 
-validate_path() {
-  # path must be under user's home to pass the check
-  # fail the check by default
-  path=${1:-"/"}
-
-  [[ $path == ${HOME}* ]] || exit 1
-}
-
 create_tmp_dir() {
-  [[ -d $TMP_DIR ]] || mkdir -p "$TMP_DIR"
+  ((DEBUG)) || [[ -d $TMP_DIR ]] || mkdir -p "$TMP_DIR"
 }
 
 clean_tmp_file() {
-  validate_path $TMP_DIR
-  rm -rf "$TMP_DIR"/*
+  ((DEBUG)) || rm -rf "${TMP_DIR:?"Parameter is empty"}"/*
 }
 
 ########## UTILITY FUNCTIONS END ##########
@@ -102,7 +93,7 @@ deploy_config() {
   read -r answer
   if [[ $answer != "y" ]]; then return; fi
 
-  if [[ -e ${HOME}/$config ]]; then
+  if [[ -e $HOME/$config ]]; then
     echo -n "Already exists. Overwrite it (y/n)? "
     read -r answer
     if [[ $answer != "y" ]]; then
@@ -111,7 +102,7 @@ deploy_config() {
     fi
   fi
 
-  ((DEBUG)) || ln -s -f "${SCRIPT_DIR}/$config" ~
+  ((DEBUG)) || ln -s -f "${SCRIPT_DIR}/$config" "$HOME"
 }
 
 install_plugin() {
@@ -122,8 +113,7 @@ install_plugin() {
   echo -n "Install ${plugin}? "
   if prompt_user; then
     if [[ -e $target ]]; then
-      validate_path "$target"
-      echo "Already exists. Cleaning $target ..."
+      echo "Already exists. Cleaning $target"
       ((DEBUG)) || rm -rf "$target"
     fi
 
@@ -140,29 +130,31 @@ install_omz() {
     ((DEBUG)) || bash -c "$(curl -fsSL "${addr["oh-my-zsh"]}")"
 
     # install oh-my-zsh plugins
-    to="${ZSH_CUSTOM:-${HOME}/.oh-my-zsh/custom}/plugins"
-    install_plugin "zsh-syntax-highlighting" "$to"
-    install_plugin "zsh-autosuggestions" "$to"
+    to="${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins"
+    plugins=(zsh-syntax-highlighting zsh-autosuggestions)
+    for plugin in "${plugins[@]}"; do
+      install_plugin "$plugin" "$to"
+    done
   fi
 }
 
 install_vim_plugin() {
-  # Autoload packages must be installed to ~/.vim/pack/*/start
-  mandatory="$HOME/.vim/pack/plugins/start"
-  # Packages in ~/.vim/pack/*/opt are loaded on the fly
-  optional="$HOME/.vim/pack/plugins/opt"
+  echo -n "Install vim plugins? "
+  if prompt_user; then
+    # Autoload packages must be installed to ~/.vim/pack/*/start
+    autoload="$HOME/.vim/pack/plugins/start"
+    autoload_plugins=(nerdtree ack.vim vim-surround commentary)
+    for plugin in "${autoload_plugins[@]}"; do
+      install_plugin "$plugin" "$autoload"
+    done
 
-  fmt_info "Start installing recommended vim plugins"
-  install_plugin "nerdtree" "$mandatory"
-  install_plugin "ack.vim" "$mandatory"
-  install_plugin "vim-surround" "$mandatory"
-  install_plugin "commentary" "$mandatory"
-
-  fmt_info "Start installing optional vim plugins"
-  install_plugin "onedark.vim" "$optional"
-  install_plugin "vim-colors-xcode" "$optional"
-  install_plugin "vim-airline" "$optional"
-  install_plugin "vim-airline-themes" "$optional"
+    # Packages in ~/.vim/pack/*/opt are loaded on the fly
+    optional="$HOME/.vim/pack/plugins/opt"
+    optional_plugins=(onedark.vim vim-colors-xcode vim-airline vim-airline-themes)
+    for plugin in "${optional_plugins[@]}"; do
+      install_plugin "$plugin" "$optional"
+    done
+  fi
 }
 
 validate_parameter() {
@@ -183,13 +175,13 @@ check_env() {
   fmt_info "Start checking system environment"
 
   is_MacOS || (is_Linux && is_Debian) || {
-    fmt_error "Operating system is not supported."
+    fmt_error "Operating system is not supported"
     exit 1
   }
 
   command_exists git || {
     fmt_error "git is not installed"
-    echo "Run 'xcode-select --install' on MacOS or 'sudo apt install git' on Debian Linux distro"
+    echo "Run 'xcode-select --install' if you are on macOS"
     exit 1
   }
 
@@ -209,6 +201,7 @@ install_basic() {
     }
   elif is_Debian; then
     ((DEBUG)) || {
+      sudo apt update
       # install zsh
       sudo apt install zsh
     }
@@ -231,10 +224,6 @@ deploy_config_file() {
   for config in "${configs[@]}"; do
     deploy_config "$config"
   done
-
-  ((DEBUG)) || {
-    exec zsh -l
-  }
 }
 
 change_shell() {
@@ -253,7 +242,7 @@ install_autojump() {
     # install autojump (as a requirement to install ranger-autojump plugin)
     # default install path: ~/.autojump
     # autojump has already been included in the plugin list in .zshrc
-    cd $TMP_DIR
+    cd "$TMP_DIR" || exit 1
     git clone --depth=1 https://github.com/wting/autojump
     cd autojump && python3 install.py
   fi
@@ -266,20 +255,18 @@ install_pipx() {
 
     python3 -m pip install --user pipx
     python3 -m pipx ensurepath
+    source "$HOME"/.zshrc
 
     is_Debian && {
       sudo apt install python3-venv
     }
-
-    # restart shell to make pipx command immediately available
-    exec zsh -l
   fi
 }
 
 install_ranger() {
   # config default path: ~/.config/ranger
-  config_path="${HOME}/.config/ranger"
-  plugin_path="${config_path}/plugins"
+  config_path="$HOME/.config/ranger"
+  plugin_path="$config_path/plugins"
 
   echo -n "install ranger? "
   if prompt_user; then
@@ -299,7 +286,7 @@ install_ranger() {
 
     # https://github.com/fdw/ranger-autojump
     # ranger-autojump can't be configured as an oh-my-zsh plugin for unknown reason
-    cd "$TMP_DIR"
+    cd "$TMP_DIR" || exit 1
     git clone --depth=1 https://github.com/fdw/ranger-autojump/
     cp ranger-autojump/autojump.py "$plugin_path"
   fi
@@ -334,7 +321,8 @@ main() {
   install_extended
 
   clean_tmp_file
-  fmt_msg "Finish"
+  fmt_msg "Finish. Run 'exit' and re-login"
+  exec zsh -l
 }
 
 trap exit_on_signal SIGINT SIGTERM
