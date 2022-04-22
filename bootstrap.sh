@@ -10,6 +10,7 @@ bash_release=$(bash --version | head -n1 | cut -d ' ' -f4 | cut -d '.' -f1)
 SCRIPT_DIR=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
 
 FMT_RED=$(printf '\033[31m')
+FMT_GREEN=$(printf '\033[32m')
 FMT_YELLOW=$(printf '\033[33m')
 FMT_BOLD=$(printf '\033[1m')
 FMT_RESET=$(printf '\033[0m')
@@ -37,7 +38,7 @@ addr["vim-airline"]="https://github.com/vim-airline/vim-airline"
 addr["vim-airline-themes"]="https://github.com/vim-airline/vim-airline-themes"
 addr["ranger_devicons"]="https://github.com/alexanderjeurissen/ranger_devicons"
 
-########## utility functions begin ##########
+########## UTILITY FUNCTIONS BEGIN ##########
 
 fmt_error() {
   printf '%sError: %s%s\n' "${FMT_BOLD}${FMT_RED}" "$*" "${FMT_RESET}" >&2
@@ -45,6 +46,10 @@ fmt_error() {
 
 fmt_info() {
   printf '%sInfo: %s%s\n' "${FMT_YELLOW}" "$*" "${FMT_RESET}"
+}
+
+fmt_msg() {
+  printf '%s%s%s\n' "${FMT_GREEN}" "$*" "${FMT_RESET}"
 }
 
 is_MacOS() {
@@ -78,16 +83,14 @@ validate_path() {
   [[ $path == ${HOME}* ]] || exit 1
 }
 
-########## utility functions end ##########
+########## UTILITY FUNCTIONS END ##########
 
-install_config() {
+deploy_config() {
   config=$1
 
-  echo -n "Install $config (y/n)? "
+  echo -n "Deploy $config (y/n)? "
   read -r answer
-  if [[ $answer != "y" ]]; then
-    return
-  fi
+  if [[ $answer != "y" ]]; then return; fi
 
   if [[ -e ${HOME}/$config ]]; then
     echo -n "Already exists. Overwrite it (y/n)? "
@@ -98,9 +101,9 @@ install_config() {
     fi
   fi
 
-  if ((DEBUG)); then return; fi
-
-  ln -s -f "${SCRIPT_DIR}/$config" ~
+  ((DEBUG)) || {
+    ln -s -f "${SCRIPT_DIR}/$config" ~
+  }
 }
 
 install_plugin() {
@@ -108,7 +111,7 @@ install_plugin() {
   to=$2
   target="${to}/${plugin}"
 
-  echo -n "install ${plugin}? "
+  echo -n "Install ${plugin}? "
   if prompt_user; then
     if ((DEBUG)); then return; fi
 
@@ -143,13 +146,13 @@ install_vim_plugin() {
   # Packages in ~/.vim/pack/*/opt are loaded on the fly
   optional="$HOME/.vim/pack/plugins/opt"
 
-  echo "Start installing recommended vim plugins ..."
+  fmt_info "Start installing recommended vim plugins"
   install_plugin "nerdtree" "$mandatory"
   install_plugin "ack.vim" "$mandatory"
   install_plugin "vim-surround" "$mandatory"
   install_plugin "commentary" "$mandatory"
 
-  echo "Start installing optional vim plugins ..."
+  fmt_info "Start installing optional vim plugins"
   install_plugin "onedark.vim" "$optional"
   install_plugin "vim-colors-xcode" "$optional"
   install_plugin "vim-airline" "$optional"
@@ -171,6 +174,8 @@ validate_parameter() {
 }
 
 check_env() {
+  fmt_info "Start checking system environment"
+
   is_MacOS || (is_Linux && is_Debian) || {
     fmt_error "Operating system is not supported."
     exit 1
@@ -186,17 +191,21 @@ check_env() {
 }
 
 install_basic() {
-  if ((DEBUG)); then return; fi
+  fmt_info "Start installing basic tools"
 
   if is_MacOS; then
-    # install homebrew
-    bash -c "$(curl -fsSL "${addr["homebrew"]}")"
+    ((DEBUG)) || {
+      # install homebrew
+      bash -c "$(curl -fsSL "${addr["homebrew"]}")"
 
-    # MacOS defaults to zsh from Catalina and later versions,
-    # thus no need to install zsh
+      # MacOS defaults to zsh from Catalina and later versions,
+      # thus no need to install zsh
+    }
   elif is_Debian; then
-    # install zsh
-    sudo apt install zsh
+    ((DEBUG)) || {
+      # install zsh
+      sudo apt install zsh
+    }
   fi
 
   # install oh-my-zsh and its plugins
@@ -207,43 +216,51 @@ install_basic() {
 }
 
 deploy_config_file() {
-  if ((DEBUG)); then return; fi
+  fmt_info "Start deploying config files"
 
   configs=(.zshrc
     .vimrc .vimrc.ext
     .tmux.conf .tmux.conf.local
     .ackrc)
   for config in "${configs[@]}"; do
-    install_config "$config"
+    deploy_config "$config"
   done
 
-  exec zsh -l
+  ((DEBUG)) || {
+    exec zsh -l
+  }
 }
 
 install_autojump() {
-  if ((DEBUG || PYTHON3_AVAILABLE == 0)); then return; fi
+  echo -n "install autojump? "
+  if prompt_user; then
+    if ((DEBUG || PYTHON3_AVAILABLE == 0)); then return; fi
 
-  # https://github.com/wting/autojump
-  # install autojump (as a requirement to install ranger-autojump plugin)
-  # default install path: ~/.autojump
-  # autojump has already been included in the plugin list in .zshrc
-  git clone --depth=1 https://github.com/wting/autojump
-  cd autojump && python3 install.py
-  cd .. && rm -rf autojump
+    # https://github.com/wting/autojump
+    # install autojump (as a requirement to install ranger-autojump plugin)
+    # default install path: ~/.autojump
+    # autojump has already been included in the plugin list in .zshrc
+    git clone --depth=1 https://github.com/wting/autojump
+    cd autojump && python3 install.py
+    cd .. && rm -rf autojump
+  fi
 }
 
 install_pipx() {
-  if ((DEBUG || PYTHON3_AVAILABLE == 0)); then return; fi
+  echo -n "install pipx? "
+  if prompt_user; then
+    if ((DEBUG || PYTHON3_AVAILABLE == 0)); then return; fi
 
-  python3 -m pip install --user pipx
-  python3 -m pipx ensurepath
+    python3 -m pip install --user pipx
+    python3 -m pipx ensurepath
 
-  is_Debian && {
-    sudo apt install python3-venv
-  }
+    is_Debian && {
+      sudo apt install python3-venv
+    }
 
-  # restart shell to make pipx command immediately available
-  exec zsh -l
+    # restart shell to make pipx command immediately available
+    exec zsh -l
+  fi
 }
 
 install_ranger() {
@@ -276,6 +293,7 @@ install_ranger() {
 }
 
 install_extended() {
+  fmt_info "Start installing optional tools"
   # install autojump
   install_autojump
 
@@ -290,7 +308,7 @@ change_shell() {
   if ((DEBUG)); then return; fi
 
   if [[ $(basename -- "$SHELL") != "zsh" ]]; then
-    echo "Switching to zsh ..."
+    echo "Switching to zsh"
     sudo chsh -s /bin/zsh "$USER"
   fi
 }
@@ -302,4 +320,4 @@ deploy_config_file
 change_shell
 install_extended
 
-echo "Finish."
+fmt_msg "Finish"
