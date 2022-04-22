@@ -101,9 +101,7 @@ deploy_config() {
     fi
   fi
 
-  ((DEBUG)) || {
-    ln -s -f "${SCRIPT_DIR}/$config" ~
-  }
+  ((DEBUG)) ||  ln -s -f "${SCRIPT_DIR}/$config" ~
 }
 
 install_plugin() {
@@ -113,25 +111,23 @@ install_plugin() {
 
   echo -n "Install ${plugin}? "
   if prompt_user; then
-    if ((DEBUG)); then return; fi
-
     if [[ -e $target ]]; then
       validate_path "$target"
-      fmt_info "Already exists. Cleaning $target ..."
-      rm -rf "$target"
+      echo "Already exists. Cleaning $target ..."
+      ((DEBUG)) || rm -rf "$target"
     fi
 
-    mkdir -p "$to" || exit 1
-    git -C "$to" clone --depth=1 "${addr["$plugin"]}"
+    ((DEBUG)) || {
+      mkdir -p "$to" || exit 1
+      git -C "$to" clone --depth=1 "${addr["$plugin"]}"
+    }
   fi
 }
 
 install_omz() {
   echo -n "Install oh-my-zsh? "
   if prompt_user; then
-    if ((DEBUG)); then return; fi
-
-    bash -c "$(curl -fsSL "${addr["oh-my-zsh"]}")"
+    ((DEBUG)) || bash -c "$(curl -fsSL "${addr["oh-my-zsh"]}")"
 
     # install oh-my-zsh plugins
     to="${ZSH_CUSTOM:-${HOME}/.oh-my-zsh/custom}/plugins"
@@ -231,6 +227,13 @@ deploy_config_file() {
   }
 }
 
+change_shell() {
+  if [[ $(basename -- "$SHELL") != "zsh" ]]; then
+    echo "Switching to zsh"
+    ((DEBUG)) || sudo chsh -s /bin/zsh "$USER"
+  fi
+}
+
 install_autojump() {
   echo -n "install autojump? "
   if prompt_user; then
@@ -304,20 +307,15 @@ install_extended() {
   install_ranger
 }
 
-change_shell() {
-  if ((DEBUG)); then return; fi
+main() {
+  validate_parameter "$@"
+  check_env
+  install_basic
+  deploy_config_file
+  change_shell
+  install_extended
 
-  if [[ $(basename -- "$SHELL") != "zsh" ]]; then
-    echo "Switching to zsh"
-    sudo chsh -s /bin/zsh "$USER"
-  fi
+  fmt_msg "Finish"
 }
 
-validate_parameter "$@"
-check_env
-install_basic
-deploy_config_file
-change_shell
-install_extended
-
-fmt_msg "Finish"
+main "$@"
