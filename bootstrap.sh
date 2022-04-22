@@ -8,6 +8,7 @@ bash_release=$(bash --version | head -n1 | cut -d ' ' -f4 | cut -d '.' -f1)
 }
 
 SCRIPT_DIR=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
+TMP_DIR=$HOME/tmp
 
 FMT_RED=$(printf '\033[31m')
 FMT_GREEN=$(printf '\033[32m')
@@ -83,6 +84,15 @@ validate_path() {
   [[ $path == ${HOME}* ]] || exit 1
 }
 
+create_tmp_dir() {
+  [[ -d $TMP_DIR ]] || mkdir -p "$TMP_DIR"
+}
+
+clean_tmp_file() {
+  validate_path $TMP_DIR
+  rm -rf "$TMP_DIR"/*
+}
+
 ########## UTILITY FUNCTIONS END ##########
 
 deploy_config() {
@@ -101,7 +111,7 @@ deploy_config() {
     fi
   fi
 
-  ((DEBUG)) ||  ln -s -f "${SCRIPT_DIR}/$config" ~
+  ((DEBUG)) || ln -s -f "${SCRIPT_DIR}/$config" ~
 }
 
 install_plugin() {
@@ -243,9 +253,9 @@ install_autojump() {
     # install autojump (as a requirement to install ranger-autojump plugin)
     # default install path: ~/.autojump
     # autojump has already been included in the plugin list in .zshrc
+    cd $TMP_DIR
     git clone --depth=1 https://github.com/wting/autojump
     cd autojump && python3 install.py
-    cd .. && rm -rf autojump
   fi
 }
 
@@ -289,9 +299,9 @@ install_ranger() {
 
     # https://github.com/fdw/ranger-autojump
     # ranger-autojump can't be configured as an oh-my-zsh plugin for unknown reason
+    cd "$TMP_DIR"
     git clone --depth=1 https://github.com/fdw/ranger-autojump/
     cp ranger-autojump/autojump.py "$plugin_path"
-    rm -rf ranger-autojump
   fi
 }
 
@@ -309,17 +319,21 @@ install_extended() {
 
 exit_on_signal() {
   fmt_error "Execution interrupted"
+  clean_tmp_file
   exit 1
 }
 
 main() {
   validate_parameter "$@"
   check_env
+  create_tmp_dir
+
   install_basic
   deploy_config_file
   change_shell
   install_extended
 
+  clean_tmp_file
   fmt_msg "Finish"
 }
 
