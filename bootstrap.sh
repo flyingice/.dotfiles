@@ -21,7 +21,6 @@ URL["oh-my-zsh"]="https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools
 URL["zsh-syntax-highlighting"]="https://github.com/zsh-users/zsh-syntax-highlighting"
 URL["zsh-autosuggestions"]="https://github.com/zsh-users/zsh-autosuggestions"
 URL["nerdtree"]="https://github.com/preservim/nerdtree"
-URL["ack.vim"]="https://github.com/mileszs/ack.vim"
 URL["vim-surround"]="https://github.com/tpope/vim-surround"
 URL["commentary"]="https://tpope.io/vim/commentary"
 URL["onedark.vim"]="https://github.com/joshdick/onedark.vim"
@@ -141,7 +140,7 @@ install_vim_plugin() {
   if prompt_user; then
     # Autoload packages must be installed to ~/.vim/pack/*/start
     autoload="$HOME/.vim/pack/plugins/start"
-    autoload_plugins=(nerdtree ack.vim vim-surround commentary)
+    autoload_plugins=(nerdtree vim-surround commentary)
     for plugin in "${autoload_plugins[@]}"; do
       install_plugin "$plugin" "$autoload"
     done
@@ -218,8 +217,7 @@ deploy_config_file() {
 
   configs=(.zshrc
     .vimrc .vimrc.ext
-    .tmux.conf .tmux.conf.local
-    .ackrc)
+    .tmux.conf .tmux.conf.local)
   for config in "${configs[@]}"; do
     deploy_config "$config"
   done
