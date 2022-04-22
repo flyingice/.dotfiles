@@ -11,6 +11,7 @@ SCRIPT_DIR=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
 # debug mode is on by default
 # don't download nor install packages in debug mode
 DEBUG=1
+LOCAL_BIN=$HOME/.local/bin
 TMP_DIR=$HOME/tmp
 
 declare -A URL
@@ -94,7 +95,7 @@ deploy_config() {
     echo -n "Already exists. Overwrite it (y/n)? "
     read -r answer
     if [[ $answer != "y" ]]; then
-      echo "Skip installing $config"
+      fmt_info "Skip installing $config"
       return
     fi
   fi
@@ -222,18 +223,19 @@ deploy_config_file() {
 }
 
 install_python() {
-  if command_exists python3; then return; fi
-
   echo -n "Install python3? "
   if prompt_user; then
     # python3 is installed by default on macOS
-    if isDebian; then
-      ((DEBUG)) || {
-        sudo apt install python3
-        if ! command_exists python; then
-          ln -s -f "$(which python3)" "$HOME"/.local/bin/python
-        fi
-      }
+    if command_exists python3; then
+      fmt_info "Skip installing python3: already exists"
+    else
+      if isDebian; then
+        ((DEBUG)) || sudo apt install python3
+      fi
+    fi
+
+    if ! command_exists python; then
+      ((DEBUG)) || mkdir -p "$LOCAL_BIN" && ln -s -f "$(which python3)" "$LOCAL_BIN"/python
     fi
   fi
 }
@@ -242,7 +244,7 @@ install_pipx() {
   echo -n "install pipx? "
   if prompt_user; then
     command_exists python3 || {
-      echo "Skip installing pipx: python3 is required"
+      fmt_info "Skip installing pipx: python3 is required"
       return
     }
 
@@ -262,7 +264,7 @@ install_autojump() {
   echo -n "install autojump? "
   if prompt_user; then
     command_exists python3 || {
-      echo "Skip installing autojump: python3 is required"
+      fmt_info "Skip installing autojump: python3 is required"
       return
     }
 
@@ -281,8 +283,9 @@ install_autojump() {
 install_ranger() {
   echo -n "install ranger? "
   if prompt_user; then
+    export PATH=$PATH:$LOCAL_BIN
     command_exists pipx || {
-      echo "Skip installing ranger: pipx is required"
+      fmt_info "Skip installing ranger: pipx is required"
       return
     }
 
