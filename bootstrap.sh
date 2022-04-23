@@ -20,13 +20,7 @@ URL["homebrew"]="https://raw.githubusercontent.com/Homebrew/install/HEAD/install
 URL["oh-my-zsh"]="https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh"
 URL["zsh-syntax-highlighting"]="https://github.com/zsh-users/zsh-syntax-highlighting"
 URL["zsh-autosuggestions"]="https://github.com/zsh-users/zsh-autosuggestions"
-URL["nerdtree"]="https://github.com/preservim/nerdtree"
-URL["vim-surround"]="https://github.com/tpope/vim-surround"
-URL["commentary"]="https://tpope.io/vim/commentary"
-URL["onedark.vim"]="https://github.com/joshdick/onedark.vim"
-URL["vim-colors-xcode"]="https://github.com/arzg/vim-colors-xcode"
-URL["vim-airline"]="https://github.com/vim-airline/vim-airline"
-URL["vim-airline-themes"]="https://github.com/vim-airline/vim-airline-themes"
+URL["vim-plug"]="https://github.com/junegunn/vim-plug"
 URL["ranger_devicons"]="https://github.com/alexanderjeurissen/ranger_devicons"
 
 FMT_RED=$(printf '\033[31m')
@@ -135,22 +129,16 @@ install_omz() {
   fi
 }
 
-install_vim_plugin() {
-  echo -n "Install vim plugins? "
+install_vim_pm() {
+  echo -n "Install vim plugin manager? "
   if prompt_user; then
-    # Autoload packages must be installed to ~/.vim/pack/*/start
-    autoload="$HOME/.vim/pack/plugins/start"
-    autoload_plugins=(nerdtree vim-surround commentary)
-    for plugin in "${autoload_plugins[@]}"; do
-      install_plugin "$plugin" "$autoload"
-    done
+    if ((DEBUG)); then return; fi
 
-    # Packages in ~/.vim/pack/*/opt are loaded on the fly
-    optional="$HOME/.vim/pack/plugins/opt"
-    optional_plugins=(onedark.vim vim-colors-xcode vim-airline vim-airline-themes)
-    for plugin in "${optional_plugins[@]}"; do
-      install_plugin "$plugin" "$optional"
-    done
+    autoload_path="$HOME"/.vim/autoload
+
+    cd "$TMP_DIR" || exit 1
+    git clone --depth=1 https://github.com/junegunn/vim-plug
+    mkdir -p "$autoload_path" && cp vim-plug/plug.vim "$autoload_path"
   fi
 }
 
@@ -208,8 +196,8 @@ install_basic() {
   # install oh-my-zsh and its plugins
   install_omz
 
-  # install vim plugins
-  install_vim_plugin
+  # install vim plugin manager
+  install_vim_pm
 }
 
 deploy_config_file() {

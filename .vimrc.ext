@@ -1,51 +1,56 @@
 "****************************************
-" Functional plugins
-" Recommended install path: ~/.vim/pack/plugins/start
+" Plugins
 "****************************************
 "
-" Matchit plugin
-" The plugin is shipped with vim distribution.
-" Autoload the matchit so that % command can jump between matching pair of keywords
+" matchit is shipped with vim.
+" load matchit so that % command can jump between matching pair of keywords
 runtime macros/matchit.vim
 
-" NERDTree plugin
-" Avaiable on https://github.com/preservim/nerdtree
-" Key bindings
+" vim-plug is a minimalist vim plugin manager
+" https://github.com/junegunn/vim-plug
+call plug#begin("~/.vim/plugged")
+
+Plug 'preservim/nerdtree', { 'on': 'NERDTreeToggle' }
+
+Plug 'tpope/vim-surround'
+
+Plug 'tpope/vim-commentary'
+
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
+
+Plug 'vim-airline/vim-airline-themes'
+
+Plug 'vim-airline/vim-airline'
+
+Plug 'joshdick/onedark.vim'
+
+Plug 'arzg/vim-colors-xcode'
+
+" Initialize plugin system
+call plug#end()
+
+"****************************************
+" Plugin configurations
+"****************************************
+"
+" NERDTree
+" key bindings
 map <C-n> :NERDTreeToggle<CR>
 
-"****************************************
-" Apperance plugins
-" Recommended install path: ~/.vim/pack/plugins/opt/
-"****************************************
-"
-" colorscheme plugins
-"
-" https://github.com/joshdick/onedark.vim
-packadd! onedark.vim
-" https://github.com/arzg/vim-colors-xcode
-packadd! vim-colors-xcode
-" pick a theme
+
 colorscheme onedark
-" colorscheme xcodedark
 
-" status bar plugin
 
-" https://github.com/vim-airline/vim-airline
-packadd! vim-airline
 " config doc: https://github.com/vim-airline/vim-airline/blob/master/doc/airline.txt
-" Recommend MesloLGS Nerd Font Mono
-" https://github.com/ryanoasis/nerd-fonts
-let g:airline_powerline_fonts = 1
-" Enable the list of buffer
-let g:airline#extensions#tabline#enabled = 1
-" Show buffer number
-let g:airline#extensions#tabline#buffer_nr_show = 1
-" Show just the filename without path
-let g:airline#extensions#tabline#fnamemod = ':t'
-" Truncate non-active buffer names to specified length
-let g:airline#extensions#tabline#fnametruncate = 16
-
-" https://github.com/vim-airline/vim-airline-themes
-packadd! vim-airline-themes
-" pick a theme for the status bar
+" recommend MesloLGS Nerd Font Mono (https://github.com/ryanoasis/nerd-fonts)
 let g:airline_theme = 'onedark'
+let g:airline_powerline_fonts = 1
+" enable the list of buffer
+let g:airline#extensions#tabline#enabled = 1
+" show buffer number
+let g:airline#extensions#tabline#buffer_nr_show = 1
+" show just the filename without path
+let g:airline#extensions#tabline#fnamemod = ':t'
+" truncate non-active buffer names to specified length
+let g:airline#extensions#tabline#fnametruncate = 16
