@@ -279,18 +279,21 @@ install_ranger() {
       return
     }
 
-    if ((DEBUG)); then return; fi
-
     # config default path: ~/.config/ranger
     config_path="$HOME/.config/ranger"
     plugin_path="$config_path/plugins"
+
+    if ((DEBUG)); then return; fi
 
     mkdir -p "$config_path" "$plugin_path"
     # https://github.com/ranger/ranger
     # default install path: ~/.local/bin
     pipx install ranger-fm
+
     # You can generate default config via 'ranger --copy-config=all'
-    cp "${SCRIPT_DIR}/ranger/rc.conf" "$config_path"
+    for config in "$SCRIPT_DIR"/ranger/*; do
+        ln -s -f "$config" "$config_path"
+    done
 
     ########## install ranger plugin ###########
 
