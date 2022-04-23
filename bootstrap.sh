@@ -71,6 +71,11 @@ cleanup() {
   rm -rf "${TMP_DIR}"
 }
 
+exit_with_error() {
+  cleanup
+  exit 1
+}
+
 ########## UTILITY FUNCTIONS END ##########
 
 deploy_config() {
@@ -105,7 +110,7 @@ install_plugin() {
     fi
 
     ((DEBUG)) || {
-      mkdir -p "$to" || exit 1
+      mkdir -p "$to" || exit_with_error
       git -C "$to" clone --depth=1 "${URL["$plugin"]}"
     }
   fi
@@ -132,7 +137,7 @@ install_vim_pm() {
 
     autoload_path="$HOME"/.vim/autoload
 
-    cd "$TMP_DIR" || exit 1
+    cd "$TMP_DIR" || exit_with_error
     git clone --depth=1 https://github.com/junegunn/vim-plug
     mkdir -p "$autoload_path" && cp vim-plug/plug.vim "$autoload_path"
   fi
@@ -141,7 +146,7 @@ install_vim_pm() {
 validate_parameter() {
   if [[ $# -gt 1 || ($# -eq 1 && $1 != "release") ]]; then
     fmt_error "Illegal parameters. Usage: $0 [release]"
-    exit 1
+    exit_with_error
   fi
 
   if [[ $# -eq 1 ]]; then
@@ -157,13 +162,13 @@ check_env() {
 
   is_macos || (is_linux && is_debian) || {
     fmt_error "Operating system is not supported"
-    exit 1
+    exit_with_error
   }
 
   command_exists git || {
     fmt_error "git is not installed"
     echo "Run 'xcode-select --install' if you are on macOS"
-    exit 1
+    exit_with_error
   }
 }
 
@@ -220,7 +225,7 @@ install_python() {
     fi
 
     if ! command_exists python; then
-      ((DEBUG)) || mkdir -p "$LOCAL_BIN" && ln -s -f "$(which python3)" "$LOCAL_BIN"/python
+      ((DEBUG)) || mkdir -p "$LOCAL_BIN" && ln -s -f "$(command -v python3)" "$LOCAL_BIN"/python
     fi
   fi
 }
@@ -259,7 +264,7 @@ install_autojump() {
     # install autojump (as a requirement to install ranger-autojump plugin)
     # default install path: ~/.autojump
     # autojump has already been included in the plugin list in .zshrc
-    cd "$TMP_DIR" || exit 1
+    cd "$TMP_DIR" || exit_with_error
     git clone --depth=1 https://github.com/wting/autojump
     cd autojump && python3 install.py
   fi
@@ -294,7 +299,7 @@ install_ranger() {
 
     # https://github.com/fdw/ranger-autojump
     # ranger-autojump can't be configured as an oh-my-zsh plugin for unknown reason
-    cd "$TMP_DIR" || exit 1
+    cd "$TMP_DIR" || exit_with_error
     git clone --depth=1 https://github.com/fdw/ranger-autojump/
     cp ranger-autojump/autojump.py "$plugin_path"
   fi
@@ -322,8 +327,7 @@ change_shell() {
 
 exit_on_signal() {
   fmt_error "Execution interrupted"
-  cleanup
-  exit 1
+  exit_with_error
 }
 
 main() {
