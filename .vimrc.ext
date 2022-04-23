@@ -34,14 +34,23 @@ call plug#end()
 " Plugin configurations
 "****************************************
 "
-" NERDTree
+" ========== NERDTree ===========
 " key bindings
 map <C-n> :NERDTreeToggle<CR>
 
+" ========== fzf ===========
+" preview window on the right with 40% width, CTRL-/ will toggle preview window.
+" see `--preview-window` section of `man fzf`
+let g:fzf_preview_window = ['right:40%', 'ctrl-/']
+" key bindings
+nnoremap <Leader>b :Buffers<CR>
+nnoremap <Leader>f :Files<CR>
+nnoremap <Leader>h :History<CR>
+nnoremap <Leader>g :Rg<SPACE>
 
+" ========== vim-airline ===========
+" select colorscheme
 colorscheme onedark
-
-
 " config doc: https://github.com/vim-airline/vim-airline/blob/master/doc/airline.txt
 " recommend MesloLGS Nerd Font Mono (https://github.com/ryanoasis/nerd-fonts)
 let g:airline_theme = 'onedark'
