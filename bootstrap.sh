@@ -12,7 +12,7 @@ SCRIPT_DIR=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
 # don't download nor install packages in debug mode
 DEBUG=1
 LOCAL_BIN=$HOME/.local/bin
-TMP_DIR=$HOME/tmp
+TMP_DIR=$(mktemp -d -t bootstrapXXXXX)
 
 declare -A URL
 # address mapping
@@ -67,12 +67,8 @@ command_exists() {
   command -v "$@" >/dev/null 2>&1
 }
 
-create_tmp_dir() {
-  ((DEBUG)) || [[ -d $TMP_DIR ]] || mkdir -p "$TMP_DIR"
-}
-
-clean_tmp_file() {
-  ((DEBUG)) || rm -rf "${TMP_DIR:?"Parameter is empty"}"/*
+cleanup() {
+  rm -rf "${TMP_DIR}"
 }
 
 ########## UTILITY FUNCTIONS END ##########
@@ -326,21 +322,20 @@ change_shell() {
 
 exit_on_signal() {
   fmt_error "Execution interrupted"
-  clean_tmp_file
+  cleanup
   exit 1
 }
 
 main() {
   validate_parameter "$@"
   check_env
-  create_tmp_dir
 
   install_basic
   deploy_config_file
   install_extended
 
   change_shell
-  clean_tmp_file
+  cleanup
   fmt_msg "Finish. Run 'exit' and re-login"
   exec zsh -l
 }
