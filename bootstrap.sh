@@ -292,7 +292,7 @@ install_ranger() {
 
     # You can generate default config via 'ranger --copy-config=all'
     for config in "$SCRIPT_DIR"/ranger/*; do
-        ln -s -f "$config" "$config_path"
+      ln -s -f "$config" "$config_path"
     done
 
     ########## install ranger plugin ###########
