@@ -1,0 +1,8 @@
+set runtimepath+=~/.config/vim
+
+runtime settings.vim
+runtime functions.vim
+runtime keymap.vim
+
+runtime plugin-basic.vim
+runtime plugin-extended.vim

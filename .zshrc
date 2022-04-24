@@ -53,6 +53,9 @@ export PAGER=less
 # Utilities
 ########################################
 
+# vim settings
+export VIMINIT="source ~/.config/vim/vimrc"
+
 # fzf settings
 # MacOS
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
