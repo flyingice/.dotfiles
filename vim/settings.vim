@@ -7,6 +7,9 @@
 " (e.g. saved as `foo`, and then vim started with " `vim -u foo`).
 set nocompatible
 
+" change default viminfo location
+set viminfo+=n~/.config/vim/viminfo
+
 " turn on syntax highlighting
 syntax on
 
