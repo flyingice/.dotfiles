@@ -141,8 +141,6 @@ nnoremap sl :set splitright<CR>:vsplit<CR>
 nnoremap sk :set nosplitbelow<CR>:split<CR>
 nnoremap sj :set splitbelow<CR>:split<CR>
 
-" Key bindings for navigating between windows
-nnoremap <Leader><SPACE> <C-W><C-W>
 
 " Key bindings for buffer list traversal
 nnoremap <silent> [b :bprevious<CR>
