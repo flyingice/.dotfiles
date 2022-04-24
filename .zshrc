@@ -53,6 +53,8 @@ export PAGER=less
 # Utilities
 ########################################
 
+export XDG_CONFIG_HOME=~/.config
+
 # vim settings
 export VIMINIT="source ~/.config/vim/vimrc"
 
