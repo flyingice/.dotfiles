@@ -84,11 +84,10 @@ export LANG="en_US.UTF-8"
 export LC_ALL="en_US.UTF-8"
 export LC_CTYPE="en_US.UTF-8"
 
-# Run ranger as the follow function so that the parent shell automatically switches to the working dir
-# of ranger if it exits with Q key
+# function wrapper making parent shell switches to the ranger working dir when ranger exits
 # Check ranger macros on https://github.com/ranger/ranger/wiki/Official-user-guide
 # Check ranger integrations on https://github.com/ranger/ranger/wiki/Integration-with-other-programs
-function ranger {
+function ra {
     local IFS=$'\t\n'
     local tempfile="$(mktemp -t ranger.XXXXXX)"
     local ranger_cmd=(
