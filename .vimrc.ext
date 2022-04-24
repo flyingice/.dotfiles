@@ -1,4 +1,11 @@
 "****************************************
+" External Programs
+"****************************************
+"
+" shortcut to launch lazygit
+nnoremap <c-g> :term lazygit<CR><C-w>_
+"
+"****************************************
 " Plugins
 "****************************************
 "
@@ -31,7 +38,7 @@ Plug 'arzg/vim-colors-xcode'
 call plug#end()
 
 "****************************************
-" Plugin configurations
+" Plugin Configurations
 "****************************************
 "
 " ========== NERDTree ===========
