@@ -1,7 +1,9 @@
 [[ ${PATH#*$HOME/.local/bin} == $PATH ]] && export PATH=$HOME/.local/bin:$PATH
 
+export XDG_CONFIG_HOME=~/.config
+
 # Path to your oh-my-zsh installation.
-export ZSH="$HOME/.oh-my-zsh"
+export ZSH="$XDG_CONFIG_HOME"/oh-my-zsh
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -52,8 +54,6 @@ export PAGER=less
 ########################################
 # Utilities
 ########################################
-
-export XDG_CONFIG_HOME=~/.config
 
 # vim settings
 export VIMINIT="source $XDG_CONFIG_HOME/vim/vimrc"
