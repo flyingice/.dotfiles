@@ -1,5 +1,5 @@
-" ===
-" === vim-plug
+" ====
+" ==== vim-plug
 " ====
 
 call plug#begin("~/.config/vim/plugged")
@@ -34,7 +34,7 @@ nnoremap <c-g> :term lazygit<CR><C-w>_
 " ====
 
 " key bindings
-map <C-n> :NERDTreeToggle<CR>
+nnoremap <C-n> :NERDTreeToggle<CR>
 
 " ====
 " ==== fzf
