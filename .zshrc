@@ -56,7 +56,7 @@ export PAGER=less
 export XDG_CONFIG_HOME=~/.config
 
 # vim settings
-export VIMINIT="source ~/.config/vim/vimrc"
+export VIMINIT="source $XDG_CONFIG_HOME/vim/vimrc"
 
 # fzf settings
 # MacOS

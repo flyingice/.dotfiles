@@ -1,4 +1,4 @@
-set runtimepath+=~/.config/vim
+set runtimepath+=$XDG_CONFIG_HOME/vim
 
 runtime settings.vim
 
