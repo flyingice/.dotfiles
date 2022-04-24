@@ -16,7 +16,12 @@ ZSH_THEME="bira"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git autojump zsh-autosuggestions zsh-syntax-highlighting)
+plugins=(git fzf autojump zsh-autosuggestions zsh-syntax-highlighting)
+
+# fzf settings
+export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
+export FZF_DEFAULT_OPTS="--height 50% --reverse"
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 
 source $ZSH/oh-my-zsh.sh
 source $ZSH/custom/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
@@ -57,17 +62,6 @@ export PAGER=less
 
 # vim settings
 export VIMINIT="source $XDG_CONFIG_HOME/vim/vimrc"
-
-# fzf settings
-# MacOS
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-# Enable fzf key bindings on debian-derived Linux distro
-[ -f /usr/share/doc/fzf/examples/key-bindings.zsh ] && source /usr/share/doc/fzf/examples/key-bindings.zsh
-# Enable fzf auto-completion on debian-derived Linux distro
-[ -f /usr/share/doc/fzf/examples/completion.zsh ] && source /usr/share/doc/fzf/examples/completion.zsh
-export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
-export FZF_DEFAULT_OPTS="--height 50% --reverse"
-export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 
 export GNUPGHOME="$XDG_CONFIG_HOME"/gnupg
 # Let gpg-agent communicate with ssh-agent so that the auth subkey
