@@ -44,10 +44,4 @@ export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 # ====
 
 # set non-default gpg config location
-export GNUPGHOME="$XDG_CONFIG_HOME"/gnupg
-# Let gpg-agent communicate with ssh-agent so that the auth subkey
-# managed by gnupg can be used during ssh authentification.
-# The exact key used is specified by the keygrip in ~/.gnupg/sshcontrol
-export SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
-# Fix error 'gpg failed to sign the data', refer to man page of gpg-agent
-export GPG_TTY="$(tty)"
+export GNUPGHOME=$XDG_CONFIG_HOME/gnupg

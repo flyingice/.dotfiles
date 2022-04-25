@@ -27,7 +27,7 @@ bindkey '`' autosuggest-accept
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(tmux vi-mode fzf autojump git zsh-autosuggestions zsh-syntax-highlighting)
+plugins=(tmux vi-mode fzf autojump git gpg-agent zsh-autosuggestions zsh-syntax-highlighting)
 
 
 source $ZSH/oh-my-zsh.sh
