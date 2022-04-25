@@ -18,8 +18,8 @@ function ra() {
         --cmd="map Q chain shell echo %d > "$tempfile"; quitall"
     )
 
-    ${ranger_cmd[@]} "$@"
-    if [[ -f "$tempfile" ]] && [[ "$(cat -- "$tempfile")" != "$(echo -n `pwd`)" ]]; then
+    "${ranger_cmd[@]}" "$@"
+    if [[ -f "$tempfile" ]] && [[ "$(cat -- "$tempfile")" != "$(echo -n "$(pwd)")" ]]; then
         cd -- "$(cat "$tempfile")" || return
     fi
     command rm -f -- "$tempfile" 2>/dev/null
@@ -28,7 +28,7 @@ function ra() {
 # function to generate .vimrc for IntelliJ IdeaVim plugin
 # ideavim can not recogonize `runtime` command in .vimrc following the vim config split
 function ideavim_update() {
-    local config_path=$XDG_CONFIG_HOME/vim
+    local config_path="$XDG_CONFIG_HOME"/vim
     local config_list=(
         "$config_path"/settings.vim
         "$config_path"/functions.vim
@@ -37,5 +37,5 @@ function ideavim_update() {
     )
 
     # concatenate config files with two blank lines as separator
-    awk 'FNR==1 && NR>1 { printf("\n\n") } { print $0 }' "${config_list[@]}" > ~/.ideavimrc
+    awk 'FNR==1 && NR>1 { printf("\n\n") } { print $0 }' "${config_list[@]}" > "$HOME"/.ideavimrc
 }

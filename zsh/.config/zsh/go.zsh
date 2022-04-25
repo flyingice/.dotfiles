@@ -1,3 +1,3 @@
-export GOPATH=~/go
+export GOPATH=$HOME/go
 
-[[ ${PATH#*$GOPATH/bin} == $PATH ]] && export PATH=$GOPATH/bin:$PATH
+[[ ${PATH#*"$GOPATH"/bin} == "$PATH" ]] && export PATH=$GOPATH/bin:$PATH

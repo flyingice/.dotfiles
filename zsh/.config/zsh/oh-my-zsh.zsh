@@ -1,5 +1,5 @@
 # Path to your oh-my-zsh installation.
-export ZSH="$XDG_CONFIG_HOME"/oh-my-zsh
+export ZSH=$XDG_CONFIG_HOME/oh-my-zsh
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -13,7 +13,7 @@ ZSH_THEME="bira"
 if [[ $TERMINAL_EMULATOR != "JetBrains-JediTerm" ]]; then
     ZSH_TMUX_AUTOSTART=true
 fi
-ZSH_TMUX_CONFIG="$XDG_CONFIG_HOME"/tmux/tmux.conf
+ZSH_TMUX_CONFIG=$XDG_CONFIG_HOME/tmux/tmux.conf
 ZSH_TMUX_UNICODE=true
 ZSH_TMUX_DEFAULT_SESSION_NAME='localhost'
 
