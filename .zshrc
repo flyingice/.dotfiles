@@ -28,6 +28,16 @@ export ZSH_TMUX_CONFIG="$XDG_CONFIG_HOME"/tmux/tmux.conf
 export ZSH_TMUX_UNICODE=true
 export ZSH_TMUX_DEFAULT_SESSION_NAME='localhost'
 
+# extend history settings in ~/.oh-my-zsh/lib/history.zsh
+export HISTFILE="$XDG_CONFIG_HOME"/zsh/zsh-history
+# remove copies in the history list while keeping the newly added one
+setopt HIST_IGNORE_ALL_DUPS
+# don't save duplicated lines more than once whatever options are set
+setopt HIST_SAVE_NO_DUPS
+# don't store history or fc command
+setopt HIST_NO_STORE
+# don't store function definitions
+setopt HIST_NO_FUNCTIONS
 source $ZSH/oh-my-zsh.sh
 source $ZSH/custom/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
@@ -44,16 +54,6 @@ bindkey '`' autosuggest-accept
 ########################################
 # General Shell Settings
 ########################################
-
-# extend history settings in ~/.oh-my-zsh/lib/history.zsh
-# remove copies in the history list while keeping the newly added one
-setopt HIST_IGNORE_ALL_DUPS
-# don't save duplicated lines more than once whatever options are set
-setopt HIST_SAVE_NO_DUPS
-# don't store history or fc command
-setopt HIST_NO_STORE
-# don't store function definitions
-setopt HIST_NO_FUNCTIONS
 
 # set system-wide default editor
 export EDITOR=vim
