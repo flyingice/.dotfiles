@@ -16,12 +16,17 @@ ZSH_THEME="bira"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git fzf autojump zsh-autosuggestions zsh-syntax-highlighting)
+plugins=(tmux git fzf autojump zsh-autosuggestions zsh-syntax-highlighting)
 
 # fzf settings
 export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
 export FZF_DEFAULT_OPTS="--height 50% --reverse"
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+
+export ZSH_TMUX_AUTOSTART=true
+export ZSH_TMUX_CONFIG="$XDG_CONFIG_HOME"/tmux/tmux.conf
+export ZSH_TMUX_UNICODE=true
+export ZSH_TMUX_DEFAULT_SESSION_NAME='localhost'
 
 source $ZSH/oh-my-zsh.sh
 source $ZSH/custom/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
@@ -77,12 +82,6 @@ gpg_restart() {
     gpgconf --kill gpg-agent
     gpg-agent --daemon
 }
-
-# tmux locale settings, otherwise some powerline fonts can't be displayed properly in remote ssh sessions
-# solution proposed in https://github.com/wernight/powerline-web-fonts/issues/8
-export LANG="en_US.UTF-8"
-export LC_ALL="en_US.UTF-8"
-export LC_CTYPE="en_US.UTF-8"
 
 # function wrapper making parent shell switches to the ranger working dir when ranger exits
 # Check ranger macros on https://github.com/ranger/ranger/wiki/Official-user-guide

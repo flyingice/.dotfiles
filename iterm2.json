@@ -1,5 +1,9 @@
 {
-  "Use Non-ASCII Font" : false,
+  "Ansi 6 Color" : {
+    "Green Component" : "0.5960785",
+    "Blue Component" : "0.6039215999999999",
+    "Red Component" : "0.02352941"
+  },
   "Tags" : [
 
   ],
@@ -15,25 +19,25 @@
     "Blue Component" : "1",
     "Red Component" : "1"
   },
-  "Ansi 0 Color" : {
-    "Green Component" : "0",
-    "Blue Component" : "0",
-    "Red Component" : "0"
+  "Ansi 7 Color" : {
+    "Green Component" : "0.8431373",
+    "Blue Component" : "0.8117647",
+    "Red Component" : "0.827451"
   },
-  "Normal Font" : "MesloLGSNerdFontCompleteM-Regular 14",
-  "Horizontal Spacing" : 1,
+  "Ansi 8 Color" : {
+    "Green Component" : "0.3411765",
+    "Blue Component" : "0.3254902",
+    "Red Component" : "0.3333333"
+  },
+  "Ansi 9 Color" : {
+    "Green Component" : "0.1607843",
+    "Blue Component" : "0.1607843",
+    "Red Component" : "0.9372549"
+  },
   "Rows" : 60,
   "Default Bookmark" : "No",
-  "Ansi 3 Color" : {
-    "Green Component" : "0.627451",
-    "Blue Component" : "0",
-    "Red Component" : "0.7686275"
-  },
-  "Ansi 5 Color" : {
-    "Green Component" : "0.3137255",
-    "Blue Component" : "0.4823529",
-    "Red Component" : "0.4588235"
-  },
+  "Custom Directory" : "No",
+  "Right Option Key Sends" : 2,
   "Cursor Guide Color" : {
     "Red Component" : 0.70214027166366577,
     "Color Space" : "sRGB",
@@ -67,14 +71,14 @@
   },
   "Working Directory" : "\/Users\/flyingice",
   "Blinking Cursor" : true,
-  "Disable Window Resizing" : true,
+  "Space" : 0,
   "Sync Title" : false,
   "Prompt Before Closing 2" : false,
   "BM Growl" : false,
   "Mouse Reporting" : true,
   "Command" : "",
   "Description" : "Default",
-  "Space" : 0,
+  "Disable Window Resizing" : true,
   "Screen" : -1,
   "Selection Color" : {
     "Green Component" : "0.8353",
@@ -276,6 +280,7 @@
     }
   },
   "Window Type" : 0,
+  "Blink Allowed" : false,
   "Background Image Location" : "",
   "Blur" : false,
   "Badge Color" : {
@@ -285,7 +290,7 @@
     "Alpha Component" : 0.5,
     "Green Component" : 0.14910027384757996
   },
-  "Initial Text" : "tmux attach -t macos || tmux new -s macos",
+  "Initial Text" : "",
   "Scrollback Lines" : 0,
   "Send Code When Idle" : false,
   "Close Sessions On End" : true,
@@ -293,6 +298,7 @@
   "Visual Bell" : true,
   "Flashing Bell" : false,
   "Silence Bell" : true,
+  "Unicode Normalization" : 0,
   "Ansi 14 Color" : {
     "Green Component" : "0.8862745",
     "Blue Component" : "0.8862745",
@@ -312,43 +318,40 @@
     "Blue Component" : "1",
     "Red Component" : "1"
   },
-  "Transparency" : 0,
-  "Guid" : "40AAABAA-1652-43A1-9941-F54A7DDA9869",
-  "Ansi 1 Color" : {
+  "Ansi 0 Color" : {
     "Green Component" : "0",
     "Blue Component" : "0",
-    "Red Component" : "0.8"
+    "Red Component" : "0"
   },
-  "Custom Directory" : "No",
-  "Ansi 4 Color" : {
-    "Green Component" : "0.3960784",
-    "Blue Component" : "0.6431373",
-    "Red Component" : "0.2039216"
-  },
+  "Transparency" : 0.09858543882978725,
   "Ansi 2 Color" : {
     "Green Component" : "0.6039215999999999",
     "Blue Component" : "0.02352941",
     "Red Component" : "0.3058824"
   },
-  "Ansi 6 Color" : {
-    "Green Component" : "0.5960785",
-    "Blue Component" : "0.6039215999999999",
-    "Red Component" : "0.02352941"
+  "Ansi 3 Color" : {
+    "Green Component" : "0.627451",
+    "Blue Component" : "0",
+    "Red Component" : "0.7686275"
   },
-  "Ansi 7 Color" : {
-    "Green Component" : "0.8431373",
-    "Blue Component" : "0.8117647",
-    "Red Component" : "0.827451"
+  "Guid" : "40AAABAA-1652-43A1-9941-F54A7DDA9869",
+  "Ansi 5 Color" : {
+    "Green Component" : "0.3137255",
+    "Blue Component" : "0.4823529",
+    "Red Component" : "0.4588235"
   },
-  "Ansi 8 Color" : {
-    "Green Component" : "0.3411765",
-    "Blue Component" : "0.3254902",
-    "Red Component" : "0.3333333"
+  "Use Non-ASCII Font" : false,
+  "Ansi 1 Color" : {
+    "Green Component" : "0",
+    "Blue Component" : "0",
+    "Red Component" : "0.8"
   },
-  "Ansi 9 Color" : {
-    "Green Component" : "0.1607843",
-    "Blue Component" : "0.1607843",
-    "Red Component" : "0.9372549"
+  "Normal Font" : "MesloLGSNerdFontCompleteM-Regular 14",
+  "Horizontal Spacing" : 1,
+  "Ansi 4 Color" : {
+    "Green Component" : "0.3960784",
+    "Blue Component" : "0.6431373",
+    "Red Component" : "0.2039216"
   },
   "Link Color" : {
     "Red Component" : 0,
@@ -356,6 +359,5 @@
     "Blue Component" : 0.73422712087631226,
     "Alpha Component" : 1,
     "Green Component" : 0.35915297269821167
-  },
-  "Right Option Key Sends" : 2
+  }
 }
