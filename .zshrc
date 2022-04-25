@@ -23,7 +23,11 @@ export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
 export FZF_DEFAULT_OPTS="--height 50% --reverse"
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 
-export ZSH_TMUX_AUTOSTART=true
+# tmux settings
+# don't attach to a tmux session when terminal is launched within IDE
+if [[ $TERMINAL_EMULATOR != "JetBrains-JediTerm" ]]; then
+    export ZSH_TMUX_AUTOSTART=true
+fi
 export ZSH_TMUX_CONFIG="$XDG_CONFIG_HOME"/tmux/tmux.conf
 export ZSH_TMUX_UNICODE=true
 export ZSH_TMUX_DEFAULT_SESSION_NAME='localhost'
