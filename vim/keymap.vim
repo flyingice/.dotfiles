@@ -5,13 +5,16 @@ let mapleader=" "
 " unbind some useless/annoying default keys
 map s <Nop>
 
-" common file operations
-nmap S :w<CR>
-nmap Q :q<CR>
-
 " back up one tab stop
 " <TAB> already has the same effect as <C-T>
 inoremap <S-TAB> <C-d>
+
+" <C-a> is taken as tmux prefix key
+nnoremap <C-q> <C-a>
+
+" common file operations
+nmap S :w<CR>
+nmap Q :q<CR>
 
 " insert a newline
 nnoremap oo o<ESC>k
