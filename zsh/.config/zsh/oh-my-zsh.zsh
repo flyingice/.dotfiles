@@ -7,12 +7,6 @@ export ZSH="$XDG_CONFIG_HOME"/oh-my-zsh
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
 ZSH_THEME="bira"
 
-# Which plugins would you like to load?
-# Standard plugins can be found in ~/.oh-my-zsh/plugins/*
-# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
-# Example format: plugins=(rails git textmate ruby lighthouse)
-# Add wisely, as too many plugins slow down shell startup.
-plugins=(tmux vi-mode fzf autojump git zsh-autosuggestions zsh-syntax-highlighting)
 
 # tmux settings
 # don't attach to a tmux session when terminal is launched within IDE
@@ -23,8 +17,17 @@ ZSH_TMUX_CONFIG="$XDG_CONFIG_HOME"/tmux/tmux.conf
 ZSH_TMUX_UNICODE=true
 ZSH_TMUX_DEFAULT_SESSION_NAME='localhost'
 
+
 # zsh-autosuggestions plugin accept suggestion
 bindkey '`' autosuggest-accept
 
+
+# Which plugins would you like to load?
+# Standard plugins can be found in ~/.oh-my-zsh/plugins/*
+# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
+# Example format: plugins=(rails git textmate ruby lighthouse)
+# Add wisely, as too many plugins slow down shell startup.
+plugins=(tmux vi-mode fzf autojump git zsh-autosuggestions zsh-syntax-highlighting)
+
+
 source $ZSH/oh-my-zsh.sh
-source $ZSH/custom/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
