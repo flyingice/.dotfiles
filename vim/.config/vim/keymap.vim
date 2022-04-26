@@ -16,6 +16,9 @@ nnoremap <C-q> <C-a>
 nmap S :w<CR>
 nmap Q :q<CR>
 
+" open a terminal
+nnoremap <C-s> :term<CR>
+
 " insert a newline
 nnoremap oo o<ESC>k
 nnoremap OO O<ESC>j
