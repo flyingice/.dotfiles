@@ -17,13 +17,13 @@ nmap <C-w>= :action MaximizeEditorInSplit<CR>
 nmap <C-t> :action Back<CR>
 
 " find all usages
-nmap <Leader>g :action FindUsages<CR>
+nmap <Leader>u :action FindUsages<CR>
 
 " reformat
-nmap <Leader>f :action ReformatCode<CR><ESC>
+nmap <Leader>= :action ReformatCode<CR><ESC>
 
 " rename
-nmap <Leader>r :action RenameElement<CR>
+nmap <Leader>c :action RenameElement<CR>
 
 " ====
 " ==== plugin emulation

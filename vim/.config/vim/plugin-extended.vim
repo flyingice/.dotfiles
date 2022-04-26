@@ -47,7 +47,7 @@ let g:fzf_preview_window = ['right:40%', 'ctrl-/']
 nnoremap <Leader>b :Buffers<CR>
 nnoremap <Leader>f :Files<CR>
 nnoremap <Leader>h :History<CR>
-nnoremap <Leader>g :Rg<SPACE>
+nnoremap <Leader>u :Rg<SPACE>
 
 " ====
 " ==== vim-airline
