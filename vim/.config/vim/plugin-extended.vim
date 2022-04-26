@@ -54,7 +54,7 @@ nnoremap <Leader>u :Rg<SPACE>
 " ====
 
 " select colorscheme
-colorscheme onedark
+silent! colorscheme onedark
 " config doc: https://github.com/vim-airline/vim-airline/blob/master/doc/airline.txt
 " recommend MesloLGS Nerd Font Mono (https://github.com/ryanoasis/nerd-fonts)
 let g:airline_theme = 'onedark'
