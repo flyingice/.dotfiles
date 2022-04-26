@@ -27,14 +27,14 @@ call plug#end()
 " ====
 
 " key bindings
-nnoremap <c-g> :term lazygit<CR><C-w>_
+nnoremap <Leader><C-g> :term lazygit<CR><C-w>_
 
 " ====
 " ==== NERDTree
 " ====
 
 " key bindings
-nnoremap <C-n> :NERDTreeToggle<CR>
+nnoremap <Leader><C-n> :NERDTreeToggle<CR>
 
 " ====
 " ==== fzf

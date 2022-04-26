@@ -11,10 +11,10 @@ set ideajoin
 " ====
 
 " toggle maximize current editor/normalize split
-nmap <C-W>= :action MaximizeEditorInSplit<CR>
+nmap <C-w>= :action MaximizeEditorInSplit<CR>
 
 " workaround as ctrl+t doesn't always respect default vim behavior
-nmap <C-T> :action Back<CR>
+nmap <C-t> :action Back<CR>
 
 " find all usages
 nmap <Leader>g :action FindUsages<CR>
@@ -38,7 +38,7 @@ set matchit
 " https://github.com/preservim/nerdtree
 set NERDTree
 
-nmap <C-n> :NERDTreeToggle<CR>
+nmap <Leader><C-n> :NERDTreeToggle<CR>
 
 " https://github.com/tpope/vim-surround
 set surround
