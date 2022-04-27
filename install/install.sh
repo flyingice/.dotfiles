@@ -140,7 +140,10 @@ update_package_manager() {
       brew update
     }
   elif is_debian; then
-    ((DEBUG)) || sudo apt update
+    ((DEBUG)) || {
+        sudo add-apt-repository ppa:aos1/diff-so-fancy
+        sudo apt update
+    }
   fi
 }
 
