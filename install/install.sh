@@ -95,7 +95,7 @@ validate_parameter() {
 }
 
 check_env() {
-  fmt_info "Start checking system environment"
+  fmt_msg "Start checking system environment"
 
   is_macos || (is_linux && is_debian) || {
     fmt_error "Operating system is not supported"
@@ -145,7 +145,7 @@ install_plugin() {
 }
 
 update_package_manager() {
-  fmt_info "Start updating package manager"
+  fmt_msg "Start updating package manager"
 
   if is_macos; then
     ((DEBUG)) || {
@@ -333,7 +333,7 @@ install_packages() {
 
   update_package_manager
 
-  fmt_info "Start installing software packages"
+  fmt_msg "Start installing software packages"
 
   install_omz
 
@@ -384,7 +384,7 @@ deploy_config() {
 }
 
 deploy_configs() {
-  fmt_info "Start deploying config files"
+  fmt_msg "Start deploying config files"
 
   local configs=(
     git
@@ -407,13 +407,13 @@ deploy_configs() {
 
 change_shell() {
   if [[ $(basename -- "$SHELL") != "zsh" ]]; then
-    fmt_info "Switching to zsh"
+    fmt_msg "Switching to zsh"
     ((DEBUG)) || sudo chsh -s /bin/zsh "$USER"
   fi
 }
 
 exit_on_signal() {
-  fmt_info "Cleaning up temporary files"
+  fmt_msg "Cleaning up temporary files"
   cleanup
 }
 
