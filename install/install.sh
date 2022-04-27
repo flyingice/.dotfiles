@@ -182,7 +182,7 @@ get_bin_name() {
 install_package() {
   local id=$1
 
-  if ! prompt_user "Install $id?"; then return 1; fi
+  if [[ $# -eq 1 ]] && ! prompt_user "Install $id?"; then return 1; fi
 
   local package_name
   package_name=$(get_package_name "$id")
@@ -215,8 +215,8 @@ install_omz() {
   local plugin_path="$install_path"/custom/plugins
 
   ((DEBUG)) || {
-      install_package 'zsh'
-      ZSH="$install_path" bash -c "$(curl -fsSL "${URL["oh-my-zsh"]}")" "" --unattended --keep-zshrc
+    install_package 'zsh' --force
+    ZSH="$install_path" bash -c "$(curl -fsSL "${URL["oh-my-zsh"]}")" "" --unattended --keep-zshrc
   }
   # install oh-my-zsh plugins
   local plugins=(
@@ -351,7 +351,7 @@ deploy_config() {
   ((DEBUG)) || {
     # GNU Stow is a symlink farm manager
     # https://www.gnu.org/software/stow/manual/stow.html
-    if ! command_exists stow; then install_package 'stow'; fi
+    if ! command_exists stow; then install_package 'stow' --force; fi
     stow --target "$HOME" --dir "$DOTFILE_ROOT" --no-folding "$config"
   }
 }
