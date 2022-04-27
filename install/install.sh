@@ -109,7 +109,7 @@ check_env() {
   }
 
   echo "Checking network connection"
-  ping -q -c 3 -t 5 8.8.8.8 2>/dev/null || {
+  { ping -q -c 3 -t 5 8.8.8.8 || ping -q -c 3 -W 5 8.8.8.8; } 2>/dev/null || {
     fmt_error "Internet connection failure"
     cat << EOF
 WiFi is on?
