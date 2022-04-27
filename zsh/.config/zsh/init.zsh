@@ -1,4 +1,4 @@
-[[ ${PATH#*"$HOME"/.local/bin} == "$PATH" ]] && export PATH=$HOME/.local/bin:$PATH
+[[ ${PATH#*$HOME/.local/bin} == $PATH ]] && export PATH=$PATH:$HOME/.local/bin
 
 # ====
 # ==== system-wide default settings
