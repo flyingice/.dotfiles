@@ -7,7 +7,9 @@ bash_release=$(bash --version | head -n1 | cut -d ' ' -f4 | cut -d '.' -f1)
   exit 1
 }
 
-DOTFILE_ROOT=$(cd "$(dirname "${BASH_SOURCE[0]}")"/.. && pwd)
+SCRIPT_DIR=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
+DOTFILE_ROOT="$SCRIPT_DIR"/..
+INSTALL_CONF_DIR="$SCRIPT_DIR"/conf
 # debug mode is on by default
 # don't download nor install packages in debug mode
 DEBUG=1
@@ -111,7 +113,7 @@ install_plugin() {
   local target="$target_path/$plugin"
   local installed=0
 
-  echo -n "Install ${plugin}? "
+  echo -n "Install $plugin? "
   if prompt_user; then
     if [[ -e $target ]]; then
       echo "Already exists. Cleaning $target"
@@ -142,11 +144,69 @@ update_package_manager() {
   fi
 }
 
-install_zsh() {
-  # macOS defaults to zsh from Catalina or higher versions
-  is_debian && {
-    ((DEBUG)) || sudo apt install zsh
-  }
+get_conf_value() {
+  # internal id corresponding to the 1st column of package.conf
+  local id=$1
+  # target column
+  local column=$2
+
+  grep -E "^${id}," "$INSTALL_CONF_DIR"/package.conf 2>/dev/null | cut -d ',' -f "$column"
+}
+
+get_package_name() {
+  local id=$1
+
+  local column=1
+  if is_macos; then
+    column=2
+  elif is_debian; then
+    column=4
+  fi
+
+  get_conf_value "$id" "$column"
+}
+
+get_bin_name() {
+  local id=$1
+
+  local column=1
+  if is_macos; then
+    column=3
+  elif is_debian; then
+    column=5
+  fi
+
+  get_conf_value "$id" "$column"
+}
+
+install_package() {
+  local id=$1
+
+  echo -n "Install $id? "
+  if prompt_user; then
+    local package_name
+    package_name=$(get_package_name "$id")
+
+    if [[ -z $package_name ]]; then
+      fmt_error "package.conf may be corrupted. Skip installing $id"
+      return
+    fi
+
+    local bin_name
+    bin_name=$(get_bin_name "$id")
+    if command_exists "$bin_name"; then
+      fmt_msg "Skip installing $id: already exists"
+      return
+    fi
+
+    ((DEBUG)) || {
+      if is_macos; then
+        brew install "$package_name"
+      elif is_debian; then
+        sudo apt install "$package_name"
+      fi
+    }
+  fi
 }
 
 install_omz() {
@@ -178,20 +238,10 @@ install_vim_plugin_manager() {
 }
 
 install_python() {
-  echo -n "Install python3? "
-  if prompt_user; then
-    # python3 is installed by default on macOS
-    if command_exists python3; then
-      fmt_info "Skip installing python3: already exists"
-    else
-      if isDebian; then
-        ((DEBUG)) || sudo apt install python3
-      fi
-    fi
+  install_package 'python3'
 
-    if ! command_exists python; then
-      ((DEBUG)) || { mkdir -p "$LOCAL_BIN" && ln -s -f "$(command -v python3)" "$LOCAL_BIN"/python; }
-    fi
+  if ! command_exists python; then
+    ((DEBUG)) || { mkdir -p "$LOCAL_BIN" && ln -s -f "$(command -v python3)" "$LOCAL_BIN"/python; }
   fi
 }
 
@@ -264,45 +314,54 @@ install_packages() {
 
   fmt_info "Start installing software packages"
 
-  install_zsh
-  # install oh-my-zsh and its plugins
   install_omz
 
   install_vim_plugin_manager
-  # pre-requisite for other plugins
+
   install_python
-  # pre-requisite for other plugins
+
   install_pipx
 
   install_autojump
-  # install ranger and its plugins
-  install_ranger
-}
 
-# GNU Stow is a symlink farm manager
-# https://www.gnu.org/software/stow/manual/stow.html
-install_stow() {
-  if is_macos; then
-    ((DEBUG)) || brew install stow
-  elif is_debian; then
-    ((DEBUG)) || sudo apt install stow
-  fi
+  install_ranger
+
+  local packages=(
+    diff-so-fancy
+    fd
+    fzf
+    gpg
+    highlight
+    htop
+    pstree
+    rg
+    shellcheck
+    tmux
+    tree
+    zsh
+  )
+
+  for package in "${packages[@]}"; do
+    install_package "$package"
+  done
 }
 
 deploy_config() {
   local config=$1
 
-  echo -n "Deploy $config (y/n)? "
+  echo -n "Deploy $config config (y/n)? "
   read -r answer
   if [[ $answer != "y" ]]; then return; fi
 
   ((DEBUG)) || {
-    if ! command_exists stow; then install_stow; fi
+    # GNU Stow is a symlink farm manager
+    # https://www.gnu.org/software/stow/manual/stow.html
+    if ! command_exists stow; then install_package 'stow'; fi
     stow --target "$HOME" --dir "$DOTFILE_ROOT" --no-folding "$config"
   }
 }
 
-deploy_config_file() {
+deploy_configs() {
   fmt_info "Start deploying config files"
 
   local configs=(
@@ -339,7 +398,7 @@ main() {
 
   install_packages
 
-  deploy_config_file
+  deploy_configs
 
   change_shell
 
