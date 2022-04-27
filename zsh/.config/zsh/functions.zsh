@@ -28,7 +28,7 @@ ra() {
 # function to generate .vimrc for IntelliJ IdeaVim plugin
 # ideavim can not recogonize `runtime` command in .vimrc following the vim config split
 ideavim_update() {
-    local config_path="$XDG_CONFIG_HOME"/vim
+    local config_path="$CONFIG_HOME"/vim
     local config_list=(
         "$config_path"/settings.vim
         "$config_path"/functions.vim
