@@ -361,6 +361,9 @@ install_packages() {
     tree
   )
 
+  # force zsh install
+  install_package zsh --force
+
   for package in "${packages[@]}"; do
     install_package "$package"
   done
@@ -369,7 +372,7 @@ install_packages() {
 deploy_config() {
   local config=$1
 
-  if ! prompt_user "Deploy $config config"; then return 1; fi
+  if [[ $# == 1 ]] && ! prompt_user "Deploy $config config"; then return 1; fi
 
   ((DEBUG)) || {
     # GNU Stow is a symlink farm manager
@@ -390,8 +393,12 @@ deploy_configs() {
     ssh
     tmux
     vim
-    zsh
   )
+
+  # force zsh config deployment
+  local old_zshrc="$HOME"/.zshrc
+  [[ -f $old_zshrc || -L $old_zshrc ]] && mv "$old_zshrc" "$HOME"/.zshrc."$(basename "$TMP_DIR")"
+  deploy_config zsh --force
 
   for config in "${configs[@]}"; do
     deploy_config "$config"
