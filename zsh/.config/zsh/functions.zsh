@@ -1,7 +1,7 @@
 # In case of error "SSH sever accepts key, but signing fails", consider run
 # `gpg-connect-agent updatestartuptty /bye`
 # `man gpg-agent` for more details
-function gpg_restart() {
+gpg_restart() {
     gpgconf --kill gpg-agent
     gpg-agent --daemon
 }
@@ -9,7 +9,7 @@ function gpg_restart() {
 # function wrapper making parent shell switches to the ranger working dir when ranger exits
 # Check ranger macros on https://github.com/ranger/ranger/wiki/Official-user-guide
 # Check ranger integrations on https://github.com/ranger/ranger/wiki/Integration-with-other-programs
-function ra() {
+ra() {
     local IFS=$'\t\n'
     local tempfile="$(mktemp -t ranger.XXXXXX)"
     local ranger_cmd=(
@@ -27,7 +27,7 @@ function ra() {
 
 # function to generate .vimrc for IntelliJ IdeaVim plugin
 # ideavim can not recogonize `runtime` command in .vimrc following the vim config split
-function ideavim_update() {
+ideavim_update() {
     local config_path="$XDG_CONFIG_HOME"/vim
     local config_list=(
         "$config_path"/settings.vim
