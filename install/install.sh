@@ -107,6 +107,23 @@ check_env() {
     echo "Run 'xcode-select --install' if you are on macOS"
     exit 1
   }
+
+  echo "Checking network connection"
+  ping -q -c 3 -t 5 8.8.8.8 2>/dev/null || {
+    fmt_error "Internet connection failure"
+    cat << EOF
+WiFi is on?
+If so, you are probably behind the Great Firewall.
+Turn on your VPN and add the following config in /etc/hosts:
+
+20.205.243.166 github.com
+185.199.108.133 raw.githubusercontent.com
+
+You can obtain a valid IP by running:
+dig +nostats @8.8.8.8 -t A raw.githubusercontent.com
+EOF
+    exit 1
+  }
 }
 
 install_plugin() {
