@@ -190,7 +190,7 @@ install_python() {
     fi
 
     if ! command_exists python; then
-      ((DEBUG)) || (mkdir -p "$LOCAL_BIN" && ln -s -f "$(command -v python3)" "$LOCAL_BIN"/python)
+      ((DEBUG)) || { mkdir -p "$LOCAL_BIN" && ln -s -f "$(command -v python3)" "$LOCAL_BIN"/python; }
     fi
   fi
 }
@@ -227,7 +227,7 @@ install_autojump() {
   # default install path: ~/.autojump
   # autojump has already been included in the plugin list in .zshrc
   if install_plugin "autojump" "$TMP_DIR"; then
-    ((DEBUG)) || (cd "$TMP_DIR"/autojump && python3 install.py)
+    ((DEBUG)) || { cd "$TMP_DIR"/autojump && python3 install.py; }
   fi
 }
 
