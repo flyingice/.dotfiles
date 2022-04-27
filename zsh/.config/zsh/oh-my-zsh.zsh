@@ -18,10 +18,6 @@ ZSH_TMUX_UNICODE=true
 ZSH_TMUX_DEFAULT_SESSION_NAME='localhost'
 
 
-# zsh-autosuggestions plugin accept suggestion
-bindkey '`' autosuggest-accept
-
-
 # Which plugins would you like to load?
 # Standard plugins can be found in ~/.config/oh-my-zsh/plugins/*
 # Custom plugins may be added to ~/.config/oh-my-zsh/custom/plugins/
@@ -40,3 +36,7 @@ plugins=(
 
 
 source $ZSH/oh-my-zsh.sh
+
+
+# zsh-autosuggestions plugin accept suggestion
+bindkey '`' autosuggest-accept
