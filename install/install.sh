@@ -197,6 +197,7 @@ get_bin_name() {
 }
 
 install_package() {
+  # expected command line binary name
   local id=$1
 
   if [[ $# -eq 1 ]] && ! prompt_user "Install $id?"; then return 1; fi
@@ -206,14 +207,14 @@ install_package() {
 
   if [[ -z $package_name ]]; then
     fmt_error "package.conf may be corrupted. Skip installing $id"
-    return
+    return 1
   fi
 
   local bin_name
   bin_name=$(get_bin_name "$id")
   if command_exists "$bin_name"; then
     fmt_msg "Skip installing $id: already exists"
-    return
+    return 0
   fi
 
   ((DEBUG)) || {
@@ -222,6 +223,11 @@ install_package() {
     elif is_debian; then
       sudo apt install "$package_name"
     fi
+
+    # add a symlink if command line bin name is not the same as the actual bin name
+    [[ "$id" == "$bin_name" ]] || {
+      mkdir -p "$LOCAL_BIN" && ln -s -f "$(command -v "$bin_name")" "$LOCAL_BIN/$id"
+    }
   }
 }
 
@@ -267,10 +273,10 @@ install_pipx() {
 
   command_exists python3 || {
     fmt_info "Skip installing pipx: python3 is required"
-    return
+    return 1
   }
 
-  if ((DEBUG)); then return; fi
+  if ((DEBUG)); then return 0; fi
 
   is_debian && {
     sudo apt install python3-venv
@@ -286,7 +292,7 @@ install_pipx() {
 install_autojump() {
   command_exists python3 || {
     fmt_info "Skip installing autojump: python3 is required"
-    return
+    return 1
   }
 
   # install autojump (as a requirement to install ranger-autojump plugin)
@@ -302,10 +308,10 @@ install_ranger() {
 
   command_exists pipx || {
     fmt_info "Skip installing ranger: pipx is required"
-    return
+    return 1
   }
 
-  if ((DEBUG)); then return; fi
+  if ((DEBUG)); then return 0; fi
 
   # default install path: ~/.local/bin
   pipx install ranger-fm
