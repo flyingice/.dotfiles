@@ -63,7 +63,9 @@ is_debian() {
 }
 
 prompt_user() {
-  echo -n "(y/n)? "
+  local question=$1
+
+  echo -n "$question (y/n)? "
   read -r answer
   [[ $answer == "y" ]]
 }
@@ -111,23 +113,18 @@ install_plugin() {
   local plugin=$1
   local target_path=$2
   local target="$target_path/$plugin"
-  local installed=0
 
-  echo -n "Install $plugin? "
-  if prompt_user; then
-    if [[ -e $target ]]; then
-      echo "Already exists. Cleaning $target"
-      ((DEBUG)) || rm -rf "$target"
-    fi
+  if ! prompt_user "Install $plugin?"; then return 1; fi
 
-    ((DEBUG)) || {
-      mkdir -p "$target_path" || exit 1
-      git -C "$target_path" clone --depth=1 "${URL["$plugin"]}"
-      installed=1
-    }
+  if [[ -e $target ]]; then
+    echo "Already exists. Cleaning $target"
+    ((DEBUG)) || rm -rf "$target"
   fi
 
-  ((DEBUG || installed))
+  ((DEBUG)) || {
+    mkdir -p "$target_path" || exit 1
+    git -C "$target_path" clone --depth=1 "${URL["$plugin"]}"
+  }
 }
 
 update_package_manager() {
@@ -185,52 +182,50 @@ get_bin_name() {
 install_package() {
   local id=$1
 
-  echo -n "Install $id? "
-  if prompt_user; then
-    local package_name
-    package_name=$(get_package_name "$id")
+  if ! prompt_user "Install $id?"; then return 1; fi
 
-    if [[ -z $package_name ]]; then
-      fmt_error "package.conf may be corrupted. Skip installing $id"
-      return
-    fi
+  local package_name
+  package_name=$(get_package_name "$id")
 
-    local bin_name
-    bin_name=$(get_bin_name "$id")
-    if command_exists "$bin_name"; then
-      fmt_msg "Skip installing $id: already exists"
-      return
-    fi
-
-    ((DEBUG)) || {
-      if is_macos; then
-        brew install "$package_name"
-      elif is_debian; then
-        sudo apt install "$package_name"
-      fi
-    }
+  if [[ -z $package_name ]]; then
+    fmt_error "package.conf may be corrupted. Skip installing $id"
+    return
   fi
+
+  local bin_name
+  bin_name=$(get_bin_name "$id")
+  if command_exists "$bin_name"; then
+    fmt_msg "Skip installing $id: already exists"
+    return
+  fi
+
+  ((DEBUG)) || {
+    if is_macos; then
+      brew install "$package_name"
+    elif is_debian; then
+      sudo apt install "$package_name"
+    fi
+  }
 }
 
 install_omz() {
-  echo -n "Install oh-my-zsh? "
-  if prompt_user; then
-    local install_path="$CONFIG_HOME"/oh-my-zsh
-    local plugin_path="$install_path"/custom/plugins
+  if ! prompt_user "Install oh-my-zsh"; then return 1; fi
 
-    ((DEBUG)) || {
-        install_package 'zsh'
-        ZSH="$install_path" bash -c "$(curl -fsSL "${URL["oh-my-zsh"]}")" "" --unattended --keep-zshrc
-    }
-    # install oh-my-zsh plugins
-    local plugins=(
-      zsh-autosuggestions
-      zsh-syntax-highlighting
-    )
-    for plugin in "${plugins[@]}"; do
-      install_plugin "$plugin" "$plugin_path"
-    done
-  fi
+  local install_path="$CONFIG_HOME"/oh-my-zsh
+  local plugin_path="$install_path"/custom/plugins
+
+  ((DEBUG)) || {
+      install_package 'zsh'
+      ZSH="$install_path" bash -c "$(curl -fsSL "${URL["oh-my-zsh"]}")" "" --unattended --keep-zshrc
+  }
+  # install oh-my-zsh plugins
+  local plugins=(
+    zsh-autosuggestions
+    zsh-syntax-highlighting
+  )
+  for plugin in "${plugins[@]}"; do
+    install_plugin "$plugin" "$plugin_path"
+  done
 }
 
 install_vim_plugin_manager() {
@@ -251,25 +246,24 @@ install_python() {
 }
 
 install_pipx() {
-  echo -n "install pipx? "
-  if prompt_user; then
-    command_exists python3 || {
-      fmt_info "Skip installing pipx: python3 is required"
-      return
-    }
+  if ! prompt_user "install pipx"; then return 1; fi
 
-    if ((DEBUG)); then return; fi
+  command_exists python3 || {
+    fmt_info "Skip installing pipx: python3 is required"
+    return
+  }
 
-    is_debian && {
-      sudo apt install python3-venv
-      sudo apt install python3-pip
-    }
+  if ((DEBUG)); then return; fi
 
-    python3 -m pip install --upgrade pip
-    python3 -m pip install --user pipx
+  is_debian && {
+    sudo apt install python3-venv
+    sudo apt install python3-pip
+  }
 
-    export PATH=$PATH:$LOCAL_BIN
-  fi
+  python3 -m pip install --upgrade pip
+  python3 -m pip install --user pipx
+
+  export PATH=$PATH:$LOCAL_BIN
 }
 
 install_autojump() {
@@ -287,30 +281,29 @@ install_autojump() {
 }
 
 install_ranger() {
-  echo -n "install ranger? "
-  if prompt_user; then
-    command_exists pipx || {
-      fmt_info "Skip installing ranger: pipx is required"
-      return
-    }
+  if ! prompt_user "install ranger"; then return 1; fi
 
-    if ((DEBUG)); then return; fi
+  command_exists pipx || {
+    fmt_info "Skip installing ranger: pipx is required"
+    return
+  }
 
-    # default install path: ~/.local/bin
-    pipx install ranger-fm
+  if ((DEBUG)); then return; fi
 
-    ########## install ranger plugin ###########
+  # default install path: ~/.local/bin
+  pipx install ranger-fm
 
-    local plugin_path="$CONFIG_HOME"/ranger/plugins
+  ########## install ranger plugin ###########
 
-    mkdir -p "$plugin_path"
+  local plugin_path="$CONFIG_HOME"/ranger/plugins
 
-    install_plugin "ranger_devicons" "$plugin_path"
+  mkdir -p "$plugin_path"
 
-    # to check: ranger-autojump can't be configured as an oh-my-zsh plugin
-    install_plugin "ranger_autojump" "$TMP_DIR"
-    cp "$TMP_DIR"/ranger-autojump/autojump.py "$plugin_path"
-  fi
+  install_plugin "ranger_devicons" "$plugin_path"
+
+  # to check: ranger-autojump can't be configured as an oh-my-zsh plugin
+  install_plugin "ranger_autojump" "$TMP_DIR"
+  cp "$TMP_DIR"/ranger-autojump/autojump.py "$plugin_path"
 }
 
 install_packages() {
@@ -353,15 +346,13 @@ install_packages() {
 deploy_config() {
   local config=$1
 
-  echo -n "Deploy $config config (y/n)? "
-  read -r answer
-  if [[ $answer != "y" ]]; then return; fi
+  if ! prompt_user "Deploy $config config"; then return 1; fi
 
   ((DEBUG)) || {
     # GNU Stow is a symlink farm manager
     # https://www.gnu.org/software/stow/manual/stow.html
     if ! command_exists stow; then install_package 'stow'; fi
-    stow --target "$HOME" --dir "$DOTFILE_ROOT" --override='.*' --no-folding "$config"
+    stow --target "$HOME" --dir "$DOTFILE_ROOT" --no-folding "$config"
   }
 }
 
