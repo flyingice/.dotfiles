@@ -218,8 +218,10 @@ install_omz() {
     local install_path="$CONFIG_HOME"/oh-my-zsh
     local plugin_path="$install_path"/custom/plugins
 
-    ((DEBUG)) || ZSH="$install_path" bash -c "$(curl -fsSL "${URL["oh-my-zsh"]}")" "" --unattended --keep-zshrc
-
+    ((DEBUG)) || {
+        install_package 'zsh'
+        ZSH="$install_path" bash -c "$(curl -fsSL "${URL["oh-my-zsh"]}")" "" --unattended --keep-zshrc
+    }
     # install oh-my-zsh plugins
     local plugins=(
       zsh-autosuggestions
@@ -341,7 +343,6 @@ install_packages() {
     shellcheck
     tmux
     tree
-    zsh
   )
 
   for package in "${packages[@]}"; do
