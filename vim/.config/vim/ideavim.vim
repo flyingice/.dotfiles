@@ -1,9 +1,19 @@
-" ====
-" ==== settings for IntelliJ IDEA IdeaVim plugin
-" ====
+"  ___    _          __     ___
+" |_ _|__| | ___  __ \ \   / (_)_ __ ___
+"  | |/ _` |/ _ \/ _` \ \ / /| | '_ ` _ \
+"  | | (_| |  __/ (_| |\ V / | | | | | | |
+" |___\__,_|\___|\__,_| \_/  |_|_| |_| |_|
 
-" list of supported set commands: https://github.com/JetBrains/ideavim/wiki/%22set%22-commands
-" enable smart join operation: https://github.com/JetBrains/ideavim/wiki/%22ideajoin%22-examples
+
+" ====
+" ==== basic settings
+" ====
+"
+" full list of supported set commands:
+" https://github.com/JetBrains/ideavim/wiki/%22set%22-commands
+"
+" enable smart join operation:
+" https://github.com/JetBrains/ideavim/wiki/%22ideajoin%22-examples
 set ideajoin
 
 " ====

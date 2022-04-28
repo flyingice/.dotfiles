@@ -1,3 +1,11 @@
+"  ____       _   _   _
+" / ___|  ___| |_| |_(_)_ __   __ _ ___
+" \___ \ / _ \ __| __| | '_ \ / _` / __|
+"  ___) |  __/ |_| |_| | | | | (_| \__ \
+" |____/ \___|\__|\__|_|_| |_|\__, |___/
+"                             |___/
+
+
 " vim is based on vi.
 " Setting `nocompatible` switches from the default vi-compatibility mode
 " and enables useful vim functionality. This configuration option turns out

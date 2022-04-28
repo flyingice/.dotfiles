@@ -1,3 +1,11 @@
+"  _  __
+" | |/ /___ _   _ _ __ ___   __ _ _ __
+" | ' // _ \ | | | '_ ` _ \ / _` | '_ \
+" | . \  __/ |_| | | | | | | (_| | |_) |
+" |_|\_\___|\__, |_| |_| |_|\__,_| .__/
+"           |___/                |_|
+
+
 " :help key-notation
 
 " Alt-x combination triggers x sequence with iTerm2 on macOS,
