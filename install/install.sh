@@ -372,7 +372,7 @@ deploy_config() {
     # GNU Stow is a symlink farm manager
     # https://www.gnu.org/software/stow/manual/stow.html
     if ! command_exists stow; then install_package 'stow' --force; fi
-    stow --target "$HOME" --dir "$DOTFILE_ROOT" --no-folding "$config" \
+    stow --target "$HOME" --dir "$DOTFILE_ROOT" --override='.*' --no-folding "$config" \
       || fmt_info "Deployment failure: remove your old $config config"
   }
 }
