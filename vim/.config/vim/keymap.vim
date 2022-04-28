@@ -1,5 +1,15 @@
 " :help key-notation
 
+" Alt-x combination triggers x sequence with iTerm2 on macOS,
+" thus vim can't recognize nnoremap <A-x> ... settings
+" fix meta-keys which generate <Esc>a .. <Esc>z
+" https://vim.fandom.com/wiki/Fix_meta-keys_that_break_out_of_Insert_mode
+let c='a'
+while c <= 'z'
+    exec "set <A-".c.">=".c
+    let c = nr2char(1+char2nr(c))
+endw
+
 " set leader key to space instead of default backslash
 nnoremap <Space> <Nop>
 let mapleader=" "
