@@ -52,7 +52,7 @@ is_linux() {
 }
 
 is_debian() {
-  file=/etc/os-release
+  local file=/etc/os-release
   # debian-derived Linux distribution
   [[ -f $file ]] && grep -qi 'debian' /etc/os-release
 }
@@ -67,5 +67,12 @@ prompt_user() {
 
 command_exists() {
   command -v "$@" >/dev/null 2>&1
+}
+
+backup_file() {
+  local old=$1
+  local new=$2
+
+  [[ -e $old ]] && mv "$old" "$new"
 }
 

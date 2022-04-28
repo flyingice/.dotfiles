@@ -331,11 +331,20 @@ deploy_config() {
 deploy_configs() {
   fmt_msg "Start deploying config files"
 
-  # backup .zshrc if exists
-  ((DEBUG)) || {
-    local old_zshrc="$HOME"/.zshrc
-    [[ -f $old_zshrc || -L $old_zshrc ]] && mv "$old_zshrc" "$HOME"/.zshrc."$(basename "$TMP_DIR")"
-  }
+  # successful deployment of zsh config is critical
+  # rename zsh config as existing files not managed by stow will cause conflict
+  local suffix
+  suffix="$(basename "$TMP_DIR")"
+
+  local zsh_configs=(
+    "$HOME"/.zshrc
+    "$HOME"/.zprofile
+    "$HOME"/.config/zsh
+  )
+
+  for config in "${zsh_configs[@]}"; do
+    ((DEBUG)) || backup_file "$config" "$config"."$suffix"
+  done
 
   for config in "${CONFIGS[@]}"; do
     deploy_config "$config"
