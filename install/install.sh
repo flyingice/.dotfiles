@@ -107,8 +107,14 @@ check_env() {
     exit 1
   }
 
-  echo "Checking network connection"
-  { ping -q -c 3 -t 5 8.8.8.8 || ping -q -c 3 -W 5 8.8.8.8; } 2>/dev/null || {
+  {
+    echo "Start checking network connection"
+    if is_macos; then
+      ping -q -c 3 -t 5 8.8.8.8
+    else
+      ping -q -c 3 -W 5 8.8.8.8
+    fi
+  } 2>/dev/null || {
     fmt_error "Internet connection failure"
     cat << EOF
 WiFi is on?
@@ -310,13 +316,11 @@ install_ranger() {
 
   local plugin_path="$CONFIG_HOME"/ranger/plugins
 
-  mkdir -p "$plugin_path"
-
   install_plugin "ranger_devicons" "$plugin_path"
 
   # to check: ranger-autojump can't be configured as an oh-my-zsh plugin
-  install_plugin "ranger_autojump" "$TMP_DIR"
-  cp "$TMP_DIR"/ranger-autojump/autojump.py "$plugin_path"
+  install_plugin "ranger_autojump" "$TMP_DIR" && \
+    cp "$TMP_DIR"/ranger-autojump/autojump.py "$plugin_path"
 }
 
 install_packages() {
