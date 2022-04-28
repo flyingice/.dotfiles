@@ -103,3 +103,6 @@ set foldmethod=indent
 set timeoutlen=1000
 " set keycode delay
 set ttimeoutlen=0
+
+" restore cursor position at next file reopen
+au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
