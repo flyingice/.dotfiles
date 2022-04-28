@@ -40,3 +40,14 @@ source $ZSH/oh-my-zsh.sh
 
 # zsh-autosuggestions plugin accept suggestion
 bindkey '`' autosuggest-accept
+
+
+# modify default fzf key bindings
+bindkey -r '^R'
+bindkey '^[h' fzf-history-widget
+
+bindkey -r '^T'
+bindkey '^[f' fzf-file-widget
+
+bindkey -r '^[c'
+bindkey '^[j' fzf-cd-widget

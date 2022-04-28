@@ -95,14 +95,6 @@ set mouse+=a
 " enable window resizing with mouse dragging (default on xterm)
 set ttymouse=sgr
 
-" Avoid strange indentation when using system paste command, in particular
-" when the 'autoindent' option is enabled. Alternatively, you can run the
-" ex command :set paste before pasting from the system clipboard and then
-" run :set paste! to turn the option off. A more elegant solution would be
-" the normal mode command "+p that preserves the indentation of the text
-" without any surprises.
-set pastetoggle=<F5>
-
 " set default code folding method
 set foldmethod=indent
 

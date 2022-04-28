@@ -1,13 +1,15 @@
+" :help key-notation
+
 " set leader key to space instead of default backslash
-nnoremap <SPACE> <Nop>
+nnoremap <Space> <Nop>
 let mapleader=" "
 
 " unbind some useless/annoying default keys
 map s <Nop>
 
 " back up one tab stop
-" <TAB> already has the same effect as <C-T>
-inoremap <S-TAB> <C-d>
+" <Tab> already has the same effect as <C-t>
+inoremap <S-Tab> <C-d>
 
 " <C-a> is taken as tmux prefix key
 nnoremap <C-q> <C-a>
@@ -16,12 +18,9 @@ nnoremap <C-q> <C-a>
 nmap S :w<CR>
 nmap Q :q<CR>
 
-" open a terminal
-nnoremap <C-s> :term<CR>
-
 " insert a newline
-nnoremap oo o<ESC>k
-nnoremap OO O<ESC>j
+nnoremap oo o<Esc>k
+nnoremap OO O<Esc>j
 
 " window splitting
 nnoremap sh :set nosplitright<CR>:vsplit<CR>
@@ -56,5 +55,16 @@ cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h').'/' : '%%'
 " 'selection for find' feature
 " The key mappings apply to visual mode only.
 " credit to https://github.com/nelstrom/vim-visual-star-search
-xnoremap * :<C-u>call <SID>VSetSearch('/')<CR>/<C-R>=@/<CR><CR>
-xnoremap # :<C-u>call <SID>VSetSearch('?')<CR>?<C-R>=@/<CR><CR>
+xnoremap * :<C-u>call <SID>VSetSearch('/')<CR>/<C-r>=@/<CR><CR>
+xnoremap # :<C-u>call <SID>VSetSearch('?')<CR>?<C-r>=@/<CR><CR>
+
+" Avoid strange indentation when using system paste command, in particular
+" when the 'autoindent' option is enabled. Alternatively, you can run the
+" ex command :set paste before pasting from the system clipboard and then
+" run :set paste! to turn the option off. A more elegant solution would be
+" the normal mode command "+p that preserves the indentation of the text
+" without any surprises.
+set pastetoggle=<F5>
+
+" open a terminal
+nnoremap <A-s> :term<CR>

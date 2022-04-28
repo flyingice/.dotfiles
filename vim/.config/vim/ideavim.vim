@@ -17,13 +17,13 @@ nmap <C-w>= :action MaximizeEditorInSplit<CR>
 nmap <C-t> :action Back<CR>
 
 " find all usages
-nmap <Leader>u :action FindUsages<CR>
+nmap <A-r> :action FindUsages<CR>
 
 " reformat
-nmap <Leader>= :action ReformatCode<CR><ESC>
+nmap <A-=> :action ReformatCode<CR><ESC>
 
 " rename
-nmap <Leader>c :action RenameElement<CR>
+nmap <A-c> :action RenameElement<CR>
 
 " ====
 " ==== plugin emulation
@@ -38,7 +38,7 @@ set matchit
 " https://github.com/preservim/nerdtree
 set NERDTree
 
-nmap <Leader><C-n> :NERDTreeToggle<CR>
+nmap <A-t> :NERDTreeToggle<CR>
 
 " https://github.com/tpope/vim-surround
 set surround

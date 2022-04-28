@@ -27,14 +27,14 @@ call plug#end()
 " ====
 
 " key bindings
-nnoremap <Leader><C-g> :term lazygit<CR><C-w>_
+nnoremap <A-g> :term lazygit<CR><C-w>_
 
 " ====
 " ==== NERDTree
 " ====
 
 " key bindings
-nnoremap <Leader><C-n> :NERDTreeToggle<CR>
+nnoremap <A-t> :NERDTreeToggle<CR>
 
 " ====
 " ==== fzf
@@ -44,10 +44,10 @@ nnoremap <Leader><C-n> :NERDTreeToggle<CR>
 " see `--preview-window` section of `man fzf`
 let g:fzf_preview_window = ['right:40%', 'ctrl-/']
 " key bindings
-nnoremap <Leader>b :Buffers<CR>
-nnoremap <Leader>f :Files<CR>
-nnoremap <Leader>h :History<CR>
-nnoremap <Leader>u :Rg<SPACE>
+nnoremap <A-b> :Buffers<CR>
+nnoremap <A-f> :Files<CR>
+nnoremap <A-h> :History<CR>
+nnoremap <A-r> :Rg<SPACE>
 
 " ====
 " ==== vim-airline
