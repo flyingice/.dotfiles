@@ -7,15 +7,12 @@ bash_release=$(bash --version | head -n1 | cut -d ' ' -f4 | cut -d '.' -f1)
   exit 1
 }
 
-SCRIPT_DIR=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
+SCRIPT_DIR=$(cd -- "$(dirname "${BASH_SOURCE[0]}")" && pwd)
 DOTFILE_ROOT="$SCRIPT_DIR"/..
 INSTALL_CONF_DIR="$SCRIPT_DIR"/conf
-# debug mode is on by default
-# don't download nor install packages in debug mode
-DEBUG=1
+
 CONFIG_HOME=$HOME/.config
 LOCAL_BIN=$HOME/.local/bin
-TMP_DIR=$(mktemp -d -t dotfileXXXXX)
 
 declare -A URL
 # address mapping
@@ -27,57 +24,21 @@ URL["autojump"]="https://github.com/wting/autojump"
 URL["ranger_devicons"]="https://github.com/alexanderjeurissen/ranger_devicons"
 URL["ranger_autojump"]="https://github.com/fdw/ranger-autojump"
 
-FMT_RED=$(printf '\033[31m')
-FMT_GREEN=$(printf '\033[32m')
-FMT_YELLOW=$(printf '\033[33m')
-FMT_BOLD=$(printf '\033[1m')
-FMT_RESET=$(printf '\033[0m')
+# debug mode is on by default
+# don't download nor install packages in debug mode
+DEBUG=1
 
-########## UTILITY FUNCTIONS BEGIN ##########
+# shellcheck disable=SC1091
+source "$SCRIPT_DIR"/common.sh
 
-fmt_error() {
-  printf '%sError: %s%s\n' "${FMT_BOLD}${FMT_RED}" "$*" "${FMT_RESET}" >&2
-}
-
-fmt_info() {
-  printf '%sInfo: %s%s\n' "${FMT_YELLOW}" "$*" "${FMT_RESET}"
-}
-
-fmt_msg() {
-  printf '%s%s%s\n' "${FMT_GREEN}" "$*" "${FMT_RESET}"
-}
-
-is_macos() {
-  [[ $OSTYPE == "darwin"* ]]
-}
-
-is_linux() {
-  [[ $OSTYPE == "linux-gnu"* ]]
-}
-
-is_debian() {
-  file=/etc/os-release
-  # debian-derived Linux distribution
-  [[ -f $file ]] && grep -qi 'debian' /etc/os-release
-}
-
-prompt_user() {
-  local question=$1
-
-  echo -n "$question (y/n)? "
-  read -r answer
-  [[ $answer == "y" ]]
-}
-
-command_exists() {
-  command -v "$@" >/dev/null 2>&1
-}
+TMP_DIR=$(mktemp -d -t dotfileXXXXX)
 
 cleanup() {
   rm -rf "${TMP_DIR}"
 }
 
-########## UTILITY FUNCTIONS END ##########
+trap exit_on_signal EXIT
+
 
 validate_parameter() {
   if [[ $# -gt 1 || ($# -eq 1 && $1 != "release") ]]; then
@@ -427,6 +388,5 @@ main() {
   fmt_msg "Finish. Run 'exit' and re-login"
 }
 
-trap exit_on_signal EXIT
-
 main "$@"
+
