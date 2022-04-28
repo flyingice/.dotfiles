@@ -20,6 +20,8 @@ Plug 'tpope/vim-commentary'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 
+Plug 'jszakmeister/vim-togglecursor'
+
 Plug 'vim-airline/vim-airline-themes'
 Plug 'vim-airline/vim-airline'
 
