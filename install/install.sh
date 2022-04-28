@@ -161,6 +161,7 @@ update_package_manager() {
   elif is_debian; then
     ((DEBUG)) || {
         sudo add-apt-repository ppa:aos1/diff-so-fancy
+        sudo add-apt-repository ppa:lazygit-team/release
         sudo apt update
     }
   fi
@@ -346,6 +347,7 @@ install_packages() {
     gpg
     highlight
     htop
+    lazygit
     pstree
     rg
     shellcheck
