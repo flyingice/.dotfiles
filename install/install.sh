@@ -230,7 +230,7 @@ install_package() {
       sudo apt install "$package_name"
     fi
 
-    # add a symlink if command line bin name is not the same as the actual bin name
+    # add a symlink if the expected cmd bin name (1st column of package.conf) is not the same as the actual bin name
     [[ "$id" == "$bin_name" ]] || {
       mkdir -p "$LOCAL_BIN" && ln -s -f "$(command -v "$bin_name")" "$LOCAL_BIN/$id"
     }
@@ -390,9 +390,11 @@ deploy_configs() {
   )
 
   # force zsh config deployment
-  local old_zshrc="$HOME"/.zshrc
-  [[ -f $old_zshrc || -L $old_zshrc ]] && mv "$old_zshrc" "$HOME"/.zshrc."$(basename "$TMP_DIR")"
-  deploy_config zsh --force
+  ((DEBUG)) || {
+    local old_zshrc="$HOME"/.zshrc
+    [[ -f $old_zshrc || -L $old_zshrc ]] && mv "$old_zshrc" "$HOME"/.zshrc."$(basename "$TMP_DIR")"
+    deploy_config zsh --force
+  }
 
   for config in "${configs[@]}"; do
     deploy_config "$config"
