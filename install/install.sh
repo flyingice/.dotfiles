@@ -331,11 +331,10 @@ deploy_config() {
 deploy_configs() {
   fmt_msg "Start deploying config files"
 
-  # force zsh config deployment
+  # backup .zshrc if exists
   ((DEBUG)) || {
     local old_zshrc="$HOME"/.zshrc
     [[ -f $old_zshrc || -L $old_zshrc ]] && mv "$old_zshrc" "$HOME"/.zshrc."$(basename "$TMP_DIR")"
-    deploy_config zsh --force
   }
 
   for config in "${CONFIGS[@]}"; do

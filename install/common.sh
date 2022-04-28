@@ -22,6 +22,7 @@ CONFIGS=(
     ssh
     tmux
     vim
+    zsh
 )
 
 FMT_RED=$(printf '\033[31m')
