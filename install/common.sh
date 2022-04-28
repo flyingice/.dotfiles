@@ -1,5 +1,29 @@
 #!/usr/bin/env bash
 
+PACKAGES=(
+    diff-so-fancy
+    fd
+    fzf
+    gpg
+    highlight
+    htop
+    lazygit
+    pstree
+    rg
+    shellcheck
+    tmux
+    tree
+)
+
+CONFIGS=(
+    git
+    gnupg
+    ranger
+    ssh
+    tmux
+    vim
+)
+
 FMT_RED=$(printf '\033[31m')
 FMT_GREEN=$(printf '\033[32m')
 FMT_YELLOW=$(printf '\033[33m')

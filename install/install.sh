@@ -7,9 +7,13 @@ bash_release=$(bash --version | head -n1 | cut -d ' ' -f4 | cut -d '.' -f1)
   exit 1
 }
 
+
 SCRIPT_DIR=$(cd -- "$(dirname "${BASH_SOURCE[0]}")" && pwd)
 DOTFILE_ROOT="$SCRIPT_DIR"/..
 INSTALL_CONF_DIR="$SCRIPT_DIR"/conf
+
+# shellcheck disable=SC1091
+source "$SCRIPT_DIR"/common.sh
 
 CONFIG_HOME=$HOME/.config
 LOCAL_BIN=$HOME/.local/bin
@@ -28,17 +32,18 @@ URL["ranger_autojump"]="https://github.com/fdw/ranger-autojump"
 # don't download nor install packages in debug mode
 DEBUG=1
 
-# shellcheck disable=SC1091
-source "$SCRIPT_DIR"/common.sh
-
 TMP_DIR=$(mktemp -d -t dotfileXXXXX)
 
 cleanup() {
   rm -rf "${TMP_DIR}"
 }
 
-trap exit_on_signal EXIT
+exit_on_signal() {
+  fmt_msg "Cleaning up temporary files"
+  cleanup
+}
 
+trap exit_on_signal EXIT
 
 validate_parameter() {
   if [[ $# -gt 1 || ($# -eq 1 && $1 != "release") ]]; then
@@ -301,25 +306,10 @@ install_packages() {
 
   install_ranger
 
-  local packages=(
-    diff-so-fancy
-    fd
-    fzf
-    gpg
-    highlight
-    htop
-    lazygit
-    pstree
-    rg
-    shellcheck
-    tmux
-    tree
-  )
-
   # force zsh install
   install_package zsh --force
 
-  for package in "${packages[@]}"; do
+  for package in "${PACKAGES[@]}"; do
     install_package "$package"
   done
 }
@@ -341,15 +331,6 @@ deploy_config() {
 deploy_configs() {
   fmt_msg "Start deploying config files"
 
-  local configs=(
-    git
-    gnupg
-    ranger
-    ssh
-    tmux
-    vim
-  )
-
   # force zsh config deployment
   ((DEBUG)) || {
     local old_zshrc="$HOME"/.zshrc
@@ -357,7 +338,7 @@ deploy_configs() {
     deploy_config zsh --force
   }
 
-  for config in "${configs[@]}"; do
+  for config in "${CONFIGS[@]}"; do
     deploy_config "$config"
   done
 }
@@ -369,10 +350,6 @@ change_shell() {
   fi
 }
 
-exit_on_signal() {
-  fmt_msg "Cleaning up temporary files"
-  cleanup
-}
 
 main() {
   validate_parameter "$@"
