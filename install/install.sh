@@ -23,7 +23,6 @@ URL["homebrew"]="https://raw.githubusercontent.com/Homebrew/install/HEAD/install
 URL["oh-my-zsh"]="https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh"
 URL["zsh-syntax-highlighting"]="https://github.com/zsh-users/zsh-syntax-highlighting"
 URL["zsh-autosuggestions"]="https://github.com/zsh-users/zsh-autosuggestions"
-URL["vim-plug"]="https://github.com/junegunn/vim-plug"
 URL["autojump"]="https://github.com/wting/autojump"
 URL["ranger_devicons"]="https://github.com/alexanderjeurissen/ranger_devicons"
 URL["ranger_autojump"]="https://github.com/fdw/ranger-autojump"
@@ -251,15 +250,6 @@ install_omz() {
   done
 }
 
-install_vim_plugin_manager() {
-  if install_plugin "vim-plug" "$TMP_DIR"; then
-    ((DEBUG)) || {
-      local target_path="$CONFIG_HOME"/vim/autoload
-      mkdir -p "$target_path" && cp "$TMP_DIR"/vim-plug/plug.vim "$target_path"
-    }
-  fi
-}
-
 install_python() {
   install_package 'python3'
 
@@ -336,8 +326,6 @@ install_packages() {
   fmt_msg "Start installing software packages"
 
   install_omz
-
-  install_vim_plugin_manager
 
   install_python
 
