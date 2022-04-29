@@ -43,6 +43,12 @@ export FZF_DEFAULT_OPTS="--height 50% --reverse"
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 
 # ====
+# ==== ripgrep
+# ====
+
+export RIPGREP_CONFIG_PATH="$CONFIG_HOME/ripgrep/ripgreprc"
+
+# ====
 # ==== GnuPG
 # ====
 

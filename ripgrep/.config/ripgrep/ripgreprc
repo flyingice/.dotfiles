@@ -1,0 +1,19 @@
+# glob patterns to include/exclude files and directories
+--glob
+!.git/*
+
+# search hidden files and directories
+--hidden
+
+# searches case insensitively if the pattern is all lowercase, and search case sensitively otherwise.
+--smart-case
+
+# show line numbers (1-based)
+--line-number
+
+# show column number of the first match on each line (1-based)
+--column
+
+# lines longer than 100 bytes are omitted, and only the number of matches in that line is printed
+--max-columns=100
+--max-columns-preview

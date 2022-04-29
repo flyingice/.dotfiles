@@ -19,6 +19,7 @@ CONFIGS=(
     git
     gnupg
     ranger
+    ripgrep
     ssh
     tmux
     vim
