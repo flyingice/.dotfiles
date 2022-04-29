@@ -10,12 +10,12 @@ gpg_restart() {
 # Check ranger macros on https://github.com/ranger/ranger/wiki/Official-user-guide
 # Check ranger integrations on https://github.com/ranger/ranger/wiki/Integration-with-other-programs
 ra() {
-    local IFS=$'\t\n'
-    local tempfile="$(mktemp -t ranger.XXXXXX)"
+    local tempfile
+    tempfile="$(mktemp -t ranger.XXXXXX)"
     local ranger_cmd=(
         command
         ranger
-        --cmd="map Q chain shell echo %d > "$tempfile"; quitall"
+        --cmd="map Q chain shell echo %d > $tempfile; quitall"
     )
 
     "${ranger_cmd[@]}" "$@"
