@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 PACKAGES=(
+    bat
     diff-so-fancy
     fd
     fzf
@@ -15,6 +16,7 @@ PACKAGES=(
 )
 
 CONFIGS=(
+    bat
     git
     gnupg
     ranger

@@ -49,6 +49,12 @@ export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export RIPGREP_CONFIG_PATH="$CONFIG_HOME/ripgrep/ripgreprc"
 
 # ====
+# ==== bat
+# ====
+
+export BAT_CONFIG_PATH=$CONFIG_HOME/bat/bat.conf
+
+# ====
 # ==== GnuPG
 # ====
 
