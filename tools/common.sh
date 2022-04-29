@@ -5,7 +5,6 @@ PACKAGES=(
     fd
     fzf
     gpg
-    highlight
     htop
     lazygit
     pstree
