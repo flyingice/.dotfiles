@@ -39,3 +39,26 @@ ideavim_update() {
     # concatenate config files with two blank lines as separator
     awk 'FNR==1 && NR>1 { printf("\n\n") } { print $0 }' "${config_list[@]}" > "$HOME"/.ideavimrc
 }
+
+# interactive ripgrep
+# https://github.com/junegunn/fzf/blob/master/ADVANCED.md#switching-between-ripgrep-mode-and-fzf-mode
+# check available actions: https://github.com/junegunn/fzf/blob/master/src/options.go
+# {q} in the reload command evaluates to the query string on fzf prompt
+irg() {
+    local initial_query="${*:-}"
+    local fd_command="$FZF_DEFAULT_COMMAND"
+    local rg_command='rg --no-heading --color=always'
+
+    FZF_DEFAULT_COMMAND="$rg_command $(printf %q "$initial_query")" \
+    fzf --ansi \
+        --disabled --query "$initial_query" \
+        --bind "change:reload:sleep 0.1; $rg_command {q} || true" \
+        --bind "alt-f:unbind(change,alt-f)+change-prompt($FD_PROMPT)+enable-search+reload($fd_command)+rebind(alt-r)" \
+        --bind "alt-r:unbind(alt-r)+change-prompt($RG_PROMPT)+disable-search+reload($rg_command {q} || true)+rebind(change,alt-f)" \
+        --prompt "$RG_PROMPT" \
+        --delimiter : \
+        --preview 'bat --line-range=:100 {1}' \
+    | IFS=: read -rA selected
+
+    [[ -n ${selected[1]} ]] && vim "${selected[1]}" "+${selected[2]}"
+}
