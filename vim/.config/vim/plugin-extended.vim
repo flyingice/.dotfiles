@@ -19,7 +19,6 @@ endif
 
 call plug#begin("~/.config/vim/plugged")
 
-Plug 'preservim/nerdtree', { 'on': 'NERDTreeToggle' }
 
 Plug 'tpope/vim-surround'
 
@@ -40,16 +39,9 @@ Plug 'arzg/vim-colors-xcode'
 call plug#end()
 
 " ====
-" ==== NERDTree
-" ====
-
-" key bindings
-nnoremap <A-t> :NERDTreeToggle<CR>
-
-" ====
 " ==== fzf
 " ====
-"
+
 " preview window on the right with 40% width, CTRL-/ will toggle preview window.
 " see `--preview-window` section of `man fzf`
 let g:fzf_preview_window = ['right:40%', 'ctrl-/']
