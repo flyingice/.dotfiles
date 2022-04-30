@@ -57,7 +57,7 @@ irg() {
         --bind "alt-r:unbind(alt-r)+change-prompt($RG_PROMPT)+disable-search+reload($rg_command {q} || true)+rebind(change,alt-f)" \
         --prompt "$RG_PROMPT" \
         --delimiter : \
-        --preview 'bat --line-range=:100 {1}' \
+        --preview 'line_nb={2}; [[ -z $line_nb ]] && line_nb=1; bat --highlight-line $line_nb --line-range=:100 {1}' \
     | IFS=: read -rA selected
 
     [[ -n ${selected[1]} ]] && vim "${selected[1]}" "+${selected[2]}"
