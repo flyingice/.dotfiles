@@ -28,6 +28,13 @@ setopt HIST_NO_STORE
 setopt HIST_NO_FUNCTIONS
 
 # ====
+# ==== man
+# ====
+
+# colorize pager for man
+export MANPAGER="zsh -c 'col -bx | bat -l man -p'"
+
+# ====
 # ==== vim
 # ====
 
