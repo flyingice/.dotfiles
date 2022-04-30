@@ -48,5 +48,5 @@ irg() {
         --preview 'line_nb={2}; [[ -z $line_nb ]] && line_nb=1; bat --highlight-line $line_nb --line-range=:100 {1}' \
     | IFS=: read -rA selected
 
-    [[ -n ${selected[1]} ]] && vim "${selected[1]}" "+${selected[2]}"
+    [[ -n ${selected[1]} ]] && nvim "${selected[1]}" "+${selected[2]}"
 }

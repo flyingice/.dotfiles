@@ -8,7 +8,7 @@
 # https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html
 export XDG_CONFIG_HOME=$CONFIG_HOME
 
-export EDITOR=vim
+export EDITOR=nvim
 
 export PAGER=less
 
@@ -38,8 +38,17 @@ export MANPAGER="zsh -c 'col -bx | bat -l man -p'"
 # ==== vim
 # ====
 
-# set non-default .vimrc location
-export VIMINIT="source $CONFIG_HOME/vim/vimrc"
+# set non-default .vimrc location for vim
+# The if condition prevents nvim from loading vim config as it relies on
+# $VIMINIT to find user config as well. We don't need to explicitly redirect
+# nvim to its config location as it follows XDG specification.
+# The downside is vim is not usable anymore on the machine where nvim
+# is installed if .vimrc is not under $HOME. A workaround would be to manually
+# create a symlink. However, I don't see a reason not to use nvim instead of
+# vim if it is already there.
+if ! command -v nvim >/dev/null 2>&1; then
+    export VIMINIT="source $CONFIG_HOME/vim/vimrc"
+fi
 
 # ====
 # ==== command-line fuzzy finder

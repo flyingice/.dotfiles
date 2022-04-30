@@ -16,7 +16,10 @@
 set nocompatible
 
 " change default viminfo location
-set viminfo+=n~/.config/vim/viminfo
+" Neovim uses Shada files instead of viminfo format
+if !has('nvim')
+    set viminfo+=n~/.config/vim/viminfo
+endif
 
 " turn on syntax highlighting
 syntax on
@@ -101,7 +104,10 @@ set noerrorbells visualbell t_vb=
 " You should avoid relying on this too much, but it can sometimes be convenient.
 set mouse+=a
 " enable window resizing with mouse dragging (default on xterm)
-set ttymouse=sgr
+" ttymouse option was removed from Neovim as mouse support should work without it.
+if !has('nvim')
+    set ttymouse=sgr
+endif
 
 " set default code folding method
 set foldmethod=indent
