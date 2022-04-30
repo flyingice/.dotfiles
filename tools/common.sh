@@ -17,6 +17,7 @@ PACKAGES=(
 
 CONFIGS=(
     bat
+    ideavim
     git
     gnupg
     ranger

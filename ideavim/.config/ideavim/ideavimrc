@@ -8,7 +8,11 @@
 " ====
 " ==== basic settings
 " ====
-"
+
+source ~/.config/vim/settings.vim
+source ~/.config/vim/functions.vim
+source ~/.config/vim/keymap.vim
+
 " full list of supported set commands:
 " https://github.com/JetBrains/ideavim/wiki/%22set%22-commands
 "
