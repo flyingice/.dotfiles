@@ -40,13 +40,6 @@ Plug 'arzg/vim-colors-xcode'
 call plug#end()
 
 " ====
-" ==== lazygit
-" ====
-
-" key bindings
-nnoremap <A-g> :term lazygit<CR><C-w>_
-
-" ====
 " ==== NERDTree
 " ====
 

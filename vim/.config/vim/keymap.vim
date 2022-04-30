@@ -86,3 +86,6 @@ set pastetoggle=<F5>
 
 " open a terminal
 nnoremap <A-s> :term<CR>
+
+" launch lazygit
+nnoremap <A-g> :term lazygit<CR><C-w>_
