@@ -8,6 +8,7 @@ PACKAGES=(
     gpg
     htop
     lazygit
+    nvim
     pstree
     rg
     shellcheck
@@ -17,9 +18,10 @@ PACKAGES=(
 
 CONFIGS=(
     bat
-    ideavim
     git
     gpg
+    ideavim
+    nvim
     ranger
     rg
     ssh
