@@ -4,7 +4,8 @@
 # ==== system-wide default settings
 # ====
 
-# set for programs that follow the XDG base directory specification
+# set for programs that follow the XDG Base Directory Specification
+# https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html
 export XDG_CONFIG_HOME=$CONFIG_HOME
 
 export EDITOR=vim
@@ -42,7 +43,7 @@ RG_PROMPT='2. rg> '
 
 # https://github.com/junegunn/fzf
 export FZF_DEFAULT_COMMAND='fd --hidden --follow --type file --exclude .git'
-export FZF_DEFAULT_OPTS="--prompt '$FD_PROMPT' --height 40% --layout=reverse"
+export FZF_DEFAULT_OPTS="--prompt '$FD_PROMPT' --height 50% --layout=reverse"
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_CTRL_T_OPTS="--preview 'bat --line-range=:100 {}'"
 
