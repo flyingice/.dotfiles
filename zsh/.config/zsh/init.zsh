@@ -4,7 +4,7 @@
 # ==== system-wide default settings
 # ====
 
-# set for programs that follow the XDG Base Directory Specification
+# set for programs that follow XDG Base Directory Specification
 # https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html
 export XDG_CONFIG_HOME=$CONFIG_HOME
 
@@ -64,20 +64,24 @@ export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_CTRL_T_OPTS="--preview 'bat --line-range=:100 {}'"
 
 # ====
-# ==== ripgrep
+# ==== rg
 # ====
 
-export RIPGREP_CONFIG_PATH=$CONFIG_HOME/ripgrep/ripgreprc
+# https://github.com/BurntSushi/ripgrep/blob/master/GUIDE.md#configuration-file
+# rg doesn't look in any predetermined directory for a config
+export RIPGREP_CONFIG_PATH=$CONFIG_HOME/rg/ripgreprc
 
 # ====
 # ==== bat
 # ====
 
+# https://github.com/sharkdp/bat#configuration-file
+# set non-default config location
 export BAT_CONFIG_PATH=$CONFIG_HOME/bat/bat.conf
 
 # ====
-# ==== GnuPG
+# ==== gpg
 # ====
 
 # set non-default gpg config location
-export GNUPGHOME=$CONFIG_HOME/gnupg
+export GNUPGHOME=$CONFIG_HOME/gpg

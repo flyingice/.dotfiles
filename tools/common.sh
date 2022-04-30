@@ -19,9 +19,9 @@ CONFIGS=(
     bat
     ideavim
     git
-    gnupg
+    gpg
     ranger
-    ripgrep
+    rg
     ssh
     tmux
     vim
