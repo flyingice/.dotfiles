@@ -45,12 +45,21 @@ export VIMINIT="source $CONFIG_HOME/vim/vimrc"
 # ==== command-line fuzzy finder
 # ====
 
+# https://github.com/junegunn/fzf
 FD_PROMPT='1. fd> '
 RG_PROMPT='2. rg> '
 
-# https://github.com/junegunn/fzf
+SORT_TOGGLE='ctrl-s'
+PREVIEW_TOGGLE='ctrl-/'
+PAGE_UP_KEY='ctrl-b'
+PAGE_DOWN_KEY='ctrl-f'
+
 export FZF_DEFAULT_COMMAND='fd --hidden --follow --type file --exclude .git'
-export FZF_DEFAULT_OPTS="--prompt '$FD_PROMPT' --height 50% --layout=reverse"
+export FZF_DEFAULT_OPTS="--prompt '$FD_PROMPT' --height 50% --layout=reverse \
+    --bind '${SORT_TOGGLE}:toggle-sort' \
+    --bind '${PREVIEW_TOGGLE}:toggle-preview' \
+    --bind '${PAGE_UP_KEY}:preview-page-up,${PAGE_DOWN_KEY}:preview-page-down'"
+
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_CTRL_T_OPTS="--preview 'bat --line-range=:100 {}'"
 
