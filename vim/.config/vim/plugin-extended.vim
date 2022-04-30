@@ -51,9 +51,9 @@ call plug#end()
 " ==== fzf
 " ====
 
-" preview window on the right with 40% width, <C-p> will toggle preview window.
+" preview window on the right with 40% width, <C-/> will toggle preview window.
 " see `--preview-window` section of `man fzf`
-let g:fzf_preview_window = ['right:50%', 'ctrl-p']
+let g:fzf_preview_window = ['right:50%', 'ctrl-/']
 " key bindings
 nnoremap <A-b> :Buffers<CR>
 nnoremap <A-f> :Files<CR>
