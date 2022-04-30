@@ -20,18 +20,25 @@ endif
 call plug#begin("~/.config/vim/plugged")
 
 
+" provide mapping to easily delete, change and add surroudings in paris
 Plug 'tpope/vim-surround'
 
+" comment out the target of a motion
 Plug 'tpope/vim-commentary'
 
+" fuzzy finder
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 
+" change cursor shape in different vim modes
 Plug 'jszakmeister/vim-togglecursor'
 
-Plug 'vim-airline/vim-airline-themes'
+" nice statusline at the bottom of each vim window
 Plug 'vim-airline/vim-airline'
+" theme for vim-airline
+Plug 'vim-airline/vim-airline-themes'
 
+" colorscheme
 Plug 'joshdick/onedark.vim'
 Plug 'arzg/vim-colors-xcode'
 

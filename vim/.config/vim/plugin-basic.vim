@@ -6,8 +6,13 @@
 "                |___/
 
 
+" The file contains settings of plugins bundled with vim
+
 filetype plugin on
 
-" matchit is shipped with vim.
+" ====
+" ==== matchit
+" ====
+
 " load matchit so that % command can jump between matching pair of keywords
 runtime macros/matchit.vim
