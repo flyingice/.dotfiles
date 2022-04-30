@@ -19,6 +19,8 @@ endif
 
 call plug#begin("~/.config/vim/plugged")
 
+" enhance netrw shipped with vim
+Plug 'tpope/vim-vinegar'
 
 " provide mapping to easily delete, change and add surroudings in paris
 Plug 'tpope/vim-surround'

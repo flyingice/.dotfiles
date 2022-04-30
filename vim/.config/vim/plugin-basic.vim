@@ -16,3 +16,15 @@ filetype plugin on
 
 " load matchit so that % command can jump between matching pair of keywords
 runtime macros/matchit.vim
+
+" ====
+" ==== netrw
+" ====
+
+" default on tree view
+" hit i key to cycle through view types
+let g:netrw_liststyle = 3
+" default width of the directory explorer
+let g:netrw_winsize = 25
+" key bindings
+nnoremap <A-t> :Vexplore<CR>
