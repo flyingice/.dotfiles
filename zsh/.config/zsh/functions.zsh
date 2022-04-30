@@ -25,21 +25,6 @@ ra() {
     command rm -f -- "$tempfile" 2>/dev/null
 }
 
-# function to generate .vimrc for IntelliJ IdeaVim plugin
-# ideavim can not recogonize `runtime` command in .vimrc following the vim config split
-ideavim_update() {
-    local config_path="$CONFIG_HOME"/vim
-    local config_list=(
-        "$config_path"/settings.vim
-        "$config_path"/functions.vim
-        "$config_path"/keymap.vim
-        "$config_path"/ideavim.vim
-    )
-
-    # concatenate config files with two blank lines as separator
-    awk 'FNR==1 && NR>1 { printf("\n\n") } { print $0 }' "${config_list[@]}" > "$HOME"/.ideavimrc
-}
-
 # interactive ripgrep
 # https://github.com/junegunn/fzf/blob/master/ADVANCED.md#switching-between-ripgrep-mode-and-fzf-mode
 # check available actions: https://github.com/junegunn/fzf/blob/master/src/options.go
