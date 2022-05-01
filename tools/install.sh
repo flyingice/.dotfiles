@@ -55,8 +55,8 @@ validate_parameter() {
   fi
 }
 
-check_env() {
-  fmt_msg "Start checking system environment"
+check_requirement() {
+  fmt_msg "Start checking system requirement"
 
   is_macos || (is_linux && is_debian) || {
     fmt_error "Operating system is not supported"
@@ -91,6 +91,12 @@ dig +nostats @8.8.8.8 -t A raw.githubusercontent.com
 EOF
     exit 1
   }
+}
+
+setup_env() {
+  fmt_msg "Start setting up environment"
+
+  export PATH=$PATH:$LOCAL_BIN
 }
 
 install_plugin() {
@@ -209,8 +215,6 @@ install_pipx() {
 
   python3 -m pip install --upgrade pip
   python3 -m pip install --user pipx
-
-  export PATH=$PATH:$LOCAL_BIN
 }
 
 install_autojump() {
@@ -327,7 +331,9 @@ change_shell() {
 main() {
   validate_parameter "$@"
 
-  check_env
+  check_requirement
+
+  setup_env
 
   install_packages
 
