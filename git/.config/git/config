@@ -15,4 +15,4 @@
 [init]
 	templatedir = ~/.config/git/template
 [commit]
-	gpgsign = false
+	gpgsign = true
