@@ -1,6 +1,7 @@
 # do not change
 DATA_HOME=$HOME/.local/share
 CONFIG_HOME=$HOME/.config
+CACHE_HOME=$HOME/.cache
 
 CONFIG_HOME_ZSH=$CONFIG_HOME/zsh
 

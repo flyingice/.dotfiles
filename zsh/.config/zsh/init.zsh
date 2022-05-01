@@ -8,6 +8,7 @@
 # https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html
 export XDG_DATA_HOME=$DATA_HOME
 export XDG_CONFIG_HOME=$CONFIG_HOME
+export XDG_CACHE_HOME=$CACHE_HOME
 
 if command -v nvim >/dev/null 2>&1; then
     export EDITOR=nvim
