@@ -75,7 +75,8 @@ export FZF_DEFAULT_OPTS="--prompt '$FD_PROMPT' --height 50% --layout=reverse \
     --bind '${PAGE_UP_KEY}:preview-page-up,${PAGE_DOWN_KEY}:preview-page-down'"
 
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-export FZF_CTRL_T_OPTS="--preview 'bat --line-range=:100 {}'"
+export FZF_CTRL_T_OPTS="--preview \
+    'if command -v bat >/dev/null 2>&1; then bat --line-range=:100 {}; else cat {}; fi'"
 
 # ====
 # ==== rg

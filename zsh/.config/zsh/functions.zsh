@@ -45,7 +45,8 @@ irg() {
         --bind "${rg_key}:unbind($rg_key)+change-prompt($RG_PROMPT)+disable-search+reload($rg_command {q} || true)+rebind(change,$fd_key)" \
         --prompt "$RG_PROMPT" \
         --delimiter : \
-        --preview 'line_nb={2}; [[ -z $line_nb ]] && line_nb=1; bat --highlight-line $line_nb --line-range=:100 {1}' \
+        --preview 'line_nb={2}; [[ -z $line_nb ]] && line_nb=1; \
+            if command -v bat >/dev/null 2>&1; then bat --highlight-line $line_nb --line-range=:100 {1} ; else cat {1}; fi' \
     | IFS=: read -rA selected
 
     [[ -n ${selected[1]} ]] && "$EDITOR" "${selected[1]}" "+${selected[2]}"
