@@ -94,3 +94,11 @@ export BAT_CONFIG_PATH=$CONFIG_HOME/bat/bat.conf
 
 # set non-default gpg config location
 export GNUPGHOME=$CONFIG_HOME/gpg
+
+# ====
+# ==== autojump
+# ====
+
+# oh-my-zsh doesn't look in custom install path to find autojump.zsh
+autojump_conf="$HOME"/.local/share/autojump/autojump.zsh
+[[ -f $autojump_conf ]] && source "$autojump_conf"

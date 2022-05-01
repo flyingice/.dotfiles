@@ -27,7 +27,6 @@ plugins=(
   tmux
   vi-mode
   fzf
-  autojump
   git
   gpg-agent
   zsh-autosuggestions
