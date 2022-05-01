@@ -14,9 +14,6 @@ DOTFILE_ROOT="$SCRIPT_DIR"/..
 # shellcheck disable=SC1091
 source "$SCRIPT_DIR"/common.sh
 
-CONFIG_HOME=$HOME/.config
-LOCAL_BIN=$HOME/.local/bin
-
 declare -A URL
 # address mapping
 URL["homebrew"]="https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh"
@@ -270,9 +267,6 @@ install_packages() {
 
   install_ranger
 
-  # force zsh install
-  install_package zsh --force
-
   for package in "${PACKAGES[@]}"; do
     install_package "$package"
   done
@@ -292,8 +286,8 @@ deploy_config() {
   }
 }
 
-deploy_configs() {
-  fmt_msg "Start deploying config files"
+deploy_zsh_config() {
+  if ! prompt_user "Deploy zsh config"; then return 1; fi
 
   # successful deployment of zsh config is critical
   # rename zsh config as existing files not managed by stow will cause conflict
@@ -310,6 +304,14 @@ deploy_configs() {
     ((DEBUG)) || backup_file "$config" "$config"."$suffix"
   done
 
+  deploy_config 'zsh' --force
+}
+
+deploy_configs() {
+  fmt_msg "Start deploying config files"
+
+  deploy_zsh_config
+
   for config in "${CONFIGS[@]}"; do
     deploy_config "$config"
   done
@@ -321,7 +323,6 @@ change_shell() {
     ((DEBUG)) || sudo chsh -s /bin/zsh "$USER"
   fi
 }
-
 
 main() {
   validate_parameter "$@"
@@ -338,4 +339,3 @@ main() {
 }
 
 main "$@"
-

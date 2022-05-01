@@ -3,6 +3,9 @@
 SCRIPT_DIR=$(cd -- "$(dirname "${BASH_SOURCE[0]}")" && pwd)
 INSTALL_CONF_DIR="$SCRIPT_DIR"/conf
 
+CONFIG_HOME=$HOME/.config
+LOCAL_BIN=$HOME/.local/bin
+
 PACKAGES=(
     bat
     diff-so-fancy
@@ -17,6 +20,7 @@ PACKAGES=(
     shellcheck
     tmux
     tree
+    zsh
 )
 
 CONFIGS=(
@@ -30,7 +34,6 @@ CONFIGS=(
     ssh
     tmux
     vim
-    zsh
 )
 
 FMT_RED=$(printf '\033[31m')
