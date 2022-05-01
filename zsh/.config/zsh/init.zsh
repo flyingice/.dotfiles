@@ -37,7 +37,9 @@ setopt HIST_NO_FUNCTIONS
 # ====
 
 # colorize pager for man
-export MANPAGER="zsh -c 'col -bx | bat -l man -p'"
+if command -v bat >/dev/null 2>&1; then
+    export MANPAGER="zsh -c 'col -bx | bat -l man -p'"
+fi
 
 # ====
 # ==== vim
