@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+SCRIPT_DIR=$(cd -- "$(dirname "${BASH_SOURCE[0]}")" && pwd)
+INSTALL_CONF_DIR="$SCRIPT_DIR"/conf
+
 PACKAGES=(
     bat
     diff-so-fancy
@@ -81,3 +84,37 @@ backup_file() {
   [[ -e $old ]] && mv "$old" "$new"
 }
 
+get_conf_value() {
+  # internal id corresponding to the 1st column of package.conf
+  local id=$1
+  # target column
+  local column=$2
+
+  grep -E "^${id}," "$INSTALL_CONF_DIR"/package.conf 2>/dev/null | cut -d ',' -f "$column"
+}
+
+get_package_name() {
+  local id=$1
+
+  local column=1
+  if is_macos; then
+    column=2
+  elif is_debian; then
+    column=4
+  fi
+
+  get_conf_value "$id" "$column"
+}
+
+get_bin_name() {
+  local id=$1
+
+  local column=1
+  if is_macos; then
+    column=3
+  elif is_debian; then
+    column=5
+  fi
+
+  get_conf_value "$id" "$column"
+}

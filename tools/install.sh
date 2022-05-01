@@ -10,7 +10,6 @@ bash_release=$(bash --version | head -n1 | cut -d ' ' -f4 | cut -d '.' -f1)
 
 SCRIPT_DIR=$(cd -- "$(dirname "${BASH_SOURCE[0]}")" && pwd)
 DOTFILE_ROOT="$SCRIPT_DIR"/..
-INSTALL_CONF_DIR="$SCRIPT_DIR"/conf
 
 # shellcheck disable=SC1091
 source "$SCRIPT_DIR"/common.sh
@@ -131,41 +130,6 @@ update_package_manager() {
         sudo apt update
     }
   fi
-}
-
-get_conf_value() {
-  # internal id corresponding to the 1st column of package.conf
-  local id=$1
-  # target column
-  local column=$2
-
-  grep -E "^${id}," "$INSTALL_CONF_DIR"/package.conf 2>/dev/null | cut -d ',' -f "$column"
-}
-
-get_package_name() {
-  local id=$1
-
-  local column=1
-  if is_macos; then
-    column=2
-  elif is_debian; then
-    column=4
-  fi
-
-  get_conf_value "$id" "$column"
-}
-
-get_bin_name() {
-  local id=$1
-
-  local column=1
-  if is_macos; then
-    column=3
-  elif is_debian; then
-    column=5
-  fi
-
-  get_conf_value "$id" "$column"
 }
 
 install_package() {
