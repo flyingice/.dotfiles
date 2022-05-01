@@ -6,6 +6,7 @@
 
 # set for programs that follow XDG Base Directory Specification
 # https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html
+export XDG_DATA_HOME=$DATA_HOME
 export XDG_CONFIG_HOME=$CONFIG_HOME
 
 export EDITOR=nvim
