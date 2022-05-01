@@ -71,7 +71,8 @@ PAGE_UP_KEY='ctrl-b'
 PAGE_DOWN_KEY='ctrl-f'
 
 export FZF_DEFAULT_COMMAND='fd --hidden --follow --type file --exclude .git'
-export FZF_DEFAULT_OPTS="--prompt '$FD_PROMPT' --height 50% --layout=reverse \
+export FZF_DEFAULT_OPTS="--prompt '$FD_PROMPT' --height 60% --layout=reverse \
+    --preview-window 'right,50%,border-rounded' \
     --bind '${SORT_TOGGLE}:toggle-sort' \
     --bind '${PREVIEW_TOGGLE}:toggle-preview' \
     --bind '${PAGE_UP_KEY}:preview-page-up,${PAGE_DOWN_KEY}:preview-page-down'"
