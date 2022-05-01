@@ -20,7 +20,7 @@ URL["homebrew"]="https://raw.githubusercontent.com/Homebrew/install/HEAD/install
 URL["oh-my-zsh"]="https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh"
 URL["zsh-syntax-highlighting"]="https://github.com/zsh-users/zsh-syntax-highlighting"
 URL["zsh-autosuggestions"]="https://github.com/zsh-users/zsh-autosuggestions"
-URL["autojump"]="https://github.com/wting/autojump"
+URL["autojump"]="https://github.com/flyingice/autojump"
 URL["ranger_devicons"]="https://github.com/alexanderjeurissen/ranger_devicons"
 URL["ranger_autojump"]="https://github.com/fdw/ranger-autojump"
 
