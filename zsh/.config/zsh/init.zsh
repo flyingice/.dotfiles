@@ -9,7 +9,11 @@
 export XDG_DATA_HOME=$DATA_HOME
 export XDG_CONFIG_HOME=$CONFIG_HOME
 
-export EDITOR=nvim
+if command -v nvim >/dev/null 2>&1; then
+    export EDITOR=nvim
+else
+    export EDITOR=vim
+fi
 
 export PAGER=less
 
