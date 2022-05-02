@@ -32,7 +32,7 @@ uninstall_config() {
     exit 1
   }
 
-  ((DEBUG)) ||  stow --target "$HOME" --dir "$DOTFILE_ROOT" --delete "$config"
+  ((DEBUG)) ||  stow --target "$CONFIG_HOME" --dir "$DOTFILE_ROOT" --delete "$config"
 }
 
 uninstall_configs() {
