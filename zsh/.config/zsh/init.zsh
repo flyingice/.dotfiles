@@ -28,6 +28,13 @@ setopt HIST_NO_STORE
 setopt HIST_NO_FUNCTIONS
 
 # ====
+# ==== less
+# ====
+
+# disable default history file in $HOME/.lesshst
+export LESSHISTFILE=-
+
+# ====
 # ==== man
 # ====
 
