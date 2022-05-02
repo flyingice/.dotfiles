@@ -31,7 +31,6 @@ CONFIGS=(
     nvim
     ranger
     rg
-    ssh
     tmux
     vim
 )
