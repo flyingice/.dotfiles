@@ -294,21 +294,18 @@ deploy_zsh_config() {
   if ! prompt_user "Deploy zsh config"; then return 1; fi
 
   # successful deployment of zsh config is critical
-  # rename zsh config as existing files not managed by stow will cause conflict
-  local suffix
-  suffix="$(basename "$TMP_DIR")"
+  # rename ~/.zshenv if it exists as it will cause conflict when invoking stow
+  ((DEBUG)) || {
+    backup_file "$HOME"/.zshenv "$HOME/.zshenv.$$"
 
-  local zsh_configs=(
-    "$HOME"/.zshrc
-    "$HOME"/.zprofile
-    "$HOME"/.config/zsh
-  )
+    cat > "$HOME"/.zshenv << EOF
+if [[ -d ${XDG_CONFIG_HOME:-$HOME/.config}/zsh ]]; then
+    export ZDOTDIR=${XDG_CONFIG_HOME:-$HOME/.config}/zsh
+fi
+EOF
 
-  for config in "${zsh_configs[@]}"; do
-    ((DEBUG)) || backup_file "$config" "$config"."$suffix"
-  done
-
-  deploy_config 'zsh' --force
+    deploy_config 'zsh' --force
+  }
 }
 
 deploy_configs() {

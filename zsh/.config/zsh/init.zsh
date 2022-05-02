@@ -4,12 +4,6 @@
 # ==== system-wide default settings
 # ====
 
-# set for programs that follow XDG Base Directory Specification
-# https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html
-export XDG_DATA_HOME=$DATA_HOME
-export XDG_CONFIG_HOME=$CONFIG_HOME
-export XDG_CACHE_HOME=$CACHE_HOME
-
 if command -v nvim >/dev/null 2>&1; then
     export EDITOR=nvim
 else
@@ -23,7 +17,7 @@ export PAGER=less
 # ====
 
 # set non-default .zsh_history location
-export HISTFILE=$CONFIG_HOME_ZSH/zsh-history
+export HISTFILE=$CONFIG_HOME/zsh/.zsh_history
 # remove copies in the history list while keeping the newly added one
 setopt HIST_IGNORE_ALL_DUPS
 # don't save duplicated lines more than once whatever options are set
