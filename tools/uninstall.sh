@@ -25,7 +25,7 @@ validate_parameter() {
 uninstall_config() {
   local config=$1
 
-  if ! prompt_user "Uninstall $config config"; then return 1; fi
+  if can_skip "$config" || { [[ $# == 1 ]] && ! prompt_user "Uninstall $config config"; }; then return 1; fi
 
   command_exists stow || {
     fmt_error "stow is not installed. Your config is probably not installed via install.sh"
@@ -35,8 +35,18 @@ uninstall_config() {
   ((DEBUG)) ||  stow --target "$CONFIG_HOME" --dir "$DOTFILE_ROOT" --delete "$config"
 }
 
+uninstall_zsh_config() {
+  if ! prompt_user "Uninstall zsh config"; then return 1; fi
+
+  ((DEBUG)) || backup_file "$HOME"/.zshenv "$HOME/.zshenv.$$"
+
+  uninstall_config 'zsh' --force
+}
+
 uninstall_configs() {
   fmt_msg "Start uninstalling config files"
+
+  uninstall_zsh_config
 
   for config in "${CONFIGS[@]}"; do
     uninstall_config "$config"

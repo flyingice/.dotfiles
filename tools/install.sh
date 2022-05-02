@@ -279,7 +279,7 @@ install_packages() {
 deploy_config() {
   local config=$1
 
-  if [[ $# == 1 ]] && ! prompt_user "Deploy $config config"; then return 1; fi
+  if can_skip "$config" ||  { [[ $# == 1 ]] && ! prompt_user "Deploy $config config"; }; then return 1; fi
 
   ((DEBUG)) || {
     # GNU Stow is a symlink farm manager

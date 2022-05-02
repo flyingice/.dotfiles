@@ -23,6 +23,7 @@ PACKAGES=(
     zsh
 )
 
+# convention: the config whose name has a leading underscore requires special processing
 CONFIGS=(
     bat
     git
@@ -33,6 +34,7 @@ CONFIGS=(
     rg
     tmux
     vim
+    _zsh
 )
 
 FMT_RED=$(printf '\033[31m')
@@ -119,4 +121,12 @@ get_bin_name() {
   fi
 
   get_conf_value "$id" "$column"
+}
+
+# skip config whose name contains a leading underscore
+# as it has already been processed somewhere else
+can_skip() {
+  local target=$1
+
+  [[ ${target:0:1} == "_" ]]
 }
