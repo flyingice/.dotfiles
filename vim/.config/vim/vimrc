@@ -5,8 +5,6 @@
 " |_|  |_| |_|     \_/  |___|_|  |_|_| \_\\____|
 
 
-set runtimepath+=$HOME/.config/vim
-
 runtime settings.vim
 
 runtime functions.vim

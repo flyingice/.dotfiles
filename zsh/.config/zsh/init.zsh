@@ -56,7 +56,8 @@ fi
 # create a symlink. However, I don't see a reason not to use nvim instead of
 # vim if it is already there.
 if ! command -v nvim >/dev/null 2>&1; then
-    export VIMINIT="source $CONFIG_HOME/vim/vimrc"
+    export VIMINIT="set runtimepath+=$CONFIG_HOME/vim \
+        | source $CONFIG_HOME/vim/vimrc"
 fi
 
 # ====
