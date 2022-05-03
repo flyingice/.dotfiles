@@ -7,34 +7,35 @@ CONFIG_HOME=$HOME/.config
 LOCAL_BIN=$HOME/.local/bin
 
 PACKAGES=(
-    bat
-    diff-so-fancy
-    fd
-    fzf
-    gpg
-    htop
-    lazygit
-    nvim
-    pstree
-    rg
-    shellcheck
-    tmux
-    tree
-    zsh
+  bat
+  diff-so-fancy
+  fd
+  fzf
+  gpg
+  htop
+  lazygit
+  nvim
+  pstree
+  rg
+  shellcheck
+  tmux
+  tree
+  zsh
 )
 
 # convention: the config whose name has a leading underscore requires special processing
 CONFIGS=(
-    bat
-    git
-    gpg
-    ideavim
-    nvim
-    ranger
-    rg
-    tmux
-    vim
-    _zsh
+  bat
+  git
+  gpg
+  ideavim
+  maven
+  nvim
+  ranger
+  rg
+  tmux
+  vim
+  _zsh
 )
 
 FMT_RED=$(printf '\033[31m')
