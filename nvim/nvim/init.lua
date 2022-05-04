@@ -4,7 +4,10 @@
 -- | |  | | | |    \ V /  | || |  | |  _ <| |___
 -- |_|  |_| |_|     \_/  |___|_|  |_|_| \_\\____|
 
+-- Author: @flyingice
 
-require "user.settings"
-require "user.keymaps"
-require "user.plugins"
+
+require 'user.autocmd'
+require 'user.settings'
+require 'user.keymaps'
+require 'user.plugins'

@@ -5,85 +5,70 @@
 -- |_|   |_|\__,_|\__, |_|_| |_|___/
 --                |___/
 
-
-local opts = {
-	noremap = true,
-	silent = true,
-}
-
-local keymap = vim.api.nvim_set_keymap
-
---
--- matchit is enabled by default
---
-
---
--- netrw
---
-
-vim.g.netrw_liststyle = 3
-vim.g.netrw_winsize = 25
-
-keymap('n', '<A-t>', ':Vexplore<CR>', opts)
+-- Author: @flyingice
 
 
-keymap('n', '<A-b>', ':Buffers<CR>', opts)
-keymap('n', '<A-f>', ':Files<CR>', opts)
-keymap('n', '<A-h>', ':History<CR>', opts)
-keymap('n', '<A-r>', ':Rg<CR>', opts)
-
-
-vim.cmd('silent! colorscheme onedark')
-
-vim.g.airline_theme = 'onedark'
-vim.g.airline_powerline_fonts = 1
-vim.g['airline#extensions#tabline#enabled'] = 1
-vim.g['airline#extensions#tabline#buffer_nr_show'] = 1
-vim.g['airline#extensions#tabline#fnamemod'] = ':t'
-vim.g['airline#extensions#tabline#fnametrucate'] = 16
-
---
--- packer
---
-
-
-if vim.fn.empty(vim.fn.glob(packer_path)) > 0 then
-	packer_bootstrap = vim.fn.system {
-		'git',
-		'clone',
-		'--depth',
-		'1',
-		'https://github.com/wbthomason/packer.nvim',
-		vim.fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
-	}
-	vim.cmd [[ packadd packer.nvim ]]
+-- https://github.com/wbthomason/packer.nvim#bootstrapping
+local install_path = vim.fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
+if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
+  packer_bootstrap = vim.fn.system { 'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path }
 end
 
 local status, packer = pcall(require, 'packer')
 if not status then
-	return
+  return
 end
 
+-- https://github.com/wbthomason/packer.nvim#specifying-plugins
+return packer.startup({
+  function()
+    -- require packer itself,
+    -- otherwise a prompt window would appear asking whether to remove packer directory
+    use { 'wbthomason/packer.nvim' }
 
-return packer.startup(function()
-	use "wbthomason/packer.nvim"
+    -- enhance netrw shipped with vim
+    use { 'tpope/vim-vinegar' }
+    require('user.conf.netrw')
 
-	use 'tpope/vim-vinegar'
+    -- provide mapping to easily delete, change and add surroudings in paris
+    use 'tpope/vim-surround'
 
-	use 'tpope/vim-surround'
+    -- comment out the target of a motion
+    use 'tpope/vim-commentary'
 
-	use 'tpope/vim-commentary'
+    -- fuzzy finder
+    use {
+      'junegunn/fzf.vim',
+      requires = {
+        'junegunn/fzf',
+        run = vim.fn['fzf#install'],
+      },
+      config = function() require('user.conf.fzf') end
+    }
 
-	use { 'junegunn/fzf', run = vim.fn['fzf#install'] }
-	use 'junegunn/fzf.vim'
+    -- colorscheme
+    use { 'joshdick/onedark.vim' }
+    -- nice statuline at the bottom
+    use { 'vim-airline/vim-airline-themes' }
+    use {
+      'vim-airline/vim-airline',
+      config = function() require('user.conf.theme') end
+    }
 
-	use { 'vim-airline/vim-airline' }
-	use { 'vim-airline/vim-airline-themes' }
+    -- automatically set up configuration after cloning packer.nvim
+    if packer_bootstrap then
+      packer.sync()
+    end
 
-	use { 'joshdick/onedark.vim' }
-	use { 'arzg/vim-colors-xcode' }
-
-	if packer_bootstrap then
-		-- require('packer').sync()
-	end
-end)
+  end,
+  config = {
+    git = {
+      -- accelerate git access if behind the Great Firewall
+      default_url_format = 'https://hub.fastgit.xyz/%s'
+    },
+    display = {
+      -- configure Packer to use a floating window
+      open_fn = require('packer.util').float
+    }
+  }
+})
