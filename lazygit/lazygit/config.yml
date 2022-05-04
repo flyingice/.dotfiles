@@ -1,0 +1,7 @@
+# skip without creating a new repo
+notARepository: 'skip'
+gui:
+  theme:
+    # fix the issue that default backgroud color doesn't go with nvim colorscheme
+    selectedLineBgColor:
+      - reverse

@@ -29,6 +29,7 @@ CONFIGS=(
   git
   gpg
   ideavim
+  lazygit
   maven
   nvim
   ranger

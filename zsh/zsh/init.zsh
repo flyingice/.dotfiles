@@ -51,10 +51,9 @@ fi
 # The if condition prevents nvim from loading vim config as it relies on
 # $VIMINIT to find user config as well. We don't need to explicitly redirect
 # nvim to its config location as it follows XDG specification.
-# The downside is vim is not usable anymore on the machine where nvim
-# is installed if .vimrc is not under $HOME. A workaround would be to manually
-# create a symlink. However, I don't see a reason not to use nvim instead of
-# vim if it is already there.
+# The downside is we can't open vim with proper settings anymore on a machine
+# where nvim is installed if .vimrc is not under $HOME.
+# By removing the if condition, nvim can share the same config with vim
 if ! command -v nvim >/dev/null 2>&1; then
     export VIMINIT="set runtimepath+=$CONFIG_HOME/vim \
         | source $CONFIG_HOME/vim/vimrc"
@@ -111,6 +110,17 @@ export GNUPGHOME=$CONFIG_HOME/gpg
 # ==== autojump
 # ====
 
-# oh-my-zsh doesn't look in custom install path to find autojump.zsh
+# oh-my-zsh doesn't look in XDG path to find autojump.zsh
+# We can safely add autojump entry into omz plugin list and remove settings below after the fix
+# https://github.com/flyingice/ohmyzsh/commit/6102bcc49c68da04de40ea1d2d950d87c82f2b5e
+# has been merged into omz master branch
 autojump_conf="$HOME"/.local/share/autojump/autojump.zsh
 [[ -f $autojump_conf ]] && source "$autojump_conf"
+
+# ====
+# ==== lazygit
+# ====
+
+# https://github.com/jesseduffield/lazygit/blob/master/docs/Config.md
+# set non-default lazygit config location
+export LG_CONFIG_FILE=$CONFIG_HOME/lazygit/config.yml
