@@ -46,6 +46,21 @@ return packer.startup({
       config = function() require('user.conf.fzf') end
     }
 
+    -- markdown support
+    use {
+      'instant-markdown/vim-instant-markdown',
+      ft = { 'markdown' },
+      config = function() require('user.conf.markdown') end
+    }
+    use {
+      'dhruvasagar/vim-table-mode',
+      ft = { 'markdown' }
+    }
+    use {
+      'mzlogin/vim-markdown-toc',
+      ft = { 'markdown' }
+    }
+
     -- colorscheme
     use { 'joshdick/onedark.vim' }
     -- nice statuline at the bottom
