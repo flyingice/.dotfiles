@@ -61,6 +61,12 @@ return packer.startup({
       ft = { 'markdown' }
     }
 
+    -- display thin vertical lines at each indentation level
+    use {
+      'Yggdroot/indentLine',
+      ft = { 'cpp', 'java', 'python' }
+    }
+
     -- colorscheme
     use { 'joshdick/onedark.vim' }
     -- nice statuline at the bottom
