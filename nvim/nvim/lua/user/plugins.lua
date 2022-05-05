@@ -46,6 +46,12 @@ return packer.startup({
       config = function() require('user.conf.fzf') end
     }
 
+    -- visualize undo history and switch between different undo branches
+    use {
+      'mbbill/undotree',
+      config = function() require('user.conf.undotree') end
+    }
+
     -- markdown support
     use {
       'instant-markdown/vim-instant-markdown',
