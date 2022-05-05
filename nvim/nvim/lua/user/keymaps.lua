@@ -119,6 +119,12 @@ set('i', '<S-Tab>', '<C-d>', {
   desc = 'back up one tab stop'
 })
 
+-- ==================== visual mode ====================
+
+set('v', '.', ':normal! .<CR>', {
+  desc = 'repeat dot action'
+})
+
 -- ==================== misc ====================
 
 --[[
