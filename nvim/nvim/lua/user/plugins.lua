@@ -61,6 +61,12 @@ return packer.startup({
       ft = { 'markdown' }
     }
 
+    -- line up text
+    use {
+      'godlygeek/tabular',
+      config = function() require('user.conf.tabular') end
+    }
+
     -- display thin vertical lines at each indentation level
     use {
       'Yggdroot/indentLine',
