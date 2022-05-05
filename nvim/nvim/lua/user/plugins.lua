@@ -73,14 +73,15 @@ return packer.startup({
       ft = { 'cpp', 'java', 'python' }
     }
 
-    -- colorscheme
-    use { 'joshdick/onedark.vim' }
     -- nice statuline at the bottom
     use { 'vim-airline/vim-airline-themes' }
     use {
       'vim-airline/vim-airline',
-      config = function() require('user.conf.theme') end
+      config = function() require('user.conf.airline') end
     }
+
+    -- colorscheme
+    use { 'joshdick/onedark.vim' }
 
     -- automatically set up configuration after cloning packer.nvim
     if packer_bootstrap then

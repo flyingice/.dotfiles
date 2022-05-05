@@ -19,6 +19,8 @@ local options = {
   relativenumber = true,
   -- highlight current line
   cursorline = true,
+  -- don't show tabline as I never use :tabnew
+  showtabline = 0,
   -- show current mode on the statusline
   showmode = true,
   -- enable global statusline (neovim 0.7 new feature)
@@ -53,7 +55,14 @@ local options = {
 -- disable the default vim startup message
 vim.opt.shortmess:append 'I'
 
-
 for key, value in pairs(options) do
   vim.opt[key] = value
+end
+
+-- change colorscheme
+local colorscheme = 'onedark'
+local status = pcall(vim.cmd, 'colorscheme '..colorscheme)
+if not status then
+  vim.notify('colorscheme '..colorscheme..' not found')
+  return
 end
