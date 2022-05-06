@@ -32,7 +32,7 @@ local options = {
   shiftwidth = 2,
   -- reacts to the syntax/style of the code you are editing
   smartindent = true,
-  -- set default code folding method
+  -- set default code folding method (maybe overwritten by treesitter setttings)
   foldmethod = 'indent',
   --[[
   make search case-insensitive when all the characters in the string are lowercase,
@@ -57,12 +57,4 @@ vim.opt.shortmess:append 'I'
 
 for key, value in pairs(options) do
   vim.opt[key] = value
-end
-
--- change colorscheme
-local colorscheme = 'onedark'
-local status = pcall(vim.cmd, 'colorscheme '..colorscheme)
-if not status then
-  vim.notify('colorscheme '..colorscheme..' not found')
-  return
 end

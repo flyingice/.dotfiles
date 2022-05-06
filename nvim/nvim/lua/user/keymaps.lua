@@ -18,13 +18,13 @@ vim.keymap.set sets noremap by default
 local set = vim.keymap.set
 
 -- set leader key
-set('', '<Space>', '<Nop>', {
+set('', '<Space>', '<NOP>', {
   desc = 'use space as leader key instead of default backslash'
 })
 vim.g.mapleader = ' '
 
 -- disable some keys
-set('', 's', '<Nop>', {
+set('', 's', '<NOP>', {
   desc = 'do nothing'
 })
 

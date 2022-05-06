@@ -79,6 +79,14 @@ return packer.startup({
       ft = { 'cpp', 'java', 'python' }
     }
 
+    -- highlighting and folding
+    use {
+      'nvim-treesitter/nvim-treesitter',
+      run = ':TSUpdate',
+      ft = { 'cpp', 'lua', 'java', 'python' },
+      config = function() require('user.conf.treesitter') end
+    }
+
     -- nice statuline at the bottom
     use { 'vim-airline/vim-airline-themes' }
     use {
@@ -87,7 +95,11 @@ return packer.startup({
     }
 
     -- colorscheme
-    use { 'joshdick/onedark.vim' }
+    -- better support for neovim treesitter highlighting
+    use {
+      'navarasu/onedark.nvim',
+      config = function() require('user.conf.theme') end
+    }
 
     -- automatically set up configuration after cloning packer.nvim
     if packer_bootstrap then
