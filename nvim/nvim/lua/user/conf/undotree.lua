@@ -1,3 +1,5 @@
+-- Author: @flyingice
+
 -- settings
 -- https://github.com/mbbill/undotree/blob/master/plugin/undotree.vim#L15
 

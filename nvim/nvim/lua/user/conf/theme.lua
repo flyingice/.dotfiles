@@ -1,3 +1,5 @@
+-- Author: @flyingice
+
 local status, theme = pcall(require, 'onedark')
 if not status then
   vim.notify('theme '..theme..' not found')

@@ -1,3 +1,5 @@
+-- Author: @flyingice
+
 -- settings
 -- preview window on the right with 50% width, <C-/> will toggle preview window
 -- see `--preview-window` section of `man fzf`

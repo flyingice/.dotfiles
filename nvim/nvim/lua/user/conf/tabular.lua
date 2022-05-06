@@ -1,3 +1,5 @@
+-- Author: @flyingice
+
 -- https://raw.githubusercontent.com/godlygeek/tabular/master/doc/Tabular.txt
 
 -- keybindings

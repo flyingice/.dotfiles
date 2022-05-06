@@ -27,8 +27,10 @@ return packer.startup({
     use { 'wbthomason/packer.nvim' }
 
     -- enhance netrw shipped with vim
-    use { 'tpope/vim-vinegar' }
-    require('user.conf.netrw')
+    use {
+      'tpope/vim-vinegar',
+      config = function() require('user.conf.netrw') end
+    }
 
     -- provide mapping to easily delete, change and add surroudings in paris
     use 'tpope/vim-surround'
@@ -54,17 +56,19 @@ return packer.startup({
 
     -- markdown support
     use {
-      'instant-markdown/vim-instant-markdown',
-      ft = { 'markdown' },
-      config = function() require('user.conf.markdown') end
-    }
-    use {
-      'dhruvasagar/vim-table-mode',
-      ft = { 'markdown' }
-    }
-    use {
-      'mzlogin/vim-markdown-toc',
-      ft = { 'markdown' }
+      {
+        'dhruvasagar/vim-table-mode',
+        ft = { 'markdown' },
+      },
+      {
+        'mzlogin/vim-markdown-toc',
+        ft = { 'markdown' },
+      },
+      {
+        'instant-markdown/vim-instant-markdown',
+        ft = { 'markdown' },
+        config = function() require('user.conf.markdown') end
+      }
     }
 
     -- line up text
@@ -87,11 +91,13 @@ return packer.startup({
       config = function() require('user.conf.treesitter') end
     }
 
-    -- nice statuline at the bottom
-    use { 'vim-airline/vim-airline-themes' }
+    -- nice statuline
     use {
-      'vim-airline/vim-airline',
-      config = function() require('user.conf.airline') end
+      'vim-airline/vim-airline-themes',
+       {
+         'vim-airline/vim-airline',
+         config = function() require('user.conf.airline') end
+       }
     }
 
     -- colorscheme

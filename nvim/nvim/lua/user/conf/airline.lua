@@ -1,3 +1,5 @@
+-- Author: @flyingice
+
 -- settings
 -- config doc: https://github.com/vim-airline/vim-airline/blob/master/doc/airline.txt
 

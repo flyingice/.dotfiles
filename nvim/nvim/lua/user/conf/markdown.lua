@@ -1,3 +1,5 @@
+-- Author: @flyingice
+
 -- ==================== vim-instant-markdown ====================
 -- https://github.com/instant-markdown/vim-instant-markdown/blob/master/doc/vim-instant-markdown.txt
 

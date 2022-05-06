@@ -1,3 +1,5 @@
+-- Author: @flyingice
+
 -- https://github.com/nvim-treesitter/nvim-treesitter#Modules
 require 'nvim-treesitter.configs'.setup {
   -- a list of parser names, or 'all'
