@@ -91,6 +91,18 @@ return packer.startup({
       config = function() require('user.conf.treesitter') end
     }
 
+    -- language server protocol
+    use {
+      "williamboman/nvim-lsp-installer",
+      {
+          "neovim/nvim-lspconfig",
+          config = function()
+            require('user.lsp.installer')
+            require('user.lsp.lspconfig')
+          end
+      }
+    }
+
     -- nice statuline
     use {
       'vim-airline/vim-airline-themes',
