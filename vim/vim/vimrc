@@ -6,6 +6,7 @@
 "
 " Author: @flyingice
 
+runtime autocmds.vim
 runtime settings.vim
 runtime functions.vim
 runtime keymaps.vim

@@ -104,11 +104,6 @@ set noerrorbells visualbell t_vb=
 " enable mouse support
 " You should avoid relying on this too much, but it can sometimes be convenient.
 set mouse+=a
-" enable window resizing with mouse dragging (default on xterm)
-" ttymouse option was removed from Neovim as mouse support should work without it.
-if !has('nvim')
-    set ttymouse=sgr
-endif
 
 " set default code folding method
 set foldmethod=indent
@@ -118,6 +113,3 @@ set foldmethod=indent
 set timeoutlen=1000
 " set keycode delay
 set ttimeoutlen=0
-
-" restore cursor position at next file reopen
-au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif

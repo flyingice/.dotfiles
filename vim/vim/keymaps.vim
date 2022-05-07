@@ -9,18 +9,6 @@
 
 " :help key-notation
 
-" Alt-x combination triggers x sequence with iTerm2 on macOS,
-" thus vim can't recognize nnoremap <A-x> ... settings
-" fix meta-keys which generate <Esc>a .. <Esc>z
-" https://vim.fandom.com/wiki/Fix_meta-keys_that_break_out_of_Insert_mode
-if !has('nvim')
-    let c='a'
-    while c <= 'z'
-        exec "set <A-".c.">=".c
-        let c = nr2char(1+char2nr(c))
-    endw
-endif
-
 " set leader key to space instead of default backslash
 nnoremap <Space> <Nop>
 let mapleader=" "
@@ -86,9 +74,3 @@ xnoremap # :<C-u>call <SID>VSetSearch('?')<CR>?<C-r>=@/<CR><CR>
 " the normal mode command "+p that preserves the indentation of the text
 " without any surprises.
 set pastetoggle=<F5>
-
-" open a terminal
-nnoremap <A-s> :term<CR>
-
-" launch lazygit
-nnoremap <A-g> :term lazygit<CR><C-w>_
