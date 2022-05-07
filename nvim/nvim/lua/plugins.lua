@@ -29,7 +29,7 @@ return packer.startup({
     -- enhance netrw shipped with vim
     use {
       'tpope/vim-vinegar',
-      config = function() require('user.conf.netrw') end
+      config = function() require('conf.netrw') end
     }
 
     -- provide mapping to easily delete, change and add surroudings in paris
@@ -45,13 +45,13 @@ return packer.startup({
         'junegunn/fzf',
         run = vim.fn['fzf#install'],
       },
-      config = function() require('user.conf.fzf') end
+      config = function() require('conf.fzf') end
     }
 
     -- visualize undo history and switch between different undo branches
     use {
       'mbbill/undotree',
-      config = function() require('user.conf.undotree') end
+      config = function() require('conf.undotree') end
     }
 
     -- markdown support
@@ -67,14 +67,14 @@ return packer.startup({
       {
         'instant-markdown/vim-instant-markdown',
         ft = { 'markdown' },
-        config = function() require('user.conf.markdown') end
+        config = function() require('conf.markdown') end
       }
     }
 
     -- line up text
     use {
       'godlygeek/tabular',
-      config = function() require('user.conf.tabular') end
+      config = function() require('conf.tabular') end
     }
 
     -- display thin vertical lines at each indentation level
@@ -88,7 +88,7 @@ return packer.startup({
       'nvim-treesitter/nvim-treesitter',
       run = ':TSUpdate',
       ft = { 'cpp', 'lua', 'java', 'python' },
-      config = function() require('user.conf.treesitter') end
+      config = function() require('conf.treesitter') end
     }
 
     -- language server protocol
@@ -99,14 +99,14 @@ return packer.startup({
       {
           'neovim/nvim-lspconfig',
           config = function()
-            require('user.lsp.installer')
-            require('user.lsp.lspconfig')
+            require('lsp.installer')
+            require('lsp.lspconfig')
           end
       },
       -- non built-in autocompletion
       {
           'hrsh7th/nvim-cmp',
-          config = function() require('user.lsp.cmp') end
+          config = function() require('lsp.cmp') end
       },
       -- LSP source for nvim-cmp
       'hrsh7th/cmp-nvim-lsp',
@@ -121,7 +121,7 @@ return packer.startup({
       'vim-airline/vim-airline-themes',
        {
          'vim-airline/vim-airline',
-         config = function() require('user.conf.airline') end
+         config = function() require('conf.airline') end
        }
     }
 
@@ -129,7 +129,7 @@ return packer.startup({
     -- better support for neovim treesitter highlighting
     use {
       'navarasu/onedark.nvim',
-      config = function() require('user.conf.theme') end
+      config = function() require('conf.theme') end
     }
 
     -- automatically set up configuration after cloning packer.nvim

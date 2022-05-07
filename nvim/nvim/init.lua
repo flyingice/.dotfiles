@@ -7,7 +7,7 @@
 -- Author: @flyingice
 
 
-require 'user.autocmd'
-require 'user.settings'
-require 'user.keymaps'
-require 'user.plugins'
+require 'autocmd'
+require 'settings'
+require 'keymaps'
+require 'plugins'

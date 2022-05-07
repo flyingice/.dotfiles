@@ -42,7 +42,7 @@ local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
 
 -- generate a list of server names
-local dir = io.popen('find ' .. vim.fn.stdpath('config') .. "/lua/user/lsp/servers -name '*.lua'")
+local dir = io.popen('find ' .. vim.fn.stdpath('config') .. "/lua/lsp/servers -name '*.lua'")
 if not dir then
   vim.notify('fail to locate server config path')
   return
@@ -60,6 +60,6 @@ for filename in dir:lines() do
       -- default in neovim 0.7+
       debounce_text_changes = 150,
     },
-    settings = require('user.lsp.servers.' .. server)
+    settings = require('lsp.servers.' .. server)
   }
 end
