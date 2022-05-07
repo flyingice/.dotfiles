@@ -3,7 +3,8 @@
 "  | |/ _` |/ _ \/ _` \ \ / /| | '_ ` _ \
 "  | | (_| |  __/ (_| |\ V / | | | | | | |
 " |___\__,_|\___|\__,_| \_/  |_|_| |_| |_|
-
+"
+" Author: @flyingice
 
 " ====
 " ==== basic settings
@@ -11,7 +12,7 @@
 
 source ~/.config/vim/settings.vim
 source ~/.config/vim/functions.vim
-source ~/.config/vim/keymap.vim
+source ~/.config/vim/keymaps.vim
 
 " full list of supported set commands:
 " https://github.com/JetBrains/ideavim/wiki/%22set%22-commands
@@ -21,7 +22,7 @@ source ~/.config/vim/keymap.vim
 set ideajoin
 
 " ====
-" ==== key bindings
+" ==== keybindings
 " ====
 
 " toggle maximize current editor/normalize split
@@ -31,13 +32,13 @@ nmap <C-w>= :action MaximizeEditorInSplit<CR>
 nmap <C-t> :action Back<CR>
 
 " find all usages
-nmap <A-r> :action FindUsages<CR>
+nmap gr :action FindUsages<CR>
 
 " reformat
-nmap <A-=> :action ReformatCode<CR><ESC>
+nmap <Leader>= :action ReformatCode<CR><ESC>
 
 " rename
-nmap <A-c> :action RenameElement<CR>
+nmap <Leader>c :action RenameElement<CR>
 
 " ====
 " ==== plugin emulation
