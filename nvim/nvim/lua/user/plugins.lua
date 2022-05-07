@@ -21,7 +21,7 @@ end
 
 -- https://github.com/wbthomason/packer.nvim#specifying-plugins
 return packer.startup({
-  function()
+  function(use)
     -- require packer itself,
     -- otherwise a prompt window would appear asking whether to remove packer directory
     use { 'wbthomason/packer.nvim' }
@@ -93,14 +93,27 @@ return packer.startup({
 
     -- language server protocol
     use {
-      "williamboman/nvim-lsp-installer",
+      -- install language servers
+      'williamboman/nvim-lsp-installer',
+      -- collection of configurations for built-in LSP client
       {
-          "neovim/nvim-lspconfig",
+          'neovim/nvim-lspconfig',
           config = function()
             require('user.lsp.installer')
             require('user.lsp.lspconfig')
           end
-      }
+      },
+      -- non built-in autocompletion
+      {
+          'hrsh7th/nvim-cmp',
+          config = function() require('user.lsp.cmp') end
+      },
+      -- LSP source for nvim-cmp
+      'hrsh7th/cmp-nvim-lsp',
+      -- snippets source for nvim-cmp
+      'saadparwaiz1/cmp_luasnip',
+      -- snippets plugin
+      'L3MON4D3/LuaSnip',
     }
 
     -- nice statuline

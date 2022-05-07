@@ -37,11 +37,15 @@ local on_attach = function(client, bufnr)
   buf_set(bufnr, 'n', '<Leader>f', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
 end
 
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
+
 -- TODO: scan subdir to hava the servers instead of hard coding a list
 local servers = { 'sumneko_lua' }
 for _, server in pairs(servers) do
   lspconfig[server].setup {
     on_attach = on_attach,
+    -- capabilities = capabilities,
     flags = {
       -- default in neovim 0.7+
       debounce_text_changes = 150,
