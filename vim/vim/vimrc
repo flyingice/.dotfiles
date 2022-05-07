@@ -3,14 +3,10 @@
 " | |\/| |\ V /  \ \ / / | || |\/| | |_) | |
 " | |  | | | |    \ V /  | || |  | |  _ <| |___
 " |_|  |_| |_|     \_/  |___|_|  |_|_| \_\\____|
-
+"
+" Author: @flyingice
 
 runtime settings.vim
-
 runtime functions.vim
-
-runtime keymap.vim
-
-runtime plugin-basic.vim
-
-runtime plugin-extended.vim
+runtime keymaps.vim
+runtime plugins.vim

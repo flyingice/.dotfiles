@@ -4,7 +4,8 @@
 "  ___) |  __/ |_| |_| | | | | (_| \__ \
 " |____/ \___|\__|\__|_|_| |_|\__, |___/
 "                             |___/
-
+"
+" Author: @flyingice
 
 " vim is based on vi.
 " Setting `nocompatible` switches from the default vi-compatibility mode
