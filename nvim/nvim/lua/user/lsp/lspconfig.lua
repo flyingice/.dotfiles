@@ -41,9 +41,18 @@ end
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
 
--- TODO: scan subdir to hava the servers instead of hard coding a list
-local servers = { 'sumneko_lua' }
-for _, server in pairs(servers) do
+-- generate a list of server names
+local dir = io.popen('find ' .. vim.fn.stdpath('config') .. "/lua/user/lsp/servers -name '*.lua'")
+if not dir then
+  vim.notify('fail to locate server config path')
+  return
+end
+
+for filename in dir:lines() do
+  local basename = filename:match('[^/]*.lua$')
+  local server = basename:sub(0, #basename - 4)
+  print(server)
+
   lspconfig[server].setup {
     on_attach = on_attach,
     -- capabilities = capabilities,
@@ -51,6 +60,6 @@ for _, server in pairs(servers) do
       -- default in neovim 0.7+
       debounce_text_changes = 150,
     },
-    settings = require('user.lsp.' .. server)
+    settings = require('user.lsp.servers.' .. server)
   }
 end
