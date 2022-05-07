@@ -32,3 +32,11 @@ create_cmd('BufWritePost', {
   desc = 'recompile packer whenever plugins.lua is updated',
   command = 'source <afile> | PackerCompile'
 })
+
+local augroup_foldopen = create_group('foldopen', options)
+create_cmd('BufWinEnter', {
+  pattern = '*',
+  group = augroup_foldopen,
+  desc = 'open all folds',
+  command = 'silent! %foldopen!'
+})
