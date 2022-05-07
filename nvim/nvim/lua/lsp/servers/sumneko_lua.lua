@@ -1,3 +1,5 @@
+-- Author: @flyingice
+
 return {
   Lua = {
     diagnostics = {

@@ -1,3 +1,5 @@
+-- Author: @flyingice
+
 return {
   -- generate a list of server names
   get_servers = function()
