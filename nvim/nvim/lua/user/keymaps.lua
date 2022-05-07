@@ -25,9 +25,16 @@ vim.g.mapleader = ' '
 
 -- disable some keys
 set('', 's', '<NOP>', {
-  desc = 'do nothing'
+  desc = 'disable delete chracter'
 })
 
+set('n', 'gt', '<NOP>', {
+  desc = 'disable go to next tab'
+})
+
+set('n', 'gT', '<NOP>', {
+  desc = 'disable go to previous tab'
+})
 -- ==================== normal mode ====================
 
 -- <C-a> is already taken as tmux prefix key
