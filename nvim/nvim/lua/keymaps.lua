@@ -117,11 +117,9 @@ set('n', '<A-s>', ':split term://zsh<CR>a', {
   desc = 'launch integrated terminal'
 })
 
-if vim.fn.system { 'command', '-v', 'lazygit' } ~= '' then
-  set('n', '<A-g>', ':edit term://lazygit<CR>a', {
-    desc = 'launch lazygit'
-  })
-end
+set('n', '<A-g>', ':LazyGit<CR>', {
+  desc = 'launch lazygit'
+})
 
 -- ==================== insert mode ====================
 

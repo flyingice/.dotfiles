@@ -56,6 +56,12 @@ return packer.startup({
       config = function() require('conf.undotree') end
     }
 
+    use {
+      'kdheepak/lazygit.nvim',
+      cmd = 'LazyGit',
+      config = function() require('conf.lazygit') end
+    }
+
     -- markdown support
     use {
       {
