@@ -2,12 +2,12 @@
 
 local status, theme = pcall(require, 'onedark')
 if not status then
-  vim.notify('theme '..theme..' not found')
+  vim.notify('theme ' .. theme .. ' not found')
   return
 end
 
 -- https://github.com/navarasu/onedark.nvim#default-configuration
-theme.setup  {
+theme.setup {
   -- choose between 'dark', 'darker', 'cool', 'deep', 'warm', 'warmer' and 'light'
   style = 'warm',
   -- show/hide background
@@ -21,7 +21,7 @@ theme.setup  {
   -- disable default keybinding to toggle theme style
   toggle_style_key = '<NOP>',
   -- list of styles to toggle between
-  toggle_style_list = {'dark', 'darker', 'cool', 'deep', 'warm', 'warmer', 'light'},
+  toggle_style_list = { 'dark', 'darker', 'cool', 'deep', 'warm', 'warmer', 'light' },
 
   --[[
   change code style

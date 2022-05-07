@@ -9,7 +9,7 @@
 
 
 -- https://github.com/wbthomason/packer.nvim#bootstrapping
-local install_path = vim.fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
+local install_path = vim.fn.stdpath('data') .. '/site/pack/packer/start/packer.nvim'
 if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
   packer_bootstrap = vim.fn.system { 'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path }
 end
@@ -105,16 +105,16 @@ return packer.startup({
       'williamboman/nvim-lsp-installer',
       -- collection of configurations for built-in LSP client
       {
-          'neovim/nvim-lspconfig',
-          config = function()
-            require('lsp.installer')
-            require('lsp.lspconfig')
-          end
+        'neovim/nvim-lspconfig',
+        config = function()
+          require('lsp.installer')
+          require('lsp.lspconfig')
+        end
       },
       -- non built-in autocompletion
       {
-          'hrsh7th/nvim-cmp',
-          config = function() require('lsp.cmp') end
+        'hrsh7th/nvim-cmp',
+        config = function() require('lsp.cmp') end
       },
       -- LSP source for nvim-cmp
       'hrsh7th/cmp-nvim-lsp',
@@ -127,10 +127,10 @@ return packer.startup({
     -- nice statuline
     use {
       'vim-airline/vim-airline-themes',
-       {
-         'vim-airline/vim-airline',
-         config = function() require('conf.airline') end
-       }
+      {
+        'vim-airline/vim-airline',
+        config = function() require('conf.airline') end
+      }
     }
 
     -- colorscheme

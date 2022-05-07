@@ -28,7 +28,7 @@ vim.g['airline#extensions#tabline#fnametrucate'] = 16
 
 -- keybindings
 for i = 0, 9 do
-  vim.keymap.set('n', '<Leader>'..i, '<Plug>AirlineSelectTab'..i, {
-    desc = 'go to buffer '..i
+  vim.keymap.set('n', '<Leader>' .. i, '<Plug>AirlineSelectTab' .. i, {
+    desc = 'go to buffer ' .. i
   })
 end

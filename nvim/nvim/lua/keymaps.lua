@@ -112,6 +112,11 @@ set('n', ']L', ':llast<CR>', {
   desc = 'go to the last position in the jumplist'
 })
 
+-- jump to placeholder <++>
+set('n', '<Leader><Leader>', '<Esc>/<++><CR>:nohlsearch<CR>c4l', {
+  desc = 'jump to the next placeholder and edit'
+})
+
 -- quick launch
 set('n', '<A-s>', ':split term://zsh<CR>a', {
   desc = 'launch integrated terminal'
