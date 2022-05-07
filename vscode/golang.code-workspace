@@ -1,6 +1,0 @@
-{
-	"settings": {
-		"go.buildOnSave": "off",
-		"go.formatTool": "gofmt",
-	}
-}
