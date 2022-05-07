@@ -19,6 +19,8 @@ if not status then
   return
 end
 
+local languages = { 'cpp', 'lua', 'java', 'python' }
+
 -- https://github.com/wbthomason/packer.nvim#specifying-plugins
 return packer.startup({
   function(use)
@@ -80,14 +82,14 @@ return packer.startup({
     -- display thin vertical lines at each indentation level
     use {
       'Yggdroot/indentLine',
-      ft = { 'cpp', 'java', 'python' }
+      ft = languages
     }
 
     -- highlighting and folding
     use {
       'nvim-treesitter/nvim-treesitter',
       run = ':TSUpdate',
-      ft = { 'cpp', 'lua', 'java', 'python' },
+      ft = languages,
       config = function() require('conf.treesitter') end
     }
 
