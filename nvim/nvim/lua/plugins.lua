@@ -40,6 +40,9 @@ return packer.startup({
     -- comment out the target of a motion
     use 'tpope/vim-commentary'
 
+    -- richer text objects support
+    use 'wellle/targets.vim'
+
     -- fuzzy finder
     use {
       'junegunn/fzf.vim',
