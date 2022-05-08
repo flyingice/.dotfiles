@@ -8,24 +8,12 @@ export ZSH=$CONFIG_HOME/oh-my-zsh
 ZSH_THEME="bira"
 
 
-# tmux settings
-# don't attach to a tmux session when terminal is launched within IDE
-# get rid of notification: IntelliJ IDEA has failed to load the environment from '/bin/zsh'.
-if [[  -z $INTELLIJ_ENVIRONMENT_READER && $TERMINAL_EMULATOR != "JetBrains-JediTerm" ]]; then
-    ZSH_TMUX_AUTOSTART=true
-fi
-ZSH_TMUX_CONFIG=$CONFIG_HOME/tmux/tmux.conf
-ZSH_TMUX_UNICODE=true
-ZSH_TMUX_DEFAULT_SESSION_NAME='localhost'
-
-
 # Which plugins would you like to load?
 # Standard plugins can be found in ~/.config/oh-my-zsh/plugins/*
 # Custom plugins may be added to ~/.config/oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
-  tmux
   vi-mode
   fzf
   git
