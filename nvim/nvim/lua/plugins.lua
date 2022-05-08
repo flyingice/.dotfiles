@@ -114,14 +114,18 @@ return packer.startup({
       -- non built-in autocompletion
       {
         'hrsh7th/nvim-cmp',
-        config = function() require('lsp.cmp') end
+        requires = {
+          -- LSP source for nvim-cmp
+          'hrsh7th/cmp-nvim-lsp',
+          -- function signature source for nvim-cmp
+          'hrsh7th/cmp-nvim-lsp-signature-help',
+          -- snippets source for nvim-cmp
+          'saadparwaiz1/cmp_luasnip',
+          -- snippets plugin
+          'L3MON4D3/LuaSnip',
+        },
+        config = function() require('lsp.cmp') end,
       },
-      -- LSP source for nvim-cmp
-      'hrsh7th/cmp-nvim-lsp',
-      -- snippets source for nvim-cmp
-      'saadparwaiz1/cmp_luasnip',
-      -- snippets plugin
-      'L3MON4D3/LuaSnip',
     }
 
     -- nice statuline
