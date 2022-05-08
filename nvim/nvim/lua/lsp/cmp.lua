@@ -1,19 +1,14 @@
 -- Author: @flyingice
 
--- luasnip setup
-local status_luasnip, luasnip = pcall(require, 'luasnip')
-if not status_luasnip then
-  vim.notify('fail to load luasnip')
-  return
-end
-
--- nvim-cmp setup
-local status_cmp, cmp = pcall(require, 'cmp')
-if not status_cmp then
+local status, cmp = pcall(require, 'cmp')
+if not status then
   vim.notify('fail to load cmp')
   return
 end
 
+local luasnip = require('lsp.luasnip')
+
+-- nvim-cmp setup
 cmp.setup {
   snippet = {
     expand = function(args)

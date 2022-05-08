@@ -119,10 +119,11 @@ return packer.startup({
           'hrsh7th/cmp-nvim-lsp',
           -- function signature source for nvim-cmp
           'hrsh7th/cmp-nvim-lsp-signature-help',
-          -- snippets source for nvim-cmp
-          'saadparwaiz1/cmp_luasnip',
           -- snippets plugin
           'L3MON4D3/LuaSnip',
+          -- snippets source for nvim-cmp
+          'saadparwaiz1/cmp_luasnip',
+          'rafamadriz/friendly-snippets',
         },
         config = function() require('lsp.cmp') end,
       },
