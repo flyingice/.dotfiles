@@ -12,15 +12,12 @@ local opts = { noremap = true, silent = true }
 
 -- `:help vim.diagnostic.*` for documentation on any of the below functions
 set('n', '<Leader>e', '<cmd>lua vim.diagnostic.open_float()<CR>', opts)
+set('n', '<Leader>q', '<cmd>lua vim.diagnostic.setloclist()<CR>', opts)
 set('n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<CR>', opts)
 set('n', ']d', '<cmd>lua vim.diagnostic.goto_next()<CR>', opts)
-set('n', '<Leader>q', '<cmd>lua vim.diagnostic.setloclist()<CR>', opts)
 
 -- use on_attach function to only map keys after the language server attaches to the current buffer
 local on_attach = function(client, bufnr)
-  -- enable completion triggered by <c-x><c-o>
-  vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
-
   -- `:help vim.lsp.*` for documentation on any of the below functions
   buf_set(bufnr, 'n', 'gt', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
   buf_set(bufnr, 'n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
@@ -32,7 +29,6 @@ local on_attach = function(client, bufnr)
   buf_set(bufnr, 'n', '<Leader>c', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
   buf_set(bufnr, 'n', '<Leader>=', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
   buf_set(bufnr, 'n', '<Leader>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
-
   buf_set(bufnr, 'n', '<Leader>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
   buf_set(bufnr, 'n', '<Leader>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
   buf_set(bufnr, 'n', '<Leader>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
