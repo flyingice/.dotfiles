@@ -19,7 +19,7 @@ if not status then
   return
 end
 
-local languages = { 'cpp', 'lua', 'java', 'python' }
+local languages = { 'cpp', 'lua', 'java', 'python', 'sh', }
 
 -- https://github.com/wbthomason/packer.nvim#specifying-plugins
 return packer.startup({
