@@ -95,7 +95,8 @@ return packer.startup({
     -- display thin vertical lines at each indentation level
     use {
       'Yggdroot/indentLine',
-      ft = languages
+      ft = languages,
+      config = function() require('conf.indentline') end
     }
 
     -- highlighting and folding
