@@ -117,11 +117,6 @@ set('n', '<Leader><Leader>', '<Esc>/<++><CR>:nohlsearch<CR>c4l', {
   desc = 'jump to the next placeholder and edit'
 })
 
--- quick launch
-set('n', '<A-s>', ':split term://zsh<CR>a', {
-  desc = 'launch integrated terminal'
-})
-
 -- ==================== insert mode ====================
 
 set('i', '<S-Tab>', '<C-d>', {
@@ -132,6 +127,20 @@ set('i', '<S-Tab>', '<C-d>', {
 
 set('v', '.', ':normal! .<CR>', {
   desc = 'repeat dot action'
+})
+
+-- ==================== terminal mode ====================
+
+-- press <C-\><C-n> to switch to terminal normal mode
+
+--[[
+facilitate going back to original window
+<C-w> is chosen here to be consistent with default window rotation mapping
+in normal mode. The downside is that we can't use <C-w> to delete a word
+anymore in terminal insert mode.
+--]]
+set('t', '<C-w>', [[<C-\><C-n><C-w>]], {
+  desc = 'window rotation'
 })
 
 -- ==================== misc ====================

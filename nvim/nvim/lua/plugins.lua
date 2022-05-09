@@ -59,7 +59,10 @@ return packer.startup({
       config = function() require('conf.undotree') end
     }
 
+    -- persist and toggle multiple terminals
     use {
+      'akinsho/toggleterm.nvim',
+      config = function() require('conf.toggleterm') end
     }
 
     -- markdown support
