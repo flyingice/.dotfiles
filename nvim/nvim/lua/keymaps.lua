@@ -148,4 +148,4 @@ run :set paste! to turn the option off. A more elegant solution would be
 the normal mode command "+p that preserves the indentation of the text
 without any surprises.
 --]]
-vim.cmd [[ set pastetoggle=<F5> ]]
+vim.cmd [[ set pastetoggle=<F12> ]]

@@ -59,6 +59,7 @@ return packer.startup({
       config = function() require('conf.undotree') end
     }
 
+    -- plugin for calling lazygit from within neovim
     use {
       'kdheepak/lazygit.nvim',
       cmd = 'LazyGit',
@@ -67,14 +68,17 @@ return packer.startup({
 
     -- markdown support
     use {
+      -- automatic table creator and formatter
       {
         'dhruvasagar/vim-table-mode',
         ft = { 'markdown' },
       },
+      -- generate table of contents for markdown files
       {
         'mzlogin/vim-markdown-toc',
         ft = { 'markdown' },
       },
+      -- live preview of markdown files
       {
         'instant-markdown/vim-instant-markdown',
         ft = { 'markdown' },
@@ -129,6 +133,33 @@ return packer.startup({
           'rafamadriz/friendly-snippets',
         },
         config = function() require('lsp.cmp') end,
+      },
+    }
+
+    -- debug adapter protocol
+    use {
+      -- DAP client implementation
+      {
+        'mfussenegger/nvim-dap',
+        config = function() require('dap.dap') end
+      },
+      -- UI extension for nvim-dap
+      {
+        'rcarriga/nvim-dap-ui',
+        ft = languages,
+        config = function() require('dap.dapui') end
+      },
+      -- virtual text support to nvim-dap
+      {
+        'theHamsta/nvim-dap-virtual-text',
+        ft = languages,
+        config = function () require('dap.dapvt') end
+      },
+      -- nvim-dap extension providing default debug configurations for python
+      {
+        'mfussenegger/nvim-dap-python',
+        ft = { 'python' },
+        config = function () require('dap.langs.python') end
       },
     }
 
