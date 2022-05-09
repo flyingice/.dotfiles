@@ -1,5 +1,6 @@
 -- Author: @flyingice
 
+-- https://github.com/neovim/nvim-lspconfig
 local status, lspconfig = pcall(require, 'lspconfig')
 if not status then
   vim.notify('fail to load lspconfig')
@@ -11,10 +12,10 @@ local buf_set = vim.api.nvim_buf_set_keymap
 local opts = { noremap = true, silent = true }
 
 -- `:help vim.diagnostic.*` for documentation on any of the below functions
-set('n', '<Leader>e', '<cmd>lua vim.diagnostic.open_float()<CR>', opts)
+set('n', '<Leader>d', '<cmd>lua vim.diagnostic.open_float()<CR>', opts)
 set('n', '<Leader>q', '<cmd>lua vim.diagnostic.setloclist()<CR>', opts)
-set('n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<CR>', opts)
-set('n', ']d', '<cmd>lua vim.diagnostic.goto_next()<CR>', opts)
+set('n', '[e', '<cmd>lua vim.diagnostic.goto_prev()<CR>', opts)
+set('n', ']e', '<cmd>lua vim.diagnostic.goto_next()<CR>', opts)
 
 -- use on_attach function to only map keys after the language server attaches to the current buffer
 local on_attach = function(client, bufnr)
