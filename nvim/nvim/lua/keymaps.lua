@@ -122,10 +122,6 @@ set('n', '<A-s>', ':split term://zsh<CR>a', {
   desc = 'launch integrated terminal'
 })
 
-set('n', '<A-g>', ':LazyGit<CR>', {
-  desc = 'launch lazygit'
-})
-
 -- ==================== insert mode ====================
 
 set('i', '<S-Tab>', '<C-d>', {
