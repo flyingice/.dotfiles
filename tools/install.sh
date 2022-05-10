@@ -1,32 +1,16 @@
 #!/usr/bin/env bash
 
-bash_release=$(bash --version | head -n1 | cut -d ' ' -f4 | cut -d '.' -f1)
-[[ $bash_release -ge 4 ]] || {
-  # require support of associative array
-  echo "require bash 4.0 or higher"
-  exit 1
-}
-
-
 SCRIPT_DIR=$(cd -- "$(dirname "${BASH_SOURCE[0]}")" && pwd)
 DOTFILE_ROOT="$SCRIPT_DIR"/..
 
 # shellcheck disable=SC1091
 source "$SCRIPT_DIR"/common.sh
 
-declare -A URL
-# address mapping
-URL["homebrew"]="https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh"
-URL["oh-my-zsh"]="https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh"
-URL["zsh-syntax-highlighting"]="https://github.com/zsh-users/zsh-syntax-highlighting"
-URL["zsh-autosuggestions"]="https://github.com/zsh-users/zsh-autosuggestions"
-URL["autojump"]="https://github.com/flyingice/autojump"
-URL["ranger_devicons"]="https://github.com/alexanderjeurissen/ranger_devicons"
-URL["ranger_autojump"]="https://github.com/fdw/ranger-autojump"
-
 # debug mode is on by default
 # don't download nor install packages in debug mode
 DEBUG=1
+# default site to download package/plugin
+URL='https://github.com'
 
 TMP_DIR=$(mktemp -d -t dotfileXXXXX)
 
@@ -106,10 +90,11 @@ setup_env() {
 install_plugin() {
   local plugin=$1
   local target_path=$2
-  local target="$target_path/$plugin"
 
-  if [[ $# -eq 2 ]] && ! prompt_user "Install $plugin?"; then return 1; fi
+  if [[ $# -eq 2 ]] && ! prompt_user "Install $(basename "$plugin")?"; then return 1; fi
 
+  local target
+  target="$target_path/$(basename "$plugin")"
   if [[ -e $target ]]; then
     echo "Already exists. Cleaning $target"
     ((DEBUG)) || rm -rf "$target"
@@ -117,7 +102,7 @@ install_plugin() {
 
   ((DEBUG)) || {
     mkdir -p "$target_path" || exit 1
-    git -C "$target_path" clone --depth=1 "${URL["$plugin"]}"
+    git -C "$target_path" clone --depth=1 "$URL/$plugin"
   }
 }
 
@@ -127,7 +112,7 @@ update_package_manager() {
   if is_macos; then
     ((DEBUG)) || {
       # install homebrew
-      command_exists brew || bash -c "$(curl -fsSL "${URL["homebrew"]}")"
+      command_exists brew || bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
       brew update
     }
   elif is_debian; then
@@ -182,12 +167,14 @@ install_omz() {
 
   ((DEBUG)) || {
     install_package 'zsh' --force
-    ZSH="$install_path" bash -c "$(curl -fsSL "${URL["oh-my-zsh"]}")" "" --unattended --keep-zshrc
+    ZSH="$install_path" bash -c \
+      "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" \
+      "" --unattended --keep-zshrc
   }
   # install oh-my-zsh plugins
   local plugins=(
-    zsh-autosuggestions
-    zsh-syntax-highlighting
+    zsh-users/zsh-autosuggestions
+    zsh-users/zsh-syntax-highlighting
   )
   for plugin in "${plugins[@]}"; do
     install_plugin "$plugin" "$plugin_path"
@@ -230,7 +217,7 @@ install_autojump() {
   # install autojump (as a requirement to install ranger-autojump plugin)
   # default install path: ~/.autojump
   # autojump has already been included in the plugin list in .zshrc
-  if install_plugin "autojump" "$TMP_DIR"; then
+  if install_plugin "flyingice/autojump" "$TMP_DIR"; then
     ((DEBUG)) || { cd "$TMP_DIR"/autojump && python3 install.py --destdir "$HOME"/.local ; }
   fi
 }
@@ -252,10 +239,10 @@ install_ranger() {
 
   local plugin_path="$CONFIG_HOME"/ranger/plugins
 
-  install_plugin "ranger_devicons" "$plugin_path"
+  install_plugin "alexanderjeurissen/ranger_devicons" "$plugin_path"
 
   # to check: ranger-autojump can't be configured as an oh-my-zsh plugin
-  install_plugin "ranger_autojump" "$TMP_DIR" && \
+  install_plugin "fdw/ranger-autojump" "$TMP_DIR" && \
     cp "$TMP_DIR"/ranger-autojump/autojump.py "$plugin_path"
 }
 
@@ -270,6 +257,7 @@ install_node() {
   if is_macos; then
     brew install nvm
     # load nvm
+    # shellcheck disable=SC1091
     [[ -s "/opt/homebrew/opt/nvm/nvm.sh" ]] && source "/opt/homebrew/opt/nvm/nvm.sh"
   else
     # shellcheck disable=SC1091
