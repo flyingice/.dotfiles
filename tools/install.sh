@@ -25,17 +25,29 @@ exit_on_signal() {
 
 trap exit_on_signal EXIT
 
-validate_parameter() {
-  if [[ $# -gt 1 || ($# -eq 1 && $1 != "release") ]]; then
-    fmt_error "Illegal parameters. Usage: $0 [release]"
-    exit 1
-  fi
+parse_argument() {
+  while [[ $# -gt 0 ]]; do
+    case "$1" in
+      --release)
+        DEBUG=0
+        shift
+      ;;
+      --url)
+        URL="$2"
+        shift
+        shift
+      ;;
+      *)
+        fmt_error "Illegal parameters. Usage: install.sh [--release] [--url https://hub.fastgit.xyz]"
+        exit 1
+      ;;
+    esac
+  done
 
-  if [[ $# -eq 1 ]]; then
-    DEBUG=0
-    fmt_info "MODE RELEASE"
-  else
+  if ((DEBUG)); then
     fmt_info "MODE DEBUG"
+  else
+    fmt_info "MODE RELEASE"
   fi
 }
 
@@ -80,11 +92,13 @@ EOF
 setup_env() {
   fmt_msg "Start setting up environment"
 
-  export PATH=$PATH:$LOCAL_BIN
+  ((DEBUG)) || {
+    export PATH=$PATH:$LOCAL_BIN
 
-  mkdir -p "$CONFIG_HOME" || exit 1
-  mkdir -p "$DATA_HOME" || exit 1
-  mkdir -p "$LOCAL_BIN" || exit 1
+    mkdir -p "$CONFIG_HOME" || exit 1
+    mkdir -p "$DATA_HOME" || exit 1
+    mkdir -p "$LOCAL_BIN" || exit 1
+  }
 }
 
 install_plugin() {
@@ -340,7 +354,7 @@ change_shell() {
 }
 
 main() {
-  validate_parameter "$@"
+  parse_argument "$@"
 
   check_requirement
 
