@@ -1,18 +1,27 @@
 [user]
-	name = flyingice
-	email = flyingice.eth@outlook.com
-	signingkey = 51CB2EA163FA83D7
+  name = flyingice
+  email = flyingice.eth@outlook.com
+  signingkey = 51CB2EA163FA83D7
 [core]
-	excludesFile = ~/.config/git/gitignore-global
-	pager = diff-so-fancy | less --tabs=4 -RFX
+  excludesFile = ~/.config/git/gitignore-global
+  pager = diff-so-fancy | less --tabs=4 -RFX
 [merge]
-	tool = vimdiff
+  tool = nvim
+[mergetool "nvim"]
+  # invoke nvim in diff mode
+  # '4wincmd w' moves focus to the merge window
+  # 'wincmd J' moves the window to the bottom
+  cmd = nvim -d $LOCAL $BASE $REMOTE $MERGED -c '4wincmd w' -c 'wincmd J'
 [diff]
-	tool = vimdiff
+  tool = nvim
+[difftool]
+  prompt = false
+[difftool "nvim"]
+  cmd = nvim -d $LOCAL $REMOTE -c 'wincmd w'
 [alias]
-	graph = log --all --graph --decorate --oneline
-	ctags = !.git/hooks/ctags
+  graph = log --all --graph --decorate --oneline
+  ctags = !.git/hooks/ctags
 [init]
-	templatedir = ~/.config/git/template
+  templatedir = ~/.config/git/template
 [commit]
-	gpgsign = true
+  gpgsign = true
