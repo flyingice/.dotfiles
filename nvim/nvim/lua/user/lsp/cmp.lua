@@ -6,7 +6,7 @@ if not status then
   return
 end
 
-local luasnip = require('lsp.luasnip')
+local luasnip = require('user.lsp.luasnip')
 
 -- nvim-cmp setup
 cmp.setup {

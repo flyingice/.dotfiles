@@ -3,7 +3,7 @@
 return {
   -- generate a list of server names
   get_servers = function()
-    local dir = io.popen('find -L ' .. vim.fn.stdpath('config') .. "/lua/lsp/servers -type f -name '*.lua'")
+    local dir = io.popen('find -L ' .. vim.fn.stdpath('config') .. "/lua/user/lsp/servers -type f -name '*.lua'")
     if not dir then
       vim.notify('fail to locate server config path')
       return

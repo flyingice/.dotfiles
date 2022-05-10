@@ -38,7 +38,7 @@ end
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
 
-local servers = require('lsp.utils').get_servers()
+local servers = require('user.lsp.utils').get_servers()
 for _, server in ipairs(servers) do
   lspconfig[server].setup {
     on_attach = on_attach,
@@ -47,6 +47,6 @@ for _, server in ipairs(servers) do
       -- default in neovim 0.7+
       debounce_text_changes = 150,
     },
-    settings = require('lsp.servers.' .. server)
+    settings = require('user.lsp.servers.' .. server)
   }
 end

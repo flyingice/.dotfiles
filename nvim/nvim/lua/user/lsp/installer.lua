@@ -13,7 +13,7 @@ local default_settings = {
   list of servers to automatically install if they're not already installed.
   https://github.com/williamboman/nvim-lsp-installer#available-lsps
   --]]
-  ensure_installed = require('lsp.utils').get_servers(),
+  ensure_installed = require('user.lsp.utils').get_servers(),
   --[[
   whether servers that are set up (via lspconfig) should be automatically installed if they're not already installed.
   false: servers are not automatically installed.

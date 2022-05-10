@@ -31,7 +31,7 @@ return packer.startup({
     -- enhance netrw shipped with vim
     use {
       'tpope/vim-vinegar',
-      config = function() require('conf.netrw') end
+      config = function() require('user.conf.netrw') end
     }
 
     -- provide mapping to easily delete, change and add surroudings in paris
@@ -50,52 +50,46 @@ return packer.startup({
         'junegunn/fzf',
         run = vim.fn['fzf#install'],
       },
-      config = function() require('conf.fzf') end
+      config = function() require('user.conf.fzf') end
     }
 
     -- visualize undo history and switch between different undo branches
     use {
       'mbbill/undotree',
-      config = function() require('conf.undotree') end
+      config = function() require('user.conf.undotree') end
     }
 
     -- persist and toggle multiple terminals
     use {
       'akinsho/toggleterm.nvim',
-      config = function() require('conf.toggleterm') end
+      config = function() require('user.conf.toggleterm') end
     }
 
     -- markdown support
     use {
       -- automatic table creator and formatter
-      {
-        'dhruvasagar/vim-table-mode',
-        ft = { 'markdown' },
-      },
+      { 'dhruvasagar/vim-table-mode', ft = 'markdown' },
       -- generate table of contents for markdown files
-      {
-        'mzlogin/vim-markdown-toc',
-        ft = { 'markdown' },
-      },
+      { 'mzlogin/vim-markdown-toc', ft = 'markdown' },
       -- live preview of markdown files
       {
         'instant-markdown/vim-instant-markdown',
         ft = { 'markdown' },
-        config = function() require('conf.markdown') end
+        config = function() require('user.conf.markdown') end
       }
     }
 
     -- line up text
     use {
       'godlygeek/tabular',
-      config = function() require('conf.tabular') end
+      config = function() require('user.conf.tabular') end
     }
 
     -- display thin vertical lines at each indentation level
     use {
       'Yggdroot/indentLine',
       ft = languages,
-      config = function() require('conf.indentline') end
+      config = function() require('user.conf.indentline') end
     }
 
     -- highlighting and folding
@@ -103,7 +97,7 @@ return packer.startup({
       'nvim-treesitter/nvim-treesitter',
       run = ':TSUpdate',
       ft = languages,
-      config = function() require('conf.treesitter') end
+      config = function() require('user.conf.treesitter') end
     }
 
     -- language server protocol
@@ -114,8 +108,8 @@ return packer.startup({
       {
         'neovim/nvim-lspconfig',
         config = function()
-          require('lsp.installer')
-          require('lsp.lspconfig')
+          require('user.lsp.installer')
+          require('user.lsp')
         end
       },
       -- non built-in autocompletion
@@ -132,7 +126,7 @@ return packer.startup({
           'saadparwaiz1/cmp_luasnip',
           'rafamadriz/friendly-snippets',
         },
-        config = function() require('lsp.cmp') end,
+        config = function() require('user.lsp.cmp') end,
       },
     }
 
@@ -141,25 +135,27 @@ return packer.startup({
       -- DAP client implementation
       {
         'mfussenegger/nvim-dap',
-        config = function() require('dap.dap') end
+        ft = languages,
+        config = function() require('user.dap') end
       },
       -- UI extension for nvim-dap
       {
         'rcarriga/nvim-dap-ui',
         ft = languages,
-        config = function() require('dap.dapui') end
+        config = function() require('user.dap.dapui') end
       },
       -- virtual text support to nvim-dap
       {
         'theHamsta/nvim-dap-virtual-text',
         ft = languages,
-        config = function () require('dap.dapvt') end
+        config = function() require('user.dap.dapvt') end
       },
       -- nvim-dap extension providing default debug configurations for python
       {
         'mfussenegger/nvim-dap-python',
-        ft = { 'python' },
-        config = function () require('dap.langs.python') end
+        ft = 'python',
+        after = 'nvim-dap',
+        config = function() require('user.dap.langs.python') end
       },
     }
 
@@ -168,7 +164,7 @@ return packer.startup({
       'vim-airline/vim-airline-themes',
       {
         'vim-airline/vim-airline',
-        config = function() require('conf.airline') end
+        config = function() require('user.conf.airline') end
       }
     }
 
@@ -176,7 +172,7 @@ return packer.startup({
     -- better support for neovim treesitter highlighting
     use {
       'navarasu/onedark.nvim',
-      config = function() require('conf.theme') end
+      config = function() require('user.conf.theme') end
     }
 
     -- automatically set up configuration after cloning packer.nvim
