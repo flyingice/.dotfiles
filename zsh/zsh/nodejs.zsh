@@ -1,4 +1,4 @@
-export NVM_DIR=$CONFIG_HOME/nvm
+export NVM_DIR=$DATA_HOME/nvm
 
 # load nvm
 [[ -s "/opt/homebrew/opt/nvm/nvm.sh" ]] && source "/opt/homebrew/opt/nvm/nvm.sh"
