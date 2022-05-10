@@ -97,6 +97,10 @@ setup_env() {
   fmt_msg "Start setting up environment"
 
   export PATH=$PATH:$LOCAL_BIN
+
+  mkdir -p "$CONFIG_HOME" || exit 1
+  mkdir -p "$DATA_HOME" || exit 1
+  mkdir -p "$LOCAL_BIN" || exit 1
 }
 
 install_plugin() {
@@ -104,7 +108,7 @@ install_plugin() {
   local target_path=$2
   local target="$target_path/$plugin"
 
-  if ! prompt_user "Install $plugin?"; then return 1; fi
+  if [[ $# -eq 2 ]] && ! prompt_user "Install $plugin?"; then return 1; fi
 
   if [[ -e $target ]]; then
     echo "Already exists. Cleaning $target"
@@ -255,6 +259,26 @@ install_ranger() {
     cp "$TMP_DIR"/ranger-autojump/autojump.py "$plugin_path"
 }
 
+install_node() {
+  if ! prompt_user "install nodejs"; then return 1; fi
+
+  if ((DEBUG)); then return 0; fi
+
+  # shellcheck disable=SC1091
+  export NVM_DIR="$DATA_HOME/nvm"
+
+  if is_macos; then
+    brew install nvm
+    # load nvm
+    [[ -s "/opt/homebrew/opt/nvm/nvm.sh" ]] && source "/opt/homebrew/opt/nvm/nvm.sh"
+  else
+    # shellcheck disable=SC1091
+    install_plugin "nvm-sh/nvm" "$DATA_HOME" --force && source "$NVM_DIR/nvm.sh"
+  fi
+
+  mkdir -p "$NVM_DIR" && nvm install --lts
+}
+
 install_packages() {
 
   update_package_manager
@@ -270,6 +294,8 @@ install_packages() {
   install_autojump
 
   install_ranger
+
+  install_node
 
   for package in "${PACKAGES[@]}"; do
     install_package "$package"

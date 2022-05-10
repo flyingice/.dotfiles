@@ -4,6 +4,7 @@ SCRIPT_DIR=$(cd -- "$(dirname "${BASH_SOURCE[0]}")" && pwd)
 INSTALL_CONF_DIR="$SCRIPT_DIR"/conf
 
 CONFIG_HOME=$HOME/.config
+DATA_HOME=$HOME/.local/share
 LOCAL_BIN=$HOME/.local/bin
 
 PACKAGES=(
