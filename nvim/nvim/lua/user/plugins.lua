@@ -92,6 +92,12 @@ return packer.startup({
       config = function() require('user.conf.indentline') end
     }
 
+    -- add pairs automatically
+    use {
+      'windwp/nvim-autopairs',
+      config = function() require('user.conf.autopairs') end
+    }
+
     -- highlighting and folding
     use {
       'nvim-treesitter/nvim-treesitter',
