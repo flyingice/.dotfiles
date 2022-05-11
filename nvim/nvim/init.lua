@@ -6,6 +6,10 @@
 
 -- Author: @flyingice
 
+if vim.fn.has('nvim-0.7') == 0 then
+  vim.notify('please upgrade neovim to 0.7 or newer version')
+  return
+end
 
 require 'user.autocmd'
 require 'user.settings'
