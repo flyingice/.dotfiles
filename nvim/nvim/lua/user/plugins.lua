@@ -10,8 +10,10 @@
 
 -- https://github.com/wbthomason/packer.nvim#bootstrapping
 local install_path = vim.fn.stdpath('data') .. '/site/pack/packer/start/packer.nvim'
+-- customize url if being blocked by Great Firewall. e.g., https://hub.fastgit.xyz
+local url_prefix = 'https://github.com'
 if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
-  packer_bootstrap = vim.fn.system { 'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path }
+  packer_bootstrap = vim.fn.system { 'git', 'clone', '--depth', '1', url_prefix .. '/wbthomason/packer.nvim', install_path }
 end
 
 local status, packer = pcall(require, 'packer')
@@ -192,8 +194,7 @@ return packer.startup({
   end,
   config = {
     git = {
-      -- accelerate git access if behind the Great Firewall
-      default_url_format = 'https://hub.fastgit.xyz/%s'
+      default_url_format = url_prefix .. '/%s'
     },
     display = {
       -- configure Packer to use a floating window

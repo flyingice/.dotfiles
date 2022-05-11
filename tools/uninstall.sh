@@ -3,7 +3,6 @@
 SCRIPT_DIR=$(cd -- "$(dirname "${BASH_SOURCE[0]}")" && pwd)
 DOTFILE_ROOT="$SCRIPT_DIR"/..
 
-# shellcheck disable=SC1091
 source "$SCRIPT_DIR"/common.sh
 
 DEBUG=1
@@ -43,10 +42,19 @@ uninstall_zsh_config() {
   uninstall_config 'zsh' --force
 }
 
+uninstall_nvim_config() {
+  if ! prompt_user "Uninstall nvim config"; then return 1; fi
+
+  # no need to revert potentially patched plugins.lua
+  ((DEBUG)) || uninstall_config 'nvim' --force
+}
+
 uninstall_configs() {
   fmt_msg "Start uninstalling config files"
 
   uninstall_zsh_config
+
+  uninstall_nvim_config
 
   for config in "${CONFIGS[@]}"; do
     uninstall_config "$config"

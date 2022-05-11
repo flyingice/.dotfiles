@@ -3,7 +3,6 @@
 SCRIPT_DIR=$(cd -- "$(dirname "${BASH_SOURCE[0]}")" && pwd)
 DOTFILE_ROOT="$SCRIPT_DIR"/..
 
-# shellcheck disable=SC1091
 source "$SCRIPT_DIR"/common.sh
 
 # debug mode is on by default
@@ -277,16 +276,13 @@ install_node() {
 
   if ((DEBUG)); then return 0; fi
 
-  # shellcheck disable=SC1091
   export NVM_DIR="$DATA_HOME/nvm"
 
   if is_macos; then
     brew install nvm
     # load nvm
-    # shellcheck disable=SC1091
     [[ -s "/opt/homebrew/opt/nvm/nvm.sh" ]] && source "/opt/homebrew/opt/nvm/nvm.sh"
   else
-    # shellcheck disable=SC1091
     install_plugin "nvm-sh/nvm" "$DATA_HOME" --force && source "$NVM_DIR/nvm.sh"
   fi
 
@@ -348,10 +344,29 @@ EOF
   }
 }
 
+deploy_nvim_config() {
+  if ! prompt_user "Deploy nvim config"; then return 1; fi
+
+  ((DEBUG)) || {
+    deploy_config 'nvim' --force
+
+    # patch url in plugin config
+    if is_macos; then
+      find "$DOTFILE_ROOT/nvim" -type f -name plugins.lua \
+        -exec sed -i '' "s;'https://github.com';'""$URL""';g" {} \;
+    elif is_linux; then
+      find "$DOTFILE_ROOT/nvim" -type f -name plugins.lua \
+        -exec sed -i "s;'https://github.com';'""$URL""';g" {} \;
+    fi
+  }
+}
+
 deploy_configs() {
   fmt_msg "Start deploying config files"
 
   deploy_zsh_config
+
+  deploy_nvim_config
 
   for config in "${CONFIGS[@]}"; do
     deploy_config "$config"
