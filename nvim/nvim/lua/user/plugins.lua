@@ -102,6 +102,7 @@ return packer.startup({
     use {
       'nvim-treesitter/nvim-treesitter',
       run = ':TSUpdate',
+      disable = true,
       ft = languages,
       config = function() require('user.conf.treesitter') end
     }
@@ -113,6 +114,7 @@ return packer.startup({
       -- collection of configurations for built-in LSP client
       {
         'neovim/nvim-lspconfig',
+        disable = true,
         config = function()
           require('user.lsp.installer')
           require('user.lsp')
@@ -121,6 +123,7 @@ return packer.startup({
       -- non built-in autocompletion
       {
         'hrsh7th/nvim-cmp',
+        disable = true,
         requires = {
           -- LSP source for nvim-cmp
           'hrsh7th/cmp-nvim-lsp',
