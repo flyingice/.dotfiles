@@ -1,12 +1,16 @@
 -- Author: @flyingice
 
-local status, cmp = pcall(require, 'cmp')
-if not status then
+local status_cmp, cmp = pcall(require, 'cmp')
+if not status_cmp then
   vim.notify('fail to load cmp')
   return
 end
 
-local luasnip = require('user.lsp.luasnip')
+local status_luasnip, luasnip = pcall(require, 'luasnip')
+if not status_luasnip then
+  vim.notify('fail to load luasnip')
+  return
+end
 
 -- nvim-cmp setup
 cmp.setup {
@@ -48,3 +52,9 @@ cmp.setup {
     { name = 'luasnip' },
   },
 }
+
+--[[
+https://github.com/L3MON4D3/LuaSnip
+LuaSnip will load the existing vscode-style snippets on startup
+--]]
+require("luasnip.loaders.from_vscode").lazy_load()
