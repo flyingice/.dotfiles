@@ -11,6 +11,7 @@ source "$SCRIPT_DIR"/common.sh
 DEBUG=1
 # default site to download package/plugin
 URL='https://github.com'
+URL_RAW='https://raw.githubusercontent.com'
 
 TMP_DIR=$(mktemp -d -t dotfileXXXXX)
 
@@ -37,8 +38,14 @@ parse_argument() {
         shift
         shift
       ;;
+      --url-raw)
+        URL_RAW="$2"
+        shift
+        shift
+      ;;
       *)
-        fmt_error "Illegal parameters. Usage: install.sh [--release] [--url https://hub.fastgit.xyz]"
+        fmt_error "Illegal parameters. Usage: install.sh \
+[--release] [--url https://hub.fastgit.xyz] [--url-raw https://raw.fastgit.org]"
         exit 1
       ;;
     esac
@@ -84,6 +91,11 @@ Turn on your VPN and add the following config in /etc/hosts:
 
 You can obtain a valid IP by running:
 dig +nostats @8.8.8.8 -t A raw.githubusercontent.com
+
+Alternatively, you can specify --url and --url-raw options to
+designate a mirror site of github. e.g.:
+
+install.sh --release --url https://hub.fastgit.xyz --url-raw https://raw.fastgit.org
 EOF
     exit 1
   }
@@ -126,7 +138,7 @@ update_package_manager() {
   if is_macos; then
     ((DEBUG)) || {
       # install homebrew
-      command_exists brew || bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+      command_exists brew || bash -c "$(curl -fsSL "$URL_RAW"/Homebrew/install/HEAD/install.sh)"
       brew update
     }
   elif is_debian; then
@@ -181,8 +193,8 @@ install_omz() {
 
   ((DEBUG)) || {
     install_package 'zsh' --force
-    ZSH="$install_path" bash -c \
-      "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" \
+    REMOTE="$URL"/ohmyzsh/ohmyzsh ZSH="$install_path" bash -c \
+      "$(curl -fsSL "$URL_RAW"/ohmyzsh/ohmyzsh/master/tools/install.sh)" \
       "" --unattended --keep-zshrc
   }
   # install oh-my-zsh plugins
