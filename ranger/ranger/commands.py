@@ -122,3 +122,27 @@ class fzf_select(Command):
                 self.fm.cd(selected)
             else:
                 self.fm.select_file(selected)
+
+
+class tree_display(Command):
+    """
+    :tree_display
+
+    Show directory tree
+    """
+
+    def execute(self):
+        import os
+        from ranger.ext.get_executables import get_executables
+
+        if 'tree' not in get_executables():
+            self.fm.notify('Could not find tree in the PATH.', bad=True)
+            return
+
+        ignore_list = ('.git', '*.py[co]', '__pycache__')
+        pager = os.getenv('PAGER') if os.getenv('PAGER') else 'less'
+        command = 'tree -aCL 5 {} 2>/dev/null | {}'.format(
+                ' '.join("-I '" + entry + "'" for entry in ignore_list),
+                pager)
+
+        self.fm.execute_command(command)
