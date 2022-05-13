@@ -32,7 +32,6 @@ CONFIGS=(
   gpg
   ideavim
   lazygit
-  maven
   ranger
   rg
   tmux
