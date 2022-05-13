@@ -139,6 +139,13 @@ return packer.startup({
         },
         config = function() require('user.lsp.cmp') end,
       },
+      -- language specific
+      --[[
+      extensions for built-in LSP support for jdtls
+      It is required to support jumping to external libraries:
+      https://github.com/neovim/nvim-lspconfig/issues/784
+      --]]
+      { 'mfussenegger/nvim-jdtls', ft = 'java' },
     }
 
     -- debug adapter protocol

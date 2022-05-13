@@ -5,6 +5,8 @@
 -- |____/ \___|\__|\__|_|_| |_|\__, |___/
 --                             |___/
 
+-- Author: @flyingice
+
 
 -- https://neovim.io/doc/user/vim_diff.html#nvim-defaults
 

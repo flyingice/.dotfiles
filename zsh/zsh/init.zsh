@@ -114,7 +114,7 @@ export GNUPGHOME=$CONFIG_HOME/gpg
 # We can safely add autojump entry into omz plugin list and remove settings below after the fix
 # https://github.com/flyingice/ohmyzsh/commit/6102bcc49c68da04de40ea1d2d950d87c82f2b5e
 # has been merged into omz master branch
-autojump_conf="$HOME"/.local/share/autojump/autojump.zsh
+autojump_conf=$DATA_HOME/autojump/autojump.zsh
 [[ -f $autojump_conf ]] && source "$autojump_conf"
 
 # ====

@@ -40,6 +40,9 @@ nmap <Leader>= :action ReformatCode<CR><ESC>
 " rename
 nmap <Leader>c :action RenameElement<CR>
 
+" optimize imports
+nmap <Leader>i :action OptimizeImports<CR>
+
 " ====
 " ==== plugin emulation
 " ====
