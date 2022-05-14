@@ -1,4 +1,4 @@
-export GOPATH=$HOME/go
+export GOPATH=$DATA_HOME/go
 
 [[ ${PATH#*$GOPATH/bin} == $PATH ]] && export PATH=$PATH:$GOPATH/bin
 
