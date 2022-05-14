@@ -48,6 +48,8 @@ local options = {
   scrolloff = 5,
   -- vim doesn't allow to hide a buffer with unsaved changes by default
   hidden = true,
+  -- hide concealed text (e.g. hyperlink in markdown file)
+  conceallevel = 2,
   -- enable mouse support
   mouse = 'a',
   -- enable true color support

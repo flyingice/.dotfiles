@@ -1,6 +1,11 @@
 -- Author: @flyingice
 
 -- https://github.com/mfussenegger/nvim-jdtls#configuration
+--[[
+known issue: markdown hyperlink is not concealed in LSP hover
+a viable yet not perfect solution:
+https://github.com/mfussenegger/nvim-jdtls/discussions/124
+--]]
 local status, jdtls = pcall(require, 'jdtls')
 if not status then
   vim.notify('fail to load nvim-jdtls')
@@ -8,10 +13,11 @@ if not status then
 end
 
 local home = os.getenv('HOME')
-local jdtls_dir = home .. '/.local/share/nvim/lsp_servers/jdtls'
+local data_home = home .. '/.local/share'
+local jdtls_dir = data_home .. '/nvim/lsp_servers/jdtls'
 local root_markers = { '.git', 'pom.xml', }
 local root_dir = require('jdtls.setup').find_root(root_markers)
-local workspace_dir = home .. "/.local/share/java-workspace/" .. vim.fn.fnamemodify(root_dir, ":p:h:t")
+local workspace_dir = data_home .. '/java-workspace/' .. vim.fn.fnamemodify(root_dir, ":p:h:t")
 
 -- `:help vim.lsp.start_client` for an overview of the supported `config` options.
 local config = {

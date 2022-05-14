@@ -7,9 +7,6 @@ if not status then
   return
 end
 
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
-
 local utils = require('user.lsp.utils')
 -- keybindings for LSP diagnostics
 utils.set_keymap()

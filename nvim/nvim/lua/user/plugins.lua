@@ -76,7 +76,7 @@ return packer.startup({
       -- live preview of markdown files
       {
         'instant-markdown/vim-instant-markdown',
-        ft = { 'markdown' },
+        ft = 'markdown',
         config = function() require('user.conf.markdown') end
       }
     }
@@ -104,19 +104,17 @@ return packer.startup({
     use {
       'nvim-treesitter/nvim-treesitter',
       run = ':TSUpdate',
-      disable = true,
       ft = languages,
       config = function() require('user.conf.treesitter') end
     }
 
     -- language server protocol
     use {
-      -- install language servers
+      -- language servers installer
       'williamboman/nvim-lsp-installer',
       -- collection of configurations for built-in LSP client
       {
         'neovim/nvim-lspconfig',
-        disable = true,
         config = function()
           require('user.lsp.installer')
           require('user.lsp')
@@ -125,7 +123,6 @@ return packer.startup({
       -- non built-in autocompletion
       {
         'hrsh7th/nvim-cmp',
-        disable = true,
         requires = {
           -- LSP source for nvim-cmp
           'hrsh7th/cmp-nvim-lsp',
@@ -159,19 +156,18 @@ return packer.startup({
       -- UI extension for nvim-dap
       {
         'rcarriga/nvim-dap-ui',
-        ft = languages,
+        after = 'nvim-dap',
         config = function() require('user.dap.dapui') end
       },
       -- virtual text support to nvim-dap
       {
         'theHamsta/nvim-dap-virtual-text',
-        ft = languages,
+        after = 'nvim-dap',
         config = function() require('user.dap.dapvt') end
       },
       -- nvim-dap extension providing default debug configurations for python
       {
         'mfussenegger/nvim-dap-python',
-        ft = 'python',
         after = 'nvim-dap',
         config = function() require('user.dap.langs.python') end
       },

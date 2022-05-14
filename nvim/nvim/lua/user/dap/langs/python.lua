@@ -12,4 +12,4 @@ https://github.com/mfussenegger/nvim-dap-python
 configuration:
 https://github.com/microsoft/debugpy/wiki/Debug-configuration-settings
 --]]
-dappy.setup(os.getenv('HOME') .. '/.local/share/venvs/debugpy/bin/python')
+dappy.setup(vim.fn.stdpath('data') .. '/debugger/debugpy/bin/python')

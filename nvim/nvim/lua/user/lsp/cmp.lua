@@ -2,7 +2,13 @@
 
 local status_cmp, cmp = pcall(require, 'cmp')
 if not status_cmp then
-  vim.notify('fail to load cmp')
+  vim.notify('fail to load nvim-cmp')
+  return
+end
+
+local status_cmp_lsp, cmp_lsp = pcall(require, 'cmp_nvim_lsp')
+if not status_cmp_lsp then
+  vim.notify('fail to load cmp-nvim-lsp')
   return
 end
 
@@ -52,6 +58,10 @@ cmp.setup {
     { name = 'luasnip' },
   },
 }
+
+-- cmp-nvim-lsp setup
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities = cmp_lsp.update_capabilities(capabilities)
 
 --[[
 https://github.com/L3MON4D3/LuaSnip
