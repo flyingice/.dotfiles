@@ -315,7 +315,7 @@ install_packages() {
 deploy_config() {
   local config=$1
 
-  if can_skip "$config" ||  { [[ $# == 1 ]] && ! prompt_user "Deploy $config config"; }; then return 1; fi
+  if [[ $# == 1 ]] && ! prompt_user "Deploy $config config"; then return 1; fi
 
   ((DEBUG)) || {
     # GNU Stow is a symlink farm manager
@@ -335,8 +335,8 @@ deploy_zsh_config() {
     backup_file "$HOME"/.zshenv "$HOME/.zshenv.$$"
 
     cat > "$HOME"/.zshenv << EOF
-if [[ -d ${XDG_CONFIG_HOME:-$HOME/.config}/zsh ]]; then
-    export ZDOTDIR=${XDG_CONFIG_HOME:-$HOME/.config}/zsh
+if [[ -d $CONFIG_HOME/zsh ]]; then
+    export ZDOTDIR=$CONFIG_HOME/zsh
 fi
 EOF
 

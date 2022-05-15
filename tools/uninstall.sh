@@ -7,24 +7,31 @@ source "$SCRIPT_DIR"/common.sh
 
 DEBUG=1
 
-validate_parameter() {
-  if [[ $# -gt 1 || ($# -eq 1 && $1 != "release") ]]; then
-    fmt_error "Illegal parameters. Usage: $0 [release]"
-    exit 1
-  fi
+parse_argument() {
+  while [[ $# -gt 0 ]]; do
+    case "$1" in
+      --release)
+        DEBUG=0
+        shift
+      ;;
+      *)
+        fmt_error "Illegal parameters. Usage: uninstall.sh [--release]"
+        exit 1
+      ;;
+    esac
+  done
 
-  if [[ $# -eq 1 ]]; then
-    DEBUG=0
-    fmt_info "MODE RELEASE"
-  else
+  if ((DEBUG)); then
     fmt_info "MODE DEBUG"
+  else
+    fmt_info "MODE RELEASE"
   fi
 }
 
 uninstall_config() {
   local config=$1
 
-  if can_skip "$config" || { [[ $# == 1 ]] && ! prompt_user "Uninstall $config config"; }; then return 1; fi
+  if [[ $# == 1 ]] && ! prompt_user "Uninstall $config config"; then return 1; fi
 
   command_exists stow || {
     fmt_error "stow is not installed. Your config is probably not installed via install.sh"
@@ -62,7 +69,7 @@ uninstall_configs() {
 }
 
 main() {
-  validate_parameter "$@"
+  parse_argument "$@"
 
   uninstall_configs
 
