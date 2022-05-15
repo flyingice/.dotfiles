@@ -10,6 +10,10 @@ gpg_restart() {
 # Check ranger macros on https://github.com/ranger/ranger/wiki/Official-user-guide
 # Check ranger integrations on https://github.com/ranger/ranger/wiki/Integration-with-other-programs
 ra() {
+    # prevent nested ranger instances
+    # https://wiki.archlinux.org/title/ranger#Preventing_nested_ranger_instances
+    ((RANGER_LEVEL == 0)) || exit
+
     local tempfile
     tempfile="$(mktemp -t ranger.XXXXXX)"
     local ranger_cmd=(
@@ -23,6 +27,10 @@ ra() {
         cd -- "$(cat "$tempfile")" || return
     fi
     command rm -f -- "$tempfile" 2>/dev/null
+}
+
+ranger() {
+    ra "$@"
 }
 
 # interactive ripgrep
