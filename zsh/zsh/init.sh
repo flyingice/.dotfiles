@@ -1,13 +1,13 @@
-[[ ${PATH#*$HOME/.local/bin} == $PATH ]] && export PATH=$PATH:$HOME/.local/bin
+[[ ${PATH#*$HOME/.local/bin} == "$PATH" ]] && export PATH=$PATH:$HOME/.local/bin
 
 # ====
 # ==== system-wide default settings
 # ====
 
 if command -v nvim >/dev/null 2>&1; then
-    export EDITOR=nvim
+  export EDITOR=nvim
 else
-    export EDITOR=vim
+  export EDITOR=vim
 fi
 
 export PAGER=less
@@ -40,7 +40,7 @@ export LESSHISTFILE=-
 
 # colorize pager for man
 if command -v bat >/dev/null 2>&1; then
-    export MANPAGER="zsh -c 'col -bx | bat -l man -p'"
+  export MANPAGER="zsh -c 'col -bx | bat -l man -p'"
 fi
 
 # ====
@@ -55,8 +55,7 @@ fi
 # where nvim is installed if .vimrc is not under $HOME.
 # By removing the if condition, nvim can share the same config with vim
 if ! command -v nvim >/dev/null 2>&1; then
-    export VIMINIT="set runtimepath+=$CONFIG_HOME/vim \
-        | source $CONFIG_HOME/vim/vimrc"
+  export VIMINIT="set runtimepath+=$CONFIG_HOME/vim | source $CONFIG_HOME/vim/vimrc"
 fi
 
 # ====

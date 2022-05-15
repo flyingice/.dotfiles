@@ -7,7 +7,6 @@ export ZSH=$CONFIG_HOME/oh-my-zsh
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
 ZSH_THEME="bira"
 
-
 # Which plugins would you like to load?
 # Standard plugins can be found in ~/.config/oh-my-zsh/plugins/*
 # Custom plugins may be added to ~/.config/oh-my-zsh/custom/plugins/
@@ -22,13 +21,10 @@ plugins=(
   zsh-syntax-highlighting
 )
 
-
 source $ZSH/oh-my-zsh.sh
-
 
 # zsh-autosuggestions plugin accept suggestion
 bindkey '`' autosuggest-accept
-
 
 # modify default fzf key bindings
 bindkey -r '^R'

@@ -4,10 +4,10 @@ DATA_HOME=$HOME/.local/share
 CONFIG_HOME=$HOME/.config
 CACHE_HOME=$$HOME/.cache
 
-FILES="$(find -L $CONFIG_HOME/zsh -type f -name '*.zsh' -not -name 'init.zsh')"
+FILES="$(find -L $CONFIG_HOME/zsh -type f -name '*.sh' -not -name 'init.sh')"
 FILE_LIST=($(echo "$FILES" | tr '\n' ' '))
 
-source $CONFIG_HOME/zsh/init.zsh
+source $CONFIG_HOME/zsh/init.sh
 
 for FILE in $FILE_LIST; do
     source "$FILE"
