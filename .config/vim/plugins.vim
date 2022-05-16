@@ -32,9 +32,9 @@ let g:netrw_winsize = 25
 
 " install vim-plug for first-time users
 if empty(glob($HOME.'/.config/vim/autoload/plug.vim'))
-    silent !curl -fLo $HOME/.config/vim/autoload/plug.vim --create-dirs
-                \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-    autocmd VimEnter * PlugInstall --sync
+  silent !curl -fLo $HOME/.config/vim/autoload/plug.vim --create-dirs \
+    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall --sync
 endif
 
 call plug#begin("~/.config/vim/plugged")

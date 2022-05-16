@@ -59,3 +59,9 @@ irg() {
 
   [[ -n ${selected[1]} ]] && "$EDITOR" "${selected[1]}" "+${selected[2]}"
 }
+
+# launch lazygit with additional options to facilitate dotfiles management
+# https://github.com/jesseduffield/lazygit/issues/778
+lg() {
+  command lazygit --git-dir="$HOME"/.dotfiles --work-tree="$HOME"
+}

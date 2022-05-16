@@ -19,7 +19,7 @@ set nocompatible
 " change default viminfo location
 " Neovim uses Shada files instead of viminfo format
 if !has('nvim')
-    set viminfo+=n~/.config/vim/viminfo
+  set viminfo+=n~/.config/vim/viminfo
 endif
 
 " turn on syntax highlighting
@@ -55,8 +55,8 @@ set showcmd
 set wildmenu
 
 " customize width of tab and auto-indent
-set tabstop=4
-set shiftwidth=4
+set tabstop=2
+set shiftwidth=2
 " expand tab to spaces, :retab to replace existing tabs
 set expandtab
 

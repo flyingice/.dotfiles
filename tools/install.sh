@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 
 SCRIPT_DIR=$(cd -- "$(dirname "${BASH_SOURCE[0]}")" && pwd)
-DOTFILE_ROOT="$SCRIPT_DIR"/..
 
 source "$SCRIPT_DIR"/common.sh
 
@@ -28,24 +27,44 @@ trap exit_on_signal EXIT
 parse_argument() {
   while [[ $# -gt 0 ]]; do
     case "$1" in
-      --release)
-        DEBUG=0
-        shift
+    --release)
+      DEBUG=0
+      shift
       ;;
-      --url)
-        URL="$2"
-        shift
-        shift
+    --url)
+      URL="$2"
+      shift
+      shift
       ;;
-      --url-raw)
-        URL_RAW="$2"
-        shift
-        shift
+    --url-raw)
+      URL_RAW="$2"
+      shift
+      shift
       ;;
-      *)
-        fmt_error "Illegal parameters. Usage: install.sh \
-[--release] [--url https://hub.fastgit.xyz] [--url-raw https://raw.fastgit.org]"
-        exit 1
+    -h | --help)
+      cat <<EOF
+usage:
+  install.sh [-h|--help] [--release] [--url URL] [--url-raw URL_RAW]
+options:
+  --help
+    Prints the synopsis.
+  --release
+    The command performs real package installation and configuration deployment on the
+    system. It executes in dry run mode without --release option.
+  --url
+    The script downloads source code from github.com by default. Use this option to specify
+    a mirror site if github.com is not accessible. https://hub.fastgit.xyz is recommended.
+  --url-raw
+    The script fetches raw data content from https://raw.githubusercontent.com by default.
+    Designate an alternative if necessary. https://raw.fastgit.org is recommended.
+example:
+  install.sh --release --url https://hub.fastgit.xyz --url-raw https://raw.fastgit.org
+EOF
+      exit 0
+      ;;
+    *)
+      fmt_error "Illegal parameters. Check usage: install.sh -h|--help"
+      exit 1
       ;;
     esac
   done
@@ -80,7 +99,7 @@ check_requirement() {
     fi
   } 2>/dev/null || {
     fmt_error "Internet connection failure"
-    cat << EOF
+    cat <<EOF
 WiFi is on?
 If so, you are probably behind the Great Firewall.
 Turn on your VPN and add the following config in /etc/hosts:
@@ -92,9 +111,7 @@ You can obtain a valid IP by running:
 dig +nostats @8.8.8.8 -t A raw.githubusercontent.com
 
 Alternatively, you can specify --url and --url-raw options to
-designate a mirror site of github. e.g.:
-
-install.sh --release --url https://hub.fastgit.xyz --url-raw https://raw.fastgit.org
+designate a mirror site of github. Check usage: install.sh -h|--help
 EOF
     exit 1
   }
@@ -127,7 +144,7 @@ install_plugin() {
 
   ((DEBUG)) || {
     mkdir -p "$target_path" || exit 1
-    git -C "$target_path" clone --depth=1 "$URL/$plugin"
+    command git -C "$target_path" clone --depth=1 "$URL/$plugin"
   }
 }
 
@@ -142,9 +159,9 @@ update_package_manager() {
     }
   elif is_debian; then
     ((DEBUG)) || {
-        sudo add-apt-repository ppa:aos1/diff-so-fancy
-        sudo add-apt-repository ppa:lazygit-team/release
-        sudo apt update
+      sudo add-apt-repository ppa:aos1/diff-so-fancy
+      sudo add-apt-repository ppa:lazygit-team/release
+      sudo apt update
     }
   fi
 }
@@ -243,7 +260,7 @@ install_autojump() {
   # default install path: ~/.autojump
   # autojump has already been included in the plugin list in .zshrc
   if install_plugin "flyingice/autojump" "$TMP_DIR"; then
-    ((DEBUG)) || { cd "$TMP_DIR"/autojump && python3 install.py --destdir "$HOME"/.local ; }
+    ((DEBUG)) || { cd "$TMP_DIR"/autojump && python3 install.py --destdir "$HOME"/.local; }
   fi
 }
 
@@ -267,7 +284,7 @@ install_ranger() {
   install_plugin "alexanderjeurissen/ranger_devicons" "$plugin_path"
 
   # to check: ranger-autojump can't be configured as an oh-my-zsh plugin
-  install_plugin "fdw/ranger-autojump" "$TMP_DIR" && \
+  install_plugin "fdw/ranger-autojump" "$TMP_DIR" &&
     cp "$TMP_DIR"/ranger-autojump/autojump.py "$plugin_path"
 }
 
@@ -312,65 +329,27 @@ install_packages() {
   done
 }
 
-deploy_config() {
-  local config=$1
-
-  if [[ $# == 1 ]] && ! prompt_user "Deploy $config config"; then return 1; fi
-
-  ((DEBUG)) || {
-    # GNU Stow is a symlink farm manager
-    # https://www.gnu.org/software/stow/manual/stow.html
-    if ! command_exists stow; then install_package 'stow' --force; fi
-    stow --target "$CONFIG_HOME" --dir "$DOTFILE_ROOT" --override='.*' --no-folding "$config" \
-      || fmt_info "Deployment failure: remove your old $config config"
-  }
-}
-
-deploy_zsh_config() {
-  if ! prompt_user "Deploy zsh config"; then return 1; fi
-
-  # successful deployment of zsh config is critical
-  # rename ~/.zshenv if it exists as it will cause conflict when invoking stow
-  ((DEBUG)) || {
-    backup_file "$HOME"/.zshenv "$HOME/.zshenv.$$"
-
-    cat > "$HOME"/.zshenv << EOF
-if [[ -d $CONFIG_HOME/zsh ]]; then
-    export ZDOTDIR=$CONFIG_HOME/zsh
-fi
-EOF
-
-    deploy_config 'zsh' --force
-  }
-}
-
-deploy_nvim_config() {
-  if ! prompt_user "Deploy nvim config"; then return 1; fi
-
-  ((DEBUG)) || {
-    deploy_config 'nvim' --force
-
-    # patch url in plugin config
-    if is_macos; then
-      find "$DOTFILE_ROOT/nvim" -type f -name plugins.lua \
-        -exec sed -i '' "s;'https://github.com';'""$URL""';g" {} \;
-    elif is_linux; then
-      find "$DOTFILE_ROOT/nvim" -type f -name plugins.lua \
-        -exec sed -i "s;'https://github.com';'""$URL""';g" {} \;
-    fi
-  }
-}
-
 deploy_configs() {
+  if ! prompt_user "Deploy config files?"; then return 1; fi
+
   fmt_msg "Start deploying config files"
 
-  deploy_zsh_config
+  ((DEBUG)) || {
+    dot="command git --git-dir=$HOME/.dotfiles --work-tree=$HOME"
 
-  deploy_nvim_config
+    configs=(
+      "$HOME"/.config
+      "$HOME"/.zshenv
+    )
 
-  for config in "${CONFIGS[@]}"; do
-    deploy_config "$config"
-  done
+    for config in "${configs[@]}"; do
+      backup "$config" "$config".$$
+      eval "$dot" reset -- "$config"
+      eval "$dot" checkout -- "$config"
+    done
+
+    eval "$dot" config --local status.showUntrackedFiles no
+  }
 }
 
 change_shell() {
@@ -385,11 +364,11 @@ main() {
 
   check_requirement
 
+  deploy_configs
+
   setup_env
 
   install_packages
-
-  deploy_configs
 
   change_shell
 

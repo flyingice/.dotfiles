@@ -25,18 +25,6 @@ PACKAGES=(
   zsh
 )
 
-CONFIGS=(
-  bat
-  git
-  gpg
-  ideavim
-  lazygit
-  ranger
-  rg
-  tmux
-  vim
-)
-
 FMT_RED=$(printf '\033[31m')
 FMT_GREEN=$(printf '\033[32m')
 FMT_YELLOW=$(printf '\033[33m')
@@ -81,11 +69,11 @@ command_exists() {
   command -v "$@" >/dev/null 2>&1
 }
 
-backup_file() {
+backup() {
   local old=$1
   local new=$2
 
-  [[ -e $old ]] && mv "$old" "$new"
+  [[ -e $old ]] && mv -i "$old" "$new"
 }
 
 get_conf_value() {

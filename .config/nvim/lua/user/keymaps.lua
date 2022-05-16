@@ -35,6 +35,7 @@ set('n', 'gt', '<NOP>', {
 set('n', 'gT', '<NOP>', {
   desc = 'disable go to previous tab'
 })
+
 -- ==================== normal mode ====================
 
 -- <C-a> is already taken as tmux prefix key

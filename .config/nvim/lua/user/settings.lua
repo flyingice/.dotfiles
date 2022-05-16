@@ -54,6 +54,8 @@ local options = {
   mouse = 'a',
   -- enable true color support
   termguicolors = true,
+  -- don't redraw screen while executing macros, registers
+  lazyredraw = true,
 }
 
 -- disable the default vim startup message
