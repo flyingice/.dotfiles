@@ -42,8 +42,21 @@ return packer.startup({
     -- comment out the target of a motion
     use 'tpope/vim-commentary'
 
-    -- richer text objects support
-    use 'wellle/targets.vim'
+    -- richer text-objects support
+    use {
+      --[[
+      add a(rgument), q(uote) and b(lock) as text-objects
+      seek forward (default) with n, backward with l
+      numbers accepted, e.g., c2ina
+      --]]
+      'wellle/targets.vim',
+      {
+        -- syntax aware text-ojbects powered by nvim-treesitter
+        -- configured in conf/treesitter.lua
+        'nvim-treesitter/nvim-treesitter-textobjects',
+        ft = languages
+      }
+    }
 
     -- fuzzy finder
     use {
