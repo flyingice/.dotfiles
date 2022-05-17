@@ -1,11 +1,6 @@
 -- Author: @flyingice
 
 -- https://github.com/mfussenegger/nvim-jdtls#configuration
---[[
-known issue: markdown hyperlink is not concealed in LSP hover
-a viable yet not perfect solution:
-https://github.com/mfussenegger/nvim-jdtls/discussions/124
---]]
 local status, jdtls = pcall(require, 'jdtls')
 if not status then
   vim.notify('fail to load nvim-jdtls')
