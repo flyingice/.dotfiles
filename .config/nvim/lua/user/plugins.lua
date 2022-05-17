@@ -30,12 +30,12 @@ return packer.startup({
     -- otherwise a prompt window would appear asking whether to remove packer directory
     use { 'wbthomason/packer.nvim' }
 
-    -- enhance netrw shipped with vim
+    -- file explorer
     use {
-      'tpope/vim-vinegar',
-      config = function() require('user.conf.netrw') end
+      'kyazdani42/nvim-tree.lua',
+      keys = { 'n', '<A-t>' },
+      config = function() require('user.conf.explorer') end
     }
-
     -- provide mapping to easily delete, change and add surroudings in paris
     use 'tpope/vim-surround'
 
