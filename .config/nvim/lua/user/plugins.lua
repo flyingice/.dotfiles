@@ -87,9 +87,9 @@ return packer.startup({
       config = function() require('user.conf.tabular') end
     }
 
-    -- display thin vertical lines at each indentation level
+    -- display vertical lines at each indentation level
     use {
-      'Yggdroot/indentLine',
+      'lukas-reineke/indent-blankline.nvim',
       ft = languages,
       config = function() require('user.conf.indentline') end
     }
