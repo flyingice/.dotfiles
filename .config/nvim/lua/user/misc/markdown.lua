@@ -1,7 +1,9 @@
 -- Author: @flyingice
 
--- ==================== vim-instant-markdown ====================
--- https://github.com/instant-markdown/vim-instant-markdown/blob/master/doc/vim-instant-markdown.txt
+--[[
+==================== vim-instant-markdown ====================
+https://github.com/instant-markdown/vim-instant-markdown/blob/master/doc/vim-instant-markdown.txt
+--]]
 
 --[[
 only refresh on the following events:
@@ -23,8 +25,10 @@ vim.keymap.set('n', '<Leader>mp', ':InstantMarkdownPreview<CR>', {
   desc = 'preview markdown file in default browser'
 })
 
--- ==================== vim-table-mode ====================
--- https://github.com/dhruvasagar/vim-table-mode/blob/master/README.md
+--[[
+==================== vim-table-mode ====================
+https://github.com/dhruvasagar/vim-table-mode/blob/master/README.md
+--]]
 
 --[[
 default key mappings:
@@ -45,8 +49,10 @@ delete column <Leader>tdc
 insert column <Leader>tic / <Leader>tiC
 --]]
 
--- ==================== vim-markdown-toc ====================
--- https://github.com/mzlogin/vim-markdown-toc/blob/master/README.md#usage
+--[[
+==================== vim-markdown-toc ====================
+https://github.com/mzlogin/vim-markdown-toc/blob/master/README.md#usage
+--]]
 
 -- change inner text of the fence marker
 vim.g.vmt_fence_text = 'TOC'

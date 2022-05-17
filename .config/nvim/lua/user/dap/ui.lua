@@ -1,15 +1,18 @@
 -- Author: @flyingice
 
--- https://github.com/rcarriga/nvim-dap-ui#readme
+--[[
+https://github.com/rcarriga/nvim-dap-ui#readme
+--]]
 local status_depui, dapui = pcall(require, 'dapui')
 if not status_depui then
-  vim.notify('dapui not found')
+  vim.notify('fail to load nvim-dap-ui')
   return
 end
 
+-- load dependency
 local status_dap, dap = pcall(require, 'dap')
 if not status_dap then
-  vim.notify('dap not found')
+  vim.notify('fail to load nvim-dap')
   return
 end
 

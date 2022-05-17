@@ -1,13 +1,18 @@
 -- Author: @flyingice
 
+--[[
+https://github.com/williamboman/nvim-lsp-installer
+--]]
 local status, installer = pcall(require, 'nvim-lsp-installer')
 if not status then
   vim.notify('fail to load nvim-lsp-installer')
   return
 end
 
--- :LspInstallInfo to open an overview of all the language servers
--- https://github.com/williamboman/nvim-lsp-installer#default-configuration
+--[[
+https://github.com/williamboman/nvim-lsp-installer#default-configuration
+:LspInstallInfo to open an overview of all the language servers
+--]]
 local default_settings = {
   --[[
   list of servers to automatically install if they're not already installed.

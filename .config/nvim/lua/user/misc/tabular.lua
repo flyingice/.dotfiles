@@ -1,6 +1,8 @@
 -- Author: @flyingice
 
--- https://raw.githubusercontent.com/godlygeek/tabular/master/doc/Tabular.txt
+--[[
+https://raw.githubusercontent.com/godlygeek/tabular/master/doc/Tabular.txt
+--]]
 
 -- keybindings
 vim.keymap.set('n', '<Leader>ga', ':Tabularize /=<CR>', {

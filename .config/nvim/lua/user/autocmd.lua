@@ -1,11 +1,13 @@
---     _         _                           _
---    / \  _   _| |_ ___   ___ _ __ ___   __| |
---   / _ \| | | | __/ _ \ / __| '_ ` _ \ / _` |
---  / ___ \ |_| | || (_) | (__| | | | | | (_| |
--- /_/   \_\__,_|\__\___/ \___|_| |_| |_|\__,_|
+--[[
+    _         _                           _
+   / \  _   _| |_ ___   ___ _ __ ___   __| |
+  / _ \| | | | __/ _ \ / __| '_ ` _ \ / _` |
+ / ___ \ |_| | || (_) | (__| | | | | | (_| |
+/_/   \_\__,_|\__\___/ \___|_| |_| |_|\__,_|
 
--- Author: @flyingice
+Author: @flyingice
 
+--]]
 
 local create_group = vim.api.nvim_create_augroup
 local create_cmd = vim.api.nvim_create_autocmd
@@ -24,7 +26,9 @@ create_cmd('BufReadPost', {
   end
 })
 
--- https://github.com/wbthomason/packer.nvim#quickstart
+--[[
+https://github.com/wbthomason/packer.nvim#quickstart
+--]]
 local augroup_packer_user_config = create_group('packer_user_config', options)
 create_cmd('BufWritePost', {
   pattern = 'plugins.lua',

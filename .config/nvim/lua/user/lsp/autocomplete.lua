@@ -1,20 +1,29 @@
 -- Author: @flyingice
 
+--[[
+https://github.com/hrsh7th/nvim-cmp
+--]]
 local status_cmp, cmp = pcall(require, 'cmp')
 if not status_cmp then
   vim.notify('fail to load nvim-cmp')
   return
 end
 
+--[[
+https://github.com/hrsh7th/cmp-nvim-lsp
+--]]
 local status_cmp_lsp, cmp_lsp = pcall(require, 'cmp_nvim_lsp')
 if not status_cmp_lsp then
   vim.notify('fail to load cmp-nvim-lsp')
   return
 end
 
+--[[
+https://github.com/L3MON4D3/LuaSnip
+--]]
 local status_luasnip, luasnip = pcall(require, 'luasnip')
 if not status_luasnip then
-  vim.notify('fail to load luasnip')
+  vim.notify('fail to load LuaSnip')
   return
 end
 
@@ -63,8 +72,5 @@ cmp.setup {
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = cmp_lsp.update_capabilities(capabilities)
 
---[[
-https://github.com/L3MON4D3/LuaSnip
-LuaSnip will load the existing vscode-style snippets on startup
---]]
+-- LuaSnip will load the existing vscode-style snippets on startup
 require("luasnip.loaders.from_vscode").lazy_load()

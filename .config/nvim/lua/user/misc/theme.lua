@@ -1,12 +1,17 @@
 -- Author: @flyingice
 
+--[[
+https://github.com/navarasu/onedark.nvim
+--]]
 local status, theme = pcall(require, 'onedark')
 if not status then
-  vim.notify('theme ' .. theme .. ' not found')
+  vim.notify('fail to load onedark.nvim')
   return
 end
 
--- https://github.com/navarasu/onedark.nvim#default-configuration
+--[[
+https://github.com/navarasu/onedark.nvim#default-configuration
+--]]
 theme.setup {
   -- choose between 'dark', 'darker', 'cool', 'deep', 'warm', 'warmer' and 'light'
   style = 'warm',

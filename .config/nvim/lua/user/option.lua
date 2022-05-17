@@ -1,14 +1,16 @@
---  ____       _   _   _
--- / ___|  ___| |_| |_(_)_ __   __ _ ___
--- \___ \ / _ \ __| __| | '_ \ / _` / __|
---  ___) |  __/ |_| |_| | | | | (_| \__ \
--- |____/ \___|\__|\__|_|_| |_|\__, |___/
---                             |___/
+--[[
+  ___        _   _
+ / _ \ _ __ | |_(_) ___  _ __
+| | | | '_ \| __| |/ _ \| '_ \
+| |_| | |_) | |_| | (_) | | | |
+ \___/| .__/ \__|_|\___/|_| |_|
+      |_|
 
--- Author: @flyingice
+Author: @flyingice
 
+https://neovim.io/doc/user/vim_diff.html#nvim-defaults
 
--- https://neovim.io/doc/user/vim_diff.html#nvim-defaults
+--]]
 
 local options = {
   -- show line numbers

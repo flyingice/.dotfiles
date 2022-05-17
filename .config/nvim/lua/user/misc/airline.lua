@@ -1,13 +1,21 @@
 -- Author: @flyingice
 
--- settings
--- config doc: https://github.com/vim-airline/vim-airline/blob/master/doc/airline.txt
+--[[
+https://github.com/vim-airline/vim-airline
 
+config documentation:
+https://github.com/vim-airline/vim-airline/blob/master/doc/airline.txt
+--]]
 vim.g.airline_theme = 'onedark'
--- recommend MesloLGS Nerd Font Mono (https://github.com/ryanoasis/nerd-fonts)
+--[[
+JetBrainsMono Nerd Font recommended
+https://github.com/ryanoasis/nerd-fonts
+--]]
 vim.g.airline_powerline_fonts = 1
--- startup with a minimalistic setup. An empty list disables all extensions.
--- :AirlineExtensions to check the list of loaded plugins
+--[[
+startup with a minimalistic setup. An empty list disables all extensions.
+:AirlineExtensions to check the list of loaded plugins
+--]]
 vim.g.airline_extensions = { 'tabline', 'whitespace' }
 -- disable displaying tabs
 vim.g['airline#extensions#tabline#show_tabs'] = 0

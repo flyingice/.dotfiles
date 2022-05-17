@@ -1,10 +1,13 @@
---  __  ____   ____     _____ __  __ ____   ____
--- |  \/  \ \ / /\ \   / /_ _|  \/  |  _ \ / ___|
--- | |\/| |\ V /  \ \ / / | || |\/| | |_) | |
--- | |  | | | |    \ V /  | || |  | |  _ <| |___
--- |_|  |_| |_|     \_/  |___|_|  |_|_| \_\\____|
+--[[
+ __  ____   ____     _____ __  __ ____   ____
+|  \/  \ \ / /\ \   / /_ _|  \/  |  _ \ / ___|
+| |\/| |\ V /  \ \ / / | || |\/| | |_) | |
+| |  | | | |    \ V /  | || |  | |  _ <| |___
+|_|  |_| |_|     \_/  |___|_|  |_|_| \_\\____|
 
--- Author: @flyingice
+Author: @flyingice
+
+--]]
 
 if vim.fn.has('nvim-0.7') == 0 then
   vim.notify('please upgrade neovim to 0.7 or newer version')
@@ -12,6 +15,6 @@ if vim.fn.has('nvim-0.7') == 0 then
 end
 
 require 'user.autocmd'
-require 'user.settings'
-require 'user.keymaps'
-require 'user.plugins'
+require 'user.option'
+require 'user.keymap'
+require 'user.plugin'

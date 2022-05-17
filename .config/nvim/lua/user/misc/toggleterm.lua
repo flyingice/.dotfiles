@@ -1,9 +1,11 @@
 -- Author: @flyingice
 
--- https://github.com/akinsho/toggleterm.nvim
+--[[
+https://github.com/akinsho/toggleterm.nvim
+--]]
 local status, toggleterm = pcall(require, 'toggleterm')
 if not status then
-  vim.notify('fail to load toggleterm')
+  vim.notify('fail to load toggleterm.nvim')
 end
 
 -- general settings

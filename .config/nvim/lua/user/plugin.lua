@@ -1,14 +1,20 @@
---  ____  _             _
--- |  _ \| |_   _  __ _(_)_ __  ___
--- | |_) | | | | |/ _` | | '_ \/ __|
--- |  __/| | |_| | (_| | | | | \__ \
--- |_|   |_|\__,_|\__, |_|_| |_|___/
---                |___/
+--[[
+ ____  _             _
+|  _ \| |_   _  __ _(_)_ __
+| |_) | | | | |/ _` | | '_ \
+|  __/| | |_| | (_| | | | | |
+|_|   |_|\__,_|\__, |_|_| |_|
+               |___/
 
--- Author: @flyingice
+Author: @flyingice
 
+https://github.com/wbthomason/packer.nvim
 
--- https://github.com/wbthomason/packer.nvim#bootstrapping
+--]]
+
+--[[
+https://github.com/wbthomason/packer.nvim#bootstrapping
+--]]
 local install_path = vim.fn.stdpath('data') .. '/site/pack/packer/start/packer.nvim'
 -- customize url if being blocked by Great Firewall. e.g., https://hub.fastgit.xyz
 local url_prefix = 'https://github.com'
@@ -18,12 +24,15 @@ end
 
 local status, packer = pcall(require, 'packer')
 if not status then
+  vim.notify('fail to load packer.nvim')
   return
 end
 
 local languages = { 'cpp', 'lua', 'java', 'python', 'sh', }
 
--- https://github.com/wbthomason/packer.nvim#specifying-plugins
+--[[
+https://github.com/wbthomason/packer.nvim#specifying-plugins
+--]]
 return packer.startup({
   function(use)
     -- require packer itself,
@@ -34,7 +43,7 @@ return packer.startup({
     use {
       'kyazdani42/nvim-tree.lua',
       keys = { 'n', '<A-t>' },
-      config = function() require('user.conf.explorer') end
+      config = function() require('user.misc.explorer') end
     }
     -- provide mapping to easily delete, change and add surroudings in paris
     use 'tpope/vim-surround'
@@ -52,7 +61,7 @@ return packer.startup({
       'wellle/targets.vim',
       {
         -- syntax aware text-ojbects powered by nvim-treesitter
-        -- configured in conf/treesitter.lua
+        -- configured as a treesitter module in treesitter/textobjects.lua
         'nvim-treesitter/nvim-treesitter-textobjects',
         ft = languages
       }
@@ -65,19 +74,19 @@ return packer.startup({
         'junegunn/fzf',
         run = vim.fn['fzf#install'],
       },
-      config = function() require('user.conf.fzf') end
+      config = function() require('user.misc.fzf') end
     }
 
     -- visualize undo history and switch between different undo branches
     use {
       'mbbill/undotree',
-      config = function() require('user.conf.undotree') end
+      config = function() require('user.misc.undotree') end
     }
 
     -- persist and toggle multiple terminals
     use {
       'akinsho/toggleterm.nvim',
-      config = function() require('user.conf.toggleterm') end
+      config = function() require('user.misc.toggleterm') end
     }
 
     -- markdown support
@@ -90,35 +99,35 @@ return packer.startup({
       {
         'instant-markdown/vim-instant-markdown',
         ft = 'markdown',
-        config = function() require('user.conf.markdown') end
+        config = function() require('user.misc.markdown') end
       }
     }
 
     -- line up text
     use {
       'godlygeek/tabular',
-      config = function() require('user.conf.tabular') end
+      config = function() require('user.misc.tabular') end
     }
 
     -- display vertical lines at each indentation level
     use {
       'lukas-reineke/indent-blankline.nvim',
       ft = languages,
-      config = function() require('user.conf.indentline') end
+      config = function() require('user.misc.indentline') end
     }
 
     -- add pairs automatically
     use {
       'windwp/nvim-autopairs',
-      config = function() require('user.conf.autopairs') end
+      config = function() require('user.misc.autopairs') end
     }
 
-    -- highlighting and folding
+    -- treesitter
     use {
       'nvim-treesitter/nvim-treesitter',
       run = ':TSUpdate',
       ft = languages,
-      config = function() require('user.conf.treesitter') end
+      config = function() require('user.treesitter') end
     }
 
     -- language server protocol
@@ -147,7 +156,7 @@ return packer.startup({
           'saadparwaiz1/cmp_luasnip',
           'rafamadriz/friendly-snippets',
         },
-        config = function() require('user.lsp.cmp') end,
+        config = function() require('user.lsp.autocomplete') end,
       },
       -- language specific
       --[[
@@ -170,13 +179,13 @@ return packer.startup({
       {
         'rcarriga/nvim-dap-ui',
         after = 'nvim-dap',
-        config = function() require('user.dap.dapui') end
+        config = function() require('user.dap.ui') end
       },
       -- virtual text support to nvim-dap
       {
         'theHamsta/nvim-dap-virtual-text',
         after = 'nvim-dap',
-        config = function() require('user.dap.dapvt') end
+        config = function() require('user.dap.virtual-text') end
       },
       -- nvim-dap extension providing default debug configurations for python
       {
@@ -191,7 +200,7 @@ return packer.startup({
       'vim-airline/vim-airline-themes',
       {
         'vim-airline/vim-airline',
-        config = function() require('user.conf.airline') end
+        config = function() require('user.misc.airline') end
       }
     }
 
@@ -199,7 +208,7 @@ return packer.startup({
     -- better support for neovim treesitter highlighting
     use {
       'navarasu/onedark.nvim',
-      config = function() require('user.conf.theme') end
+      config = function() require('user.misc.theme') end
     }
 
     -- automatically set up configuration after cloning packer.nvim

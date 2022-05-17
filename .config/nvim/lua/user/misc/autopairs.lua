@@ -1,9 +1,11 @@
 -- Author: @flyingice
 
--- https://github.com/windwp/nvim-autopairs
+--[[
+https://github.com/windwp/nvim-autopairs
+--]]
 local status, autopairs = pcall(require, 'nvim-autopairs')
 if not status then
-  vim.notify('fail to load autopairs')
+  vim.notify('fail to load nvim-autopairs')
   return
 end
 

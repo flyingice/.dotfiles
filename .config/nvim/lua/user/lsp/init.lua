@@ -1,14 +1,16 @@
 -- Author: @flyingice
 
--- https://github.com/neovim/nvim-lspconfig
+--[[
+https://github.com/neovim/nvim-lspconfig
+--]]
 local status, lspconfig = pcall(require, 'lspconfig')
 if not status then
-  vim.notify('fail to load lspconfig')
+  vim.notify('fail to load nvim-lspconfig')
   return
 end
 
-local utils = require('user.lsp.utils')
 -- keybindings for LSP diagnostics
+local utils = require('user.lsp.utils')
 utils.set_keymap()
 
 local servers = utils.get_servers()

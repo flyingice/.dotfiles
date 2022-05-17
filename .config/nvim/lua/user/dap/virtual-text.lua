@@ -1,9 +1,11 @@
 -- Author: @flyingice
 
--- https://github.com/theHamsta/nvim-dap-virtual-text
+--[[
+https://github.com/theHamsta/nvim-dap-virtual-text
+--]]
 local status, dapvt = pcall(require, 'nvim-dap-virtual-text')
 if not status then
-  vim.notify('fail to load dap virtual text')
+  vim.notify('fail to load nvim-dap-virtual-text')
   return
 end
 

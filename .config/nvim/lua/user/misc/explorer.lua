@@ -1,9 +1,11 @@
 -- Author: @flyingice
 
--- https://github.com/kyazdani42/nvim-tree.lua
+--[[
+https://github.com/kyazdani42/nvim-tree.lua
+--]]
 local status, explorer = pcall(require, 'nvim-tree')
 if not status then
-  vim.notify('fail to load nvim-tree')
+  vim.notify('fail to load nvim-tree.lua')
   return
 end
 
@@ -33,6 +35,8 @@ explorer.setup {
       -- keybindings are consistent with those of ranger file manager
       list = {
         { key = '<CR>', action = 'edit' },
+        { key = 'v', action = 'vsplit' },
+        { key = 's', action = 'split' },
         { key = 'l', action = 'cd' },
         { key = 'h', action = 'dir_up' },
         { key = { '[', ']' }, action = 'parent_node' },
@@ -40,8 +44,6 @@ explorer.setup {
         { key = 'yn', action = 'copy_name' },
         { key = '-', action = 'collapse_all' },
         { key = 'r', action = 'refresh' },
-        { key = 'cw', action = 'rename' },
-        { key = 'dD', action = 'remove' },
         { key = '.', action = 'run_file_command' },
         { key = 'zh', action = 'toggle_dotfiles' },
         { key = '?', action = 'toggle_help' },

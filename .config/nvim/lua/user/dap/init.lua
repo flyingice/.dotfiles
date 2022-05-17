@@ -6,36 +6,38 @@ https://github.com/mfussenegger/nvim-dap
 configuration (:help dap.txt)
 https://github.com/mfussenegger/nvim-dap/blob/master/doc/dap.txt
 
-Debug Adapter installation
+debug adapter installation
 https://github.com/mfussenegger/nvim-dap/wiki/Debug-Adapter-installation
 --]]
-
 local status = pcall(require, 'dap')
 if not status then
-  vim.notify('fail to load dap')
+  vim.notify('fail to load nvim-dap')
   return
 end
 
--- settings
+--[[
+nerd font installation required to properly display icons below
+https://www.nerdfonts.com/cheat-sheet
+--]]
 vim.fn.sign_define('DapBreakpoint', {
-  -- U+1F534
-  text = '🔴',
+  -- f111
+  text = '',
   texthl = '',
   linehl = '',
   numhl = '',
 })
 
 vim.fn.sign_define('DapBreakpointCondition', {
-  -- U+2B55
-  text = '⭕',
+  -- f192
+  text = '',
   texthl = '',
   linehl = '',
   numhl = '',
 })
 
 vim.fn.sign_define('DapLogPoint', {
-  -- U+1F7E1
-  text = '🟡',
+  -- fb5c
+  text = 'ﭜ',
   texthl = '',
   linehl = '',
   numhl = '',
