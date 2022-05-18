@@ -28,15 +28,15 @@ if not status then
   return
 end
 
-local languages = { 'cpp', 'lua', 'java', 'python', 'sh', }
+-- some plugins are lazy loaded based on file format
+local langs_enabled = { 'cpp', 'lua', 'java', 'python', 'sh', }
 
 --[[
 https://github.com/wbthomason/packer.nvim#specifying-plugins
 --]]
 return packer.startup({
   function(use)
-    -- require packer itself,
-    -- otherwise a prompt window would appear asking whether to remove packer directory
+    -- load packer itself
     use { 'wbthomason/packer.nvim' }
 
     -- file explorer
@@ -51,7 +51,7 @@ return packer.startup({
     -- comment out the target of a motion
     use {
       'numToStr/Comment.nvim',
-      ft = languages,
+      ft = langs_enabled,
       config = function() require('user.misc.comment') end
     }
 
@@ -108,7 +108,7 @@ return packer.startup({
     -- display vertical lines at each indentation level
     use {
       'lukas-reineke/indent-blankline.nvim',
-      ft = languages,
+      ft = langs_enabled,
       config = function() require('user.misc.indentline') end
     }
 
@@ -124,7 +124,7 @@ return packer.startup({
       {
         'nvim-treesitter/nvim-treesitter',
         run = ':TSUpdate',
-        ft = languages,
+        ft = langs_enabled,
         config = function() require('user.treesitter') end
       },
       --[[
@@ -133,12 +133,12 @@ return packer.startup({
       -- syntax aware text-ojbects, configured in treesitter/textobjects.lua
       {
         'nvim-treesitter/nvim-treesitter-textobjects',
-        ft = languages
+        ft = langs_enabled
       },
       -- show current function context
       {
         'nvim-treesitter/nvim-treesitter-context',
-        ft = languages,
+        ft = langs_enabled,
         config = function() require('user.treesitter.context') end
       }
     }
@@ -169,7 +169,24 @@ return packer.startup({
           'saadparwaiz1/cmp_luasnip',
           'rafamadriz/friendly-snippets',
         },
-        config = function() require('user.lsp.autocomplete') end,
+        config = function() require('user.lsp.autocomplete') end
+      },
+      --[[
+      use Neovim as a languager server to inject LSP diagnostics, code actions and more
+      Here it is used to hook into code formatting only since not all language servers
+      provide such feature. e.g., clangd, jdtls, sumneko_lua have built-in support for
+      code formatting while bashls and pyright don't as of May 2022
+      check related issue of bashls:
+      https://github.com/bash-lsp/bash-language-server/issues/104
+      --]]
+      {
+        'jose-elias-alvarez/null-ls.nvim',
+        -- serve as null-ls dependency
+        requires = {
+          'nvim-lua/plenary.nvim',
+        },
+        ft = { 'python', 'sh', },
+        config = function() require('user.lsp.null-ls') end
       },
       -- language specific
       --[[
@@ -185,7 +202,7 @@ return packer.startup({
       -- DAP client implementation
       {
         'mfussenegger/nvim-dap',
-        ft = languages,
+        ft = langs_enabled,
         config = function() require('user.dap') end
       },
       -- UI extension for nvim-dap
