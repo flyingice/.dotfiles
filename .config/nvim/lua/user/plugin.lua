@@ -52,24 +52,16 @@ return packer.startup({
     use {
       'numToStr/Comment.nvim',
       ft = languages,
-      config = function () require('user.misc.comment') end
+      config = function() require('user.misc.comment') end
     }
 
-    -- richer text-objects support
-    use {
-      --[[
-      add a(rgument), q(uote) and b(lock) as text-objects
-      seek forward (default) with n, backward with l
-      numbers accepted, e.g., c2ina
-      --]]
-      'wellle/targets.vim',
-      {
-        -- syntax aware text-ojbects powered by nvim-treesitter
-        -- configured as a treesitter module in treesitter/textobjects.lua
-        'nvim-treesitter/nvim-treesitter-textobjects',
-        ft = languages
-      }
-    }
+    --[[
+    richer text-objects support
+    add a(rgument), q(uote) and b(lock) as text-objects
+    seek forward (default) with n, backward with l
+    numbers accepted, e.g., c2ina
+    --]]
+    use 'wellle/targets.vim'
 
     -- fuzzy finder
     use {
@@ -128,10 +120,27 @@ return packer.startup({
 
     -- treesitter
     use {
-      'nvim-treesitter/nvim-treesitter',
-      run = ':TSUpdate',
-      ft = languages,
-      config = function() require('user.treesitter') end
+      -- core
+      {
+        'nvim-treesitter/nvim-treesitter',
+        run = ':TSUpdate',
+        ft = languages,
+        config = function() require('user.treesitter') end
+      },
+      --[[
+      extra treesitter modules
+      --]]
+      -- syntax aware text-ojbects, configured in treesitter/textobjects.lua
+      {
+        'nvim-treesitter/nvim-treesitter-textobjects',
+        ft = languages
+      },
+      -- show current function context
+      {
+        'nvim-treesitter/nvim-treesitter-context',
+        ft = languages,
+        config = function() require('user.treesitter.context') end
+      }
     }
 
     -- language server protocol
