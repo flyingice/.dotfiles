@@ -154,3 +154,6 @@ the normal mode command "+p that preserves the indentation of the text
 without any surprises.
 --]]
 vim.cmd [[ set pastetoggle=<F12> ]]
+
+-- type %% in Ex mode to expand directory of the active buffer (equivalent to %:h)
+vim.cmd [[ cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h').'/' : '%%' ]]
