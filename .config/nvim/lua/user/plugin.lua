@@ -49,7 +49,11 @@ return packer.startup({
     use 'tpope/vim-surround'
 
     -- comment out the target of a motion
-    use 'tpope/vim-commentary'
+    use {
+      'numToStr/Comment.nvim',
+      ft = languages,
+      config = function () require('user.misc.comment') end
+    }
 
     -- richer text-objects support
     use {
