@@ -20,7 +20,7 @@ end
 local set = vim.api.nvim_set_keymap
 local opts = { noremap = true, silent = true }
 
-set('n', 'dK', "<cmd>lua require('dapui').eval()", opts)
+set('n','<Leader>dk', "<cmd>lua require('dapui').eval()<CR>", opts)
 
 --[[
 use nvim-dap events to open and close the window automatically (:help dap-extensions)
@@ -32,16 +32,16 @@ local debug_close = function()
   -- close repl window
   dap.repl.close()
   -- close terminal
-  vim.api.nvim_command("silent! bdelete! term:")
+  vim.api.nvim_command('silent! bdelete! term:')
 end
 
-dap.listeners.after.event_initialized["dapui_config"] = function()
+dap.listeners.after.event_initialized['dapui_config'] = function()
   dapui.open()
 end
-dap.listeners.before.event_terminated["dapui_config"] = function()
+dap.listeners.before.event_terminated['dapui_config'] = function()
   debug_close()
 end
-dap.listeners.before.event_exited["dapui_config"] = function()
+dap.listeners.before.event_exited['dapui_config'] = function()
   debug_close()
 end
 

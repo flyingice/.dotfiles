@@ -27,11 +27,11 @@ set('', 's', '<NOP>', {
   desc = 'disable delete chracter'
 })
 
-set('n', 'gt', '<NOP>', {
+set('', 'gt', '<NOP>', {
   desc = 'disable go to next tab'
 })
 
-set('n', 'gT', '<NOP>', {
+set('', 'gT', '<NOP>', {
   desc = 'disable go to previous tab'
 })
 

@@ -51,8 +51,8 @@ return {
     border = 'none',
     -- press the shortcut twice to enter the floating window
     peek_definition_code = {
-      ["<Leader>d"] = "@function.outer",
-      ["<Leader>D"] = "@class.outer",
+      ['gk'] = '@function.outer',
+      ['gK'] = '@class.outer',
     },
   },
 }
