@@ -1,8 +1,8 @@
 "  _  __
-" | |/ /___ _   _ _ __ ___   __ _ _ __
-" | ' // _ \ | | | '_ ` _ \ / _` | '_ \
-" | . \  __/ |_| | | | | | | (_| | |_) |
-" |_|\_\___|\__, |_| |_| |_|\__,_| .__/
+" | |/ /___ _   _ _ __ ___   __ _ _ __  ___
+" | ' // _ \ | | | '_ ` _ \ / _` | '_ \/ __|
+" | . \  __/ |_| | | | | | | (_| | |_) \__ \
+" |_|\_\___|\__, |_| |_| |_|\__,_| .__/|___/
 "           |___/                |_|
 "
 " Author: @flyingice
@@ -15,6 +15,8 @@ let mapleader=" "
 
 " unbind some useless/annoying default keys
 map s <Nop>
+map gt <Nop>
+map gT <Nop>
 
 " back up one tab stop
 " <Tab> already has the same effect as <C-t>
@@ -73,4 +75,4 @@ xnoremap # :<C-u>call <SID>VSetSearch('?')<CR>?<C-r>=@/<CR><CR>
 " run :set paste! to turn the option off. A more elegant solution would be
 " the normal mode command "+p that preserves the indentation of the text
 " without any surprises.
-set pastetoggle=<F5>
+set pastetoggle=<F12>

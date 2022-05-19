@@ -10,9 +10,15 @@
 " ==== basic settings
 " ====
 
+source ~/.config/vim/autocmds.vim
 source ~/.config/vim/settings.vim
 source ~/.config/vim/functions.vim
 source ~/.config/vim/keymaps.vim
+source ~/.config/vim/plugins.vim
+
+" ====
+" ==== ideavim extension
+" ====
 
 " full list of supported set commands:
 " https://github.com/JetBrains/ideavim/wiki/%22set%22-commands
@@ -25,38 +31,70 @@ set ideajoin
 " ==== keybindings
 " ====
 
-" toggle maximize current editor/normalize split
-nmap <C-w>= :action MaximizeEditorInSplit<CR>
+" all the settings below are consistent with Vim/Neovim keymap
 
-" workaround as ctrl+t doesn't always respect default vim behavior
-nmap <C-t> :action Back<CR>
-
+" peek documentation
+nmap K <Action>(QuickJavaDoc)
+" peek definition
+" action name is misleading, but yes, it is for peeking definition
+nmap gk <Action>(QuickImplementations)
+nmap gK <Action>(QuickTypeDefinition)
+" go to declaration
+nmap gd <Action>(GotoDeclaration)
+" go to type declaration
+nmap gt <Action>(GotoTypeDeclaration)
+" go to implementation
+nmap gi <Action>(GotoImplementation)
 " find all usages
-nmap gr :action FindUsages<CR>
+nmap gr <Action>(FindUsages)
+
+" buffer list traversal
+" vim default <C-^> works well to alternate between last two buffers
+" ]b and [b work in ideal condition, however, the behavior becomes a
+" mess if the order of existing buffers is changed (e.g. a new tab opened
+" in-between). Thus we explicitly rebind them to NextTab/PreviousTab
+" to have a predictable result.
+nmap ]b <Action>(NextTab)
+nmap [b <Action>(PreviousTab)
+" diagnostic list traversal
+nmap ]e <Action>(GotoNextError)
+nmap [e <Action>(GotoPreviousError)
 
 " reformat
-nmap <Leader>= :action ReformatCode<CR><ESC>
-
+nmap <Leader>= <Action>(ReformatCode)
 " rename
-nmap <Leader>c :action RenameElement<CR>
-
+nmap <Leader>c <Action>(RenameElement)
 " optimize imports
-nmap <Leader>i :action OptimizeImports<CR>
+nmap <Leader>i <Action>(OptimizeImports)
 
-" ====
-" ==== plugin emulation
-" ====
+" debug
+" functionalities of <Leader>dr and <F2> are slightly different from
+" those of debug adapter protocol in Neovim, as DAP allows starting
+" debug with continue() method call, while Debug and Resume are separate
+" actions in IDEA
+nmap <Leader>db <Action>(ToggleLineBreakpoint)
+nmap <Leader>dr <Action>(Debug)
+nmap <Leader>dk <Action>(QuickEvaluateExpression)
+nmap <F2> <Action>(Resume)
+nmap <F3> <Action>(StepOver)
+nmap <F4> <Action>(StepInto)
+nmap <F5> <Action>(StepOut)
+nmap <F10> <Action>(Stop)
 
-" https://tpope.io/vim/commentary.git
-set commentary
+" toggle maximize current editor/normalize split
+" set here as vim default doesn't work
+nmap <C-w>= <Action>(MaximizeEditorInSplit)
+" hide all windows, e.g., window showing `gr` results
+nmap <C-w>o <Action>(HideAllWindows)
+" rebind <C-o> and <C-i> as they don't always respect vim behaviour
+" check related issue:
+" https://youtrack.jetbrains.com/issue/VIM-2225
+nmap <C-o> <Action>(Back)
+nmap <C-i> <Action>(Forward)
 
-" https://github.com/chrisbra/matchit
-set matchit
-
-" https://github.com/preservim/nerdtree
-set NERDTree
-
+" launch terminal
+nmap <A-s> <Action>(Terminal.OpenInTerminal)
+" toggle file explorer
 nmap <A-t> :NERDTreeToggle<CR>
-
-" https://github.com/tpope/vim-surround
-set surround
+" fzf keybinding simulation (double shift by default)
+nmap <A-f> <Action>(SearchEverywhere)

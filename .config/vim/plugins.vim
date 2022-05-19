@@ -9,22 +9,9 @@
 
 filetype plugin on
 
-" ====
-" ==== matchit
-" ====
-
-" load matchit so that % command can jump between matching pair of keywords
-runtime macros/matchit.vim
-
-" ====
-" ==== netrw
-" ====
-
-" default on tree view
-" hit i key to cycle through view types
-let g:netrw_liststyle = 3
-" default width of the directory explorer
-let g:netrw_winsize = 25
+" load plugins bundled with vim
+" extended % matching
+packadd! matchit
 
 " ====
 " ==== vim-plug
@@ -32,11 +19,24 @@ let g:netrw_winsize = 25
 
 " install vim-plug for first-time users
 if empty(glob($HOME.'/.config/vim/autoload/plug.vim'))
-  silent !curl -fLo $HOME/.config/vim/autoload/plug.vim --create-dirs \
-    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  silent !curl -fLo $HOME/.config/vim/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
   autocmd VimEnter * PlugInstall --sync
 endif
 
+" following plugins are added primarily for ideavim emulation purpose
 call plug#begin("~/.config/vim/plugged")
+
+" https://github.com/preservim/nerdtree
+Plug 'preservim/nerdtree'
+
+" https://github.com/tpope/vim-surround
+Plug 'tpope/vim-surround'
+
+" https://github.com/tpope/vim-commentary
+Plug 'tpope/vim-commentary'
+
+" https://github.com/vim-scripts/argtextobj.vim
+Plug 'vim-scripts/argtextobj.vim'
 
 call plug#end()
