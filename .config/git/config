@@ -4,7 +4,7 @@
   signingkey = 51CB2EA163FA83D7
 [core]
   excludesFile = ~/.config/git/gitignore-global
-  pager = "cmd=$(command -v diff-so-fancy >/dev/null 2>&1); ${cmd:-cat} | less --tabs=4 -RFX"
+  pager = "cmd=$(command -v diff-so-fancy 2>/dev/null); ${cmd:-cat} | less --tabs=2 -RFX"
 [merge]
   tool = nvim
 [mergetool "nvim"]
