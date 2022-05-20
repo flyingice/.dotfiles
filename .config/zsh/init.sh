@@ -16,6 +16,8 @@ export PAGER=less
 # ==== history settings
 # ====
 
+# set non-default zsh history location
+export HISTFILE=$CONFIG_HOME/zsh/.zsh_history
 # remove copies in the history list while keeping the newly added one
 setopt HIST_IGNORE_ALL_DUPS
 # don't save duplicated lines more than once whatever options are set
