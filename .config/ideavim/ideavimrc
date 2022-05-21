@@ -31,21 +31,18 @@ set ideajoin
 " ==== keybindings
 " ====
 
-" all the settings below are consistent with Vim/Neovim keymap
+" settings below are consistent with Vim/Neovim keymap
 
+" code browsing
 " peek documentation
 nmap K <Action>(QuickJavaDoc)
 " peek definition
 " action name is misleading, but yes, it is for peeking definition
 nmap gk <Action>(QuickImplementations)
 nmap gK <Action>(QuickTypeDefinition)
-" go to declaration
 nmap gd <Action>(GotoDeclaration)
-" go to type declaration
 nmap gt <Action>(GotoTypeDeclaration)
-" go to implementation
 nmap gi <Action>(GotoImplementation)
-" find all usages
 nmap gr <Action>(FindUsages)
 
 " buffer list traversal
@@ -60,14 +57,15 @@ nmap [b <Action>(PreviousTab)
 nmap ]e <Action>(GotoNextError)
 nmap [e <Action>(GotoPreviousError)
 
-" reformat
+" code editing
 nmap <Leader>= <Action>(ReformatCode)
-" rename
 nmap <Leader>c <Action>(RenameElement)
-" optimize imports
 nmap <Leader>i <Action>(OptimizeImports)
+nmap <Leader>ec <Action>(IntroduceConstant)
+nmap <Leader>ev <Action>(IntroduceVariable)
+vmap <Leader>ef <Action>(ExtractMethod)
 
-" debug
+" debugging
 " functionalities of <Leader>dr and <F2> are slightly different from
 " those of debug adapter protocol in Neovim, as DAP allows starting
 " debug with continue() method call, while Debug and Resume are separate
@@ -92,6 +90,8 @@ nmap <C-w>o <Action>(HideAllWindows)
 nmap <C-o> <Action>(Back)
 nmap <C-i> <Action>(Forward)
 
+" show description of the error under the caret (<A-Enter> to select a fix)
+nmap <A-k> <Action>(ShowErrorDescription)
 " launch terminal
 nmap <A-s> <Action>(Terminal.OpenInTerminal)
 " toggle file explorer
