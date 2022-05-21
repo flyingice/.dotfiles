@@ -1,6 +1,8 @@
 -- Author: @flyingice
 
--- https://github.com/mfussenegger/nvim-jdtls#configuration
+--[[
+https://github.com/mfussenegger/nvim-jdtls#configuration
+--]]
 local status, jdtls = pcall(require, 'jdtls')
 if not status then
   vim.notify('fail to load nvim-jdtls')
@@ -75,6 +77,9 @@ local config = {
     local opts = { noremap = true, silent = true }
 
     buf_set(bufnr, 'n', '<Leader>i', "<cmd>lua require('jdtls').organize_imports()<CR>", opts)
+    buf_set(bufnr, 'n', '<Leader>ec', "<cmd>lua require('jdtls').extract_constant()<CR>", opts)
+    buf_set(bufnr, 'n', '<Leader>ev', "<cmd>lua require('jdtls').extract_variable()<CR>", opts)
+    buf_set(bufnr, 'v', '<Leader>ef', "<Esc><cmd>lua require('jdtls').extract_method(true)<CR>", opts)
   end
 }
 
