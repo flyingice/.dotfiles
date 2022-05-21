@@ -17,6 +17,7 @@ plugins=(
   fzf
   git
   gpg-agent
+  nvm
   zsh-autosuggestions
   zsh-syntax-highlighting
 )

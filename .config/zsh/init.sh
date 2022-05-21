@@ -123,3 +123,8 @@ autojump_conf=$DATA_HOME/autojump/autojump.zsh
 # https://github.com/jesseduffield/lazygit/blob/master/docs/Config.md
 # set non-default lazygit config location
 export LG_CONFIG_FILE=$CONFIG_HOME/lazygit/config.yml
+
+# ====
+# ==== nvm
+# ====
+export NVM_DIR=$DATA_HOME/nvm
