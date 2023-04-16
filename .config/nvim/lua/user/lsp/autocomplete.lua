@@ -70,7 +70,7 @@ cmp.setup {
 
 -- cmp-nvim-lsp setup
 local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities = cmp_lsp.update_capabilities(capabilities)
+capabilities = cmp_lsp.default_capabilities(capabilities)
 
 -- LuaSnip will load the existing vscode-style snippets on startup
 require("luasnip.loaders.from_vscode").lazy_load()
