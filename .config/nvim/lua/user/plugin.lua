@@ -94,6 +94,7 @@ return packer.startup({
       -- live preview of markdown files
       {
         'instant-markdown/vim-instant-markdown',
+        branch = 'main',
         ft = 'markdown',
         config = function() require('user.misc.markdown') end
       }
@@ -120,27 +121,18 @@ return packer.startup({
 
     -- treesitter
     use {
-      -- core
-      {
-        'nvim-treesitter/nvim-treesitter',
-        run = ':TSUpdate',
-        ft = langs_enabled,
-        config = function() require('user.treesitter') end
+      'nvim-treesitter/nvim-treesitter',
+      run = ':TSUpdate',
+      requires = {
+        -- syntax aware text-ojbects, configured in treesitter/textobjects.lua
+        { "nvim-treesitter/nvim-treesitter-textobjects" },
+        -- show current function context
+        { "nvim-treesitter/nvim-treesitter-context" },
       },
-      --[[
-      extra treesitter modules
-      --]]
-      -- syntax aware text-ojbects, configured in treesitter/textobjects.lua
-      {
-        'nvim-treesitter/nvim-treesitter-textobjects',
-        ft = langs_enabled
-      },
-      -- show current function context
-      {
-        'nvim-treesitter/nvim-treesitter-context',
-        ft = langs_enabled,
-        config = function() require('user.treesitter.context') end
-      }
+      config = function()
+        require('user.treesitter')
+        require("user.treesitter.context")
+      end
     }
 
     -- language server protocol
@@ -150,6 +142,7 @@ return packer.startup({
       -- collection of configurations for built-in LSP client
       {
         'neovim/nvim-lspconfig',
+        tag = "v1.0.0",
         config = function()
           require('user.lsp.installer')
           require('user.lsp')
@@ -208,7 +201,7 @@ return packer.startup({
       -- UI extension for nvim-dap
       {
         'rcarriga/nvim-dap-ui',
-        after = 'nvim-dap',
+        requires = { 'mfussenegger/nvim-dap' },
         config = function() require('user.dap.ui') end
       },
       -- virtual text support to nvim-dap

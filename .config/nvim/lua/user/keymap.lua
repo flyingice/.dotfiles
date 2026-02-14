@@ -145,15 +145,5 @@ set('t', '<C-w>', [[<C-\><C-n><C-w>]], {
 
 -- ==================== misc ====================
 
---[[
-avoid strange indentation when using system paste command, in particular
-when the 'autoindent' option is enabled. Alternatively, you can run the
-ex command :set paste before pasting from the system clipboard and then
-run :set paste! to turn the option off. A more elegant solution would be
-the normal mode command "+p that preserves the indentation of the text
-without any surprises.
---]]
-vim.cmd [[ set pastetoggle=<F12> ]]
-
 -- type %% in Ex mode to expand directory of the active buffer (equivalent to %:h)
 vim.cmd [[ cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h').'/' : '%%' ]]
