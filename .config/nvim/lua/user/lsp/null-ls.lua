@@ -1,7 +1,7 @@
 -- Author: @flyingice
 
 --[[
-https://github.com/jose-elias-alvarez/null-ls.nvim
+https://github.com/nvimtools/none-ls.nvim
 --]]
 local status, null_ls = pcall(require, 'null-ls')
 if not status then
@@ -11,7 +11,7 @@ end
 
 null_ls.setup({
   --[[
-  https://github.com/jose-elias-alvarez/null-ls.nvim/blob/main/doc/BUILTINS.md
+  https://github.com/nvimtools/none-ls.nvim/blob/main/doc/BUILTINS.md
   --]]
   sources = {
     -- bash formatter

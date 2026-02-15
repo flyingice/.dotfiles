@@ -173,7 +173,7 @@ return packer.startup({
       https://github.com/bash-lsp/bash-language-server/issues/104
       --]]
       {
-        'jose-elias-alvarez/null-ls.nvim',
+        'nvimtools/none-ls.nvim',
         -- serve as null-ls dependency
         requires = {
           'nvim-lua/plenary.nvim',
