@@ -190,34 +190,6 @@ return packer.startup({
       { 'mfussenegger/nvim-jdtls', ft = 'java' },
     }
 
-    -- debug adapter protocol
-    use {
-      -- DAP client implementation
-      {
-        'mfussenegger/nvim-dap',
-        ft = langs_enabled,
-        config = function() require('user.dap') end
-      },
-      -- UI extension for nvim-dap
-      {
-        'rcarriga/nvim-dap-ui',
-        requires = { 'mfussenegger/nvim-dap' },
-        config = function() require('user.dap.ui') end
-      },
-      -- virtual text support to nvim-dap
-      {
-        'theHamsta/nvim-dap-virtual-text',
-        after = 'nvim-dap',
-        config = function() require('user.dap.virtual-text') end
-      },
-      -- nvim-dap extension providing default debug configurations for python
-      {
-        'mfussenegger/nvim-dap-python',
-        after = 'nvim-dap',
-        config = function() require('user.dap.langs.python') end
-      },
-    }
-
     -- nice statuline
     use {
       'vim-airline/vim-airline-themes',
