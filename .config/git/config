@@ -1,7 +1,6 @@
 [user]
   name = flyingice
   email = flyingice.eth@outlook.com
-  signingkey = 51CB2EA163FA83D7
 [core]
   excludesFile = ~/.config/git/gitignore-global
   pager = "cmd=$(command -v diff-so-fancy 2>/dev/null); ${cmd:-cat} | less --tabs=2 -RFX"
@@ -23,5 +22,3 @@
   ctags = !.git/hooks/ctags
 [init]
   # templatedir = ~/.config/git/template
-[commit]
-  gpgsign = true

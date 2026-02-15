@@ -15,7 +15,6 @@ ZSH_THEME="bira"
 plugins=(
   vi-mode
   fzf
-  gpg-agent
   nvm
   zsh-autosuggestions
   zsh-syntax-highlighting

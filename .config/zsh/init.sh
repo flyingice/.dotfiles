@@ -99,13 +99,6 @@ export RIPGREP_CONFIG_PATH=$CONFIG_HOME/rg/ripgreprc
 export BAT_CONFIG_PATH=$CONFIG_HOME/bat/bat.conf
 
 # ====
-# ==== gpg
-# ====
-
-# set non-default gpg config location
-export GNUPGHOME=$CONFIG_HOME/gpg
-
-# ====
 # ==== autojump
 # ====
 
