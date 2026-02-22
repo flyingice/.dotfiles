@@ -43,7 +43,7 @@ nmap gK <Action>(QuickTypeDefinition)
 nmap gd <Action>(GotoDeclaration)
 nmap gt <Action>(GotoTypeDeclaration)
 nmap gi <Action>(GotoImplementation)
-nmap gr <Action>(FindUsages)
+nmap gr <Action>(ShowUsages)
 
 " buffer list traversal
 " vim default <C-^> works well to alternate between last two buffers
