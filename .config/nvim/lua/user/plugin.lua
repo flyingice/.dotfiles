@@ -135,13 +135,16 @@ return packer.startup({
       end
     }
 
-    -- nice statuline
+    -- nice statusline
     use {
-      'vim-airline/vim-airline-themes',
-      {
-        'vim-airline/vim-airline',
-        config = function() require('user.misc.airline') end
-      }
+      'nvim-lualine/lualine.nvim',
+      config = function() require('user.misc.statusline') end
+    }
+
+    -- buffer tabline with index-based switching
+    use {
+      'akinsho/bufferline.nvim',
+      config = function() require('user.misc.bufferline') end
     }
 
     -- colorscheme
