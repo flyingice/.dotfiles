@@ -1,4 +1,0 @@
--- Author: @flyingice
-
-return {
-}
