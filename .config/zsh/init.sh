@@ -121,3 +121,8 @@ export LG_CONFIG_FILE=$CONFIG_HOME/lazygit/config.yml
 # ==== nvm
 # ====
 export NVM_DIR=$DATA_HOME/nvm
+
+# ====
+# ==== Obsidian
+# ====
+export PATH=$PATH:/Applications/Obsidian.app/Contents/MacOS
