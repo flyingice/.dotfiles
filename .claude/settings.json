@@ -1,4 +1,9 @@
 {
+  "permissions": {
+    "allow": [
+      "Skill"
+    ]
+  },
   "model": "opus",
   "statusLine": {
     "type": "command",
