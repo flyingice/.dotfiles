@@ -6,33 +6,6 @@ gpg_restart() {
   gpg-agent --daemon
 }
 
-# function wrapper making parent shell switches to the ranger working dir when ranger exits
-# Check ranger macros on https://github.com/ranger/ranger/wiki/Official-user-guide
-# Check ranger integrations on https://github.com/ranger/ranger/wiki/Integration-with-other-programs
-ra() {
-  # prevent nested ranger instances
-  # https://wiki.archlinux.org/title/ranger#Preventing_nested_ranger_instances
-  ((RANGER_LEVEL == 0)) || exit
-
-  local tempfile
-  tempfile="$(mktemp -t ranger.XXXXXX)"
-  local ranger_cmd=(
-    command
-    ranger
-    --cmd="map Q chain shell echo %d > $tempfile; quitall"
-  )
-
-  "${ranger_cmd[@]}" "$@"
-  if [[ -f "$tempfile" ]] && [[ "$(cat -- "$tempfile")" != "$(echo -n "$(pwd)")" ]]; then
-    cd -- "$(cat "$tempfile")" || return
-  fi
-  command rm -f -- "$tempfile" 2>/dev/null
-}
-
-ranger() {
-  ra "$@"
-}
-
 # interactive ripgrep
 # https://github.com/junegunn/fzf/blob/master/ADVANCED.md#switching-between-ripgrep-mode-and-fzf-mode
 # check available actions: https://github.com/junegunn/fzf/blob/master/src/options.go
