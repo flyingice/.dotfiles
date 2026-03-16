@@ -106,17 +106,6 @@ export RIPGREP_CONFIG_PATH=$CONFIG_HOME/rg/ripgreprc
 export BAT_CONFIG_PATH=$CONFIG_HOME/bat/bat.conf
 
 # ====
-# ==== autojump
-# ====
-
-# oh-my-zsh doesn't look in XDG path to find autojump.zsh
-# We can safely add autojump entry into omz plugin list and remove settings below after the fix
-# https://github.com/flyingice/ohmyzsh/commit/6102bcc49c68da04de40ea1d2d950d87c82f2b5e
-# has been merged into omz master branch
-autojump_conf=$DATA_HOME/autojump/autojump.zsh
-[[ -f $autojump_conf ]] && source "$autojump_conf"
-
-# ====
 # ==== lazygit
 # ====
 
