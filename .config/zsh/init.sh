@@ -26,12 +26,17 @@ setopt HIST_SAVE_NO_DUPS
 setopt HIST_NO_STORE
 # don't store function definitions
 setopt HIST_NO_FUNCTIONS
+# number of history entries in memory
+HISTSIZE=1000
+# number of history entries to save to the file
+SAVEHIST=1000
 # don't store trivial commands
 HISTORY_IGNORE="(bat *|cat *|cd|cd *|cp *|dot *|echo *|exit|export *|la|la *|lazygit|lg|ll|ll *|ls|ls *|mkdir *|mv *|nvim|nvim *|pwd|rm *|sudo *|touch *|which *|z *|zi|-|~)"
 # don't store failed commands, --help or --version lookups
 zshaddhistory() {
     whence ${${(z)1}[1]} >| /dev/null || return 1
     [[ $1 == *--help* || $1 == *--version* ]] && return 1
+    return 0
 }
 
 # ====
