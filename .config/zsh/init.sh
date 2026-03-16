@@ -106,6 +106,16 @@ export RIPGREP_CONFIG_PATH=$CONFIG_HOME/rg/ripgreprc
 export BAT_CONFIG_PATH=$CONFIG_HOME/bat/bat.conf
 
 # ====
+# ==== zoxide
+# ====
+
+# https://github.com/ajeetdsouza/zoxide
+export _ZO_DATA_DIR=$DATA_HOME/zoxide
+if command -v zoxide >/dev/null 2>&1; then
+    eval "$(zoxide init zsh)"
+fi
+
+# ====
 # ==== lazygit
 # ====
 
