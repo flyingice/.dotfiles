@@ -1,0 +1,4 @@
+[[mgr.prepend_keymap]]
+on   = "-"
+run  = "back"
+desc = "Go to previous directory"
