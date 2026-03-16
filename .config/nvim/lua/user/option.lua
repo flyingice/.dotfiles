@@ -62,6 +62,8 @@ local options = {
 
 -- disable the default vim startup message
 vim.opt.shortmess:append 'I'
+-- copy to the system clipboard
+vim.opt.clipboard:append('unnamedplus')
 
 for key, value in pairs(options) do
   vim.opt[key] = value
