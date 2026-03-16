@@ -27,7 +27,7 @@ setopt HIST_NO_STORE
 # don't store function definitions
 setopt HIST_NO_FUNCTIONS
 # don't store trivial commands
-HISTORY_IGNORE="(cat *|cd|cd *|cp *|dot *|echo *|export *|la|la *|lazygit|lg|ll|ll *|ls|ls *|mkdir *|mv *|nvim|nvim *|pwd|rm *|sudo *|touch *|which *|exit)"
+HISTORY_IGNORE="(bat *|cat *|cd|cd *|cp *|dot *|echo *|exit|export *|la|la *|lazygit|lg|ll|ll *|ls|ls *|mkdir *|mv *|nvim|nvim *|pwd|rm *|sudo *|touch *|which *|z *|zi|-|~)"
 # don't store failed commands, --help or --version lookups
 zshaddhistory() {
     whence ${${(z)1}[1]} >| /dev/null || return 1
