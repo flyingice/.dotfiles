@@ -1,11 +1,3 @@
-# In case of error "SSH sever accepts key, but signing fails", consider run
-# `gpg-connect-agent updatestartuptty /bye`
-# `man gpg-agent` for more details
-gpg_restart() {
-  gpgconf --kill gpg-agent
-  gpg-agent --daemon
-}
-
 # interactive ripgrep
 # https://github.com/junegunn/fzf/blob/master/ADVANCED.md#switching-between-ripgrep-mode-and-fzf-mode
 # check available actions: https://github.com/junegunn/fzf/blob/master/src/options.go
