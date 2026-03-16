@@ -31,10 +31,12 @@ HISTSIZE=1000
 # number of history entries to save to the file
 SAVEHIST=1000
 # don't store trivial commands
-HISTORY_IGNORE="(bat *|cat *|cd|cd *|cp *|dot *|echo *|exit|export *|la|la *|lazygit|lg|ll|ll *|ls|ls *|mkdir *|mv *|nvim|nvim *|pwd|rm *|sudo *|touch *|which *|yazi|z *|zi|-|~)"
-# don't store failed commands, --help or --version lookups
+HISTORY_IGNORE="(bat *|cat *|cd|cd *|cp *|echo *|exit|export *|mkdir *|mv *|nvim|nvim *|pwd|rm *|sudo *|touch *|which *|z *|zi|-|~)"
+# don't store failed commands, aliases, --help or --version lookups
 zshaddhistory() {
-    whence ${${(z)1}[1]} >| /dev/null || return 1
+    local cmd_type=$(whence -w ${${(z)1}[1]} 2>/dev/null)
+    [[ -z $cmd_type ]] && return 1
+    [[ $cmd_type == *': alias' ]] && return 1
     [[ $1 == *--help* || $1 == *--version* ]] && return 1
     return 0
 }
