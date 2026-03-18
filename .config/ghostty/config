@@ -16,6 +16,8 @@ window-padding-balance = true
 window-padding-color = extend
 window-save-state = always
 
+split-divider-color = #ff8700
+
 mouse-hide-while-typing = true
 focus-follows-mouse = true
 copy-on-select = clipboard
