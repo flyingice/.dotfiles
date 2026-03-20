@@ -35,9 +35,9 @@ HISTORY_IGNORE="(bat *|cat *|cd|cd *|cp *|echo *|exit|export *|mkdir *|mv *|nvim
 # don't store failed commands, aliases, --help or --version lookups
 zshaddhistory() {
     local cmd_type=$(whence -w ${${(z)1}[1]} 2>/dev/null)
-    [[ -z $cmd_type ]] && return 1
-    [[ $cmd_type == *': alias' ]] && return 1
-    [[ $1 == *--help* || $1 == *--version* ]] && return 1
+    [[ $cmd_type == *': none' ]] && return 2
+    [[ $cmd_type == *': alias' ]] && return 2
+    [[ $1 == *--help* || $1 == *--version* ]] && return 2
     return 0
 }
 
