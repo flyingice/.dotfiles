@@ -11,8 +11,7 @@
   },
   "enabledPlugins": {
     "obsidian@obsidian-skills": true,
-    "last30days@last30days-skill": true,
-    "discord@claude-plugins-official": true
+    "last30days@last30days-skill": true
   },
   "extraKnownMarketplaces": {
     "last30days-skill": {
