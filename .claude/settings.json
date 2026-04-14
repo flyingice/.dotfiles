@@ -1,6 +1,22 @@
 {
   "permissions": {
+    "defaultMode": "acceptEdits",
+    "deny": [
+      "Bash(dd *)",
+      "Bash(shred *)",
+      "Bash(truncate *)"
+    ],
+    "ask": [
+      "Bash(rm *)",
+      "Bash(git clean -f*)",
+      "Bash(git push*)",
+      "Bash(git reset --hard*)"
+    ],
     "allow": [
+      "Bash",
+      "Agent",
+      "WebFetch",
+      "WebSearch",
       "Skill"
     ]
   },
