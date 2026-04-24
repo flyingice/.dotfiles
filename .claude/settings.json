@@ -1,4 +1,5 @@
 {
+  "model": "opus",
   "permissions": {
     "defaultMode": "acceptEdits",
     "deny": [
@@ -20,7 +21,6 @@
       "Skill"
     ]
   },
-  "model": "claude-opus-4-6",
   "statusLine": {
     "type": "command",
     "command": "bash ~/.claude/statusline-command.sh"
