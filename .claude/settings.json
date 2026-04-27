@@ -10,8 +10,7 @@
     "ask": [
       "Bash(rm *)",
       "Bash(git clean -f*)",
-      "Bash(git push*)",
-      "Bash(git reset --hard*)"
+      "Bash(git push*)"
     ],
     "allow": [
       "Read",
