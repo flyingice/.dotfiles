@@ -5,12 +5,13 @@
 
 ## Continuous Improvement
 
-At the end of tasks that take more than one back-and-forth, suggest improvements to this CLAUDE.md file based on what you learned during the task. Consider:
+At the end of a task that required multiple rounds of user correction — where you went down the wrong path and had to be steered back — suggest improvements to this CLAUDE.md file. This does not apply to tasks that have many steps but proceed smoothly.
 
+Focus suggestions on:
 - Conventions or patterns discovered that aren't documented
-- Tool preferences or workflow optimizations that emerged
-- Architectural decisions that should be recorded
-- Common gotchas or pitfalls encountered
+- Tool preferences or workflow optimizations
+- Architectural decisions worth recording
+- Common gotchas or pitfalls
 
-Focus primarily on conventions and tool preferences, but include other categories when genuinely useful. Present suggestions as a brief bulleted list. Only suggest changes that would meaningfully help future sessions — skip trivial or obvious items. Wait for approval before making any edits.
+Prioritize conventions and tool preferences. Present suggestions as a brief bulleted list — only items that would meaningfully help future sessions. Wait for my approval before editing this file.
 
