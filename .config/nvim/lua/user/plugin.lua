@@ -119,19 +119,20 @@ return packer.startup({
       config = function() require('user.misc.autopairs') end
     }
 
-    -- treesitter
+    -- treesitter (main branch — required for Neovim 0.12+)
     use {
       'nvim-treesitter/nvim-treesitter',
+      branch = 'main',
       run = ':TSUpdate',
       requires = {
-        -- syntax aware text-ojbects, configured in treesitter/textobjects.lua
-        { "nvim-treesitter/nvim-treesitter-textobjects" },
+        -- syntax aware text-objects, configured in treesitter/textobjects.lua
+        { 'nvim-treesitter/nvim-treesitter-textobjects', branch = 'main' },
         -- show current function context
-        { "nvim-treesitter/nvim-treesitter-context" },
+        { 'nvim-treesitter/nvim-treesitter-context' },
       },
       config = function()
         require('user.treesitter')
-        require("user.treesitter.context")
+        require('user.treesitter.context')
       end
     }
 
