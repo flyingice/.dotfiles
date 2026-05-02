@@ -1,7 +1,6 @@
 {
   "model": "opus",
   "permissions": {
-    "defaultMode": "acceptEdits",
     "deny": [
       "Bash(dd *)",
       "Bash(shred *)",
@@ -14,6 +13,8 @@
     ],
     "allow": [
       "Read",
+      "Write",
+      "Edit",
       "Bash",
       "Agent",
       "WebFetch",
