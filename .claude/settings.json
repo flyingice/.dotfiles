@@ -30,6 +30,6 @@
     "type": "command",
     "command": "bash ~/.claude/statusline-command.sh"
   },
-  "theme": "light-ansi",
+  "theme": "dark-ansi",
   "editorMode": "vim"
 }
