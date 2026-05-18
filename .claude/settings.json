@@ -31,5 +31,6 @@
     "command": "bash ~/.claude/statusline-command.sh"
   },
   "theme": "dark-ansi",
-  "editorMode": "vim"
+  "editorMode": "vim",
+  "cleanupPeriodDays": 14
 }
